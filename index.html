@@ -1,39 +1,61 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Strafakten Generator des NCPD II</title>
-  <script defer src="script.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-900 text-gray-300 p-6">
-  <div class="max-w-4xl mx-auto bg-gray-800 p-6 rounded shadow border border-blue-500">
-    <h1 class="text-2xl font-bold mb-4 text-white">Strafakten Generator des NCPD II</h1>
+function generateStrafakte() {
+  const officer = document.getElementById("officer").value;
+  const tatort = document.getElementById("tatort").value;
+  const zeitraum = document.getElementById("zeitraum").value;
+  const beschuldigte = document.getElementById("beschuldigte").value;
+  const geschaedigte = document.getElementById("geschaedigte").value;
+  const sachverhalt = document.getElementById("sachverhalt").value;
+  const einheiten = document.getElementById("einheiten").value;
+  const gegenstaende = document.getElementById("gegenstaende").value;
+  const bemerkung = document.getElementById("bemerkung").value;
+  const strafen = document.getElementById("strafen").value;
 
-    <div class="space-y-4">
-      <input type="text" id="officer" placeholder="Officer (z.B. Anton Horvath | PA-31 | Rookie)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" />
-      <input type="text" id="tatort" placeholder="Tatort (z.B. Staatsbank, PLZ 7080)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" />
-      <input type="text" id="zeitraum" placeholder="Zeitraum (z.B. 16.07.2025 von 23:00 Uhr bis 23:55 Uhr)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" />
-      <textarea id="beschuldigte" placeholder="Beschuldigte Person(en)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
-      <textarea id="geschaedigte" placeholder="Geschädigte Person(en), jeweils neue Zeile" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
-      <textarea id="sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" rows="5"></textarea>
-      <input type="text" id="einheiten" placeholder="Weitere Einheiten/Zeugen (z.B. PD-13, PD-23)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" />
-      <textarea id="gegenstaende" placeholder="Abgenommene Gegenstände (z.B. 1x Pistole)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
-      <textarea id="bemerkung" placeholder="Bemerkungen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" rows="4"></textarea>
-      <textarea id="strafen" placeholder="Tatbestände (eine pro Zeile)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
-    </div>
+  const officerParts = officer.split("|").map(s => s.trim());
+  const abgenommenVon = officerParts.length > 1 ? officerParts[1] : "Unbekannt";
 
-    <div class="flex space-x-4 mt-4">
-      <button onclick="generateStrafakte()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-        Generieren
-      </button>
-      <button onclick="resetForm()" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
-        Zurücksetzen
-      </button>
-    </div>
+  const output = `
+| - Strafakte - |
 
-    <pre id="output" class="mt-6 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
-  </div>
-</body>
-</html>
+Narco City Police Department
+${officer}
+
+| Tatort und Zeitraum: |
+${tatort}
+Am ${zeitraum}
+
+| Beschuldigte Person(en): |
+${beschuldigte}
+
+| Geschädigte Person(en): |
+${geschaedigte}
+
+| Sachverhalt aus Sicht des NCPDs: |
+${sachverhalt}
+
+| Weitere beteiligte Einheiten/Zeugen: | 
+${einheiten}
+
+| Abgenommene Gegenstände: |  Abgenommen von: ${abgenommenVon}
+${gegenstaende}
+
+| Bemerkungen: |
+${bemerkung}
+
+| Gezeichnet von: | 
+${officerParts[0] || ""}
+${officer}
+
+${strafen}
+  `.trim();
+
+  document.getElementById("output").textContent = output;
+}
+
+function resetForm() {
+  const ids = [
+    "officer", "tatort", "zeitraum", "beschuldigte", "geschaedigte",
+    "sachverhalt", "einheiten", "gegenstaende", "bemerkung", "strafen"
+  ];
+  ids.forEach(id => document.getElementById(id).value = "");
+  document.getElementById("output").textContent = "";
+}
