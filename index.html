@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Strafakten Generator des NCPD II</title>
+  <title>Strafakte Generator</title>
   <script defer src="script.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-gray-300 p-6">
   <div class="max-w-4xl mx-auto bg-gray-800 p-6 rounded shadow border border-blue-500">
-    <h1 class="text-2xl font-bold mb-4 text-white">Strafakten Generator</h1>
+    <h1 class="text-2xl font-bold mb-4 text-white">Strafakte Generator</h1>
 
     <div class="space-y-4">
       <input type="text" id="officer" placeholder="Officer (z.B. Anton Horvath | PA-31 | Rookie)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" />
@@ -24,11 +24,8 @@
       <textarea id="strafen" placeholder="Tatbestände (eine pro Zeile)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
     </div>
 
-    <button onclick="generateStrafakte()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-      Generieren
-    </button>
-
-    <pre id="output" class="mt-6 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
-  </div>
-</body>
-</html>
+    <div class="flex space-x-4 mt-4">
+      <button onclick="generateStrafakte()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+        Generieren
+      </button>
+      <button onclick="resetForm()" class="px-4 py-2 bg-red-600 text
