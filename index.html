@@ -20,7 +20,37 @@
       <textarea id="sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" rows="5"></textarea>
       <input type="text" id="einheiten" placeholder="Weitere Einheiten/Zeugen (z.B. PD-13, PD-23)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" />
       <textarea id="gegenstaende" placeholder="Abgenommene Gegenstände (z.B. 1x Pistole)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
-      <textarea id="bemerkung" placeholder="Bemerkungen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" rows="4"></textarea>
+
+      <!-- Neue Eingabefelder -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input type="text" id="rechteVon" placeholder="Rechte vorgelesen von (z.B. PD-126)" class="p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" />
+        <input type="text" id="rechteBeisein" placeholder="Im Beisein von (z.B. PD-35)" class="p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <label class="text-sm">
+          Rechtsbeistand:
+          <select id="rechtsbeistand" class="w-full mt-1 p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+            <option value="keinen">keinen</option>
+            <option value="einen">einen</option>
+          </select>
+        </label>
+
+        <label class="text-sm">
+          Medizinische Unterstützung:
+          <select id="medizin" class="w-full mt-1 p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+            <option value="keine">keine</option>
+            <option value="eine">eine</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="text-sm">
+        Bußgeld fällig bis:
+        <input type="date" id="bussgeld" class="w-full mt-1 p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" />
+      </label>
+
+      <textarea id="bemerkung" placeholder="Zusätzliche Bemerkungen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" rows="4"></textarea>
       <textarea id="strafen" placeholder="Tatbestände (eine pro Zeile)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
     </div>
 
