@@ -10,6 +10,15 @@ function generateStrafakte() {
   const bemerkung = document.getElementById("bemerkung").value;
   const strafen = document.getElementById("strafen").value;
 
+  const rechteVon = document.getElementById("rechteVon").value;
+  const rechteBeisein = document.getElementById("rechteBeisein").value;
+  const rechtsbeistand = document.getElementById("rechtsbeistand").value;
+  const medizin = document.getElementById("medizin").value;
+  const bussgeld = document.getElementById("bussgeld").value;
+
+  const officerParts = officer.split("|").map(s => s.trim());
+  const abgenommenVon = officerParts.length > 1 ? officerParts[1] : "Unbekannt";
+
   const output = `
 | - Strafakte - |
 
@@ -32,14 +41,19 @@ ${sachverhalt}
 | Weitere beteiligte Einheiten/Zeugen: | 
 ${einheiten}
 
-| Abgenommene Gegenstände: |  Abgenommen von: ${officer.split("|")[1]?.trim() || "Unbekannt"}
+| Abgenommene Gegenstände: |  Abgenommen von: ${abgenommenVon}
 ${gegenstaende}
 
 | Bemerkungen: |
+Die Rechte wurden von der ${rechteVon} dem TV vorgelesen,
+im Beisein von ${rechteBeisein} zum frühestmöglichen Zeitpunkt nach Festsetzung und von dem TV verstanden.
+Der TV wünschte sich ${rechtsbeistand} Rechtsbeistand.
+Das Bußgeld ist bis zum ${bussgeld} zu bezahlen.
+TV wünschte sich ${medizin === "keine" ? "keine" : "eine"} medizinische Unterstützung.
 ${bemerkung}
 
 | Gezeichnet von: | 
-${officer.split("|")[0]?.trim()}
+${officerParts[0] || ""}
 ${officer}
 
 ${strafen}
@@ -51,8 +65,11 @@ ${strafen}
 function resetForm() {
   const ids = [
     "officer", "tatort", "zeitraum", "beschuldigte", "geschaedigte",
-    "sachverhalt", "einheiten", "gegenstaende", "bemerkung", "strafen"
+    "sachverhalt", "einheiten", "gegenstaende", "bemerkung", "strafen",
+    "rechteVon", "rechteBeisein", "bussgeld"
   ];
   ids.forEach(id => document.getElementById(id).value = "");
+  document.getElementById("rechtsbeistand").value = "keinen";
+  document.getElementById("medizin").value = "keine";
   document.getElementById("output").textContent = "";
 }
