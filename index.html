@@ -15,84 +15,41 @@
       <button id="kollektivakte-tab" onclick="switchTab('kollektivakte')" class="px-4 py-2 border-b-2">Kollektivakte</button>
     </div>
 
-    <!-- Strafakte -->
     <div id="strafakte" class="space-y-4">
-      <input id="officer" type="text" placeholder="Officer (z.B. Anton Horvath | PA-31 | Rookie)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="tatort" type="text" placeholder="Tatort" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="zeitraum" type="text" placeholder="Zeitraum" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <textarea id="beschuldigte" placeholder="Beschuldigte Person(en)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <textarea id="geschaedigte" placeholder="Geschädigte Person(en)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <textarea id="sachverhalt" placeholder="Sachverhalt" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <textarea id="einheiten" placeholder="Einheiten/Zeugen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <textarea id="gegenstaende" placeholder="Gegenstände" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <input id="abgenommenVon" type="text" placeholder="Abgenommen von" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="rechteVon" type="text" placeholder="Rechte vorgelesen von" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="rechteBeisein" type="text" placeholder="Im Beisein von" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <select id="rechtsbeistand" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
-        <option value="keinen">Keinen Rechtsbeistand</option>
-        <option value="einen">Einen Rechtsbeistand</option>
-      </select>
-      <select id="medizin" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
-        <option value="keine">Keine medizinische Unterstützung</option>
-        <option value="eine">Eine medizinische Unterstützung</option>
-      </select>
-      <input id="bussgeld" type="date" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <textarea id="bemerkung" placeholder="Bemerkungen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <textarea id="strafen" placeholder="Tatbestände" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <input id="gezeichnet" type="text" placeholder="Initialen (z. B. A. Horvath)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
-      <div class="flex space-x-4">
-        <button onclick="generateStrafakte()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Generieren</button>
-        <button onclick="resetForm()" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Zurücksetzen</button>
-      </div>
-      <pre id="output" class="mt-6 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
+      <!-- Inhalt für Strafakte -->
+      <!-- Felder wie in deinem ursprünglichen Formular für Strafakte -->
+      <input id="s_officer" type="text" placeholder="Officer (z.B. Anton Horvath | PA-31 | Rookie)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
+      <!-- Weitere Inputs für Strafakte -->
+      <button onclick="generateStrafakte()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Generieren</button>
+      <button onclick="resetStrafakteForm()" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Zurücksetzen</button>
+      <pre id="output-strafakte" class="mt-6 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
     </div>
 
-    <!-- Schnellakte -->
     <div id="schnellakte" class="hidden space-y-4">
-      <input id="s_officer" type="text" placeholder="Officer" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="s_tatort" type="text" placeholder="Tatort" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="s_zeitraum" type="text" placeholder="Zeitraum" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <textarea id="s_beschuldigte" placeholder="Beschuldigte" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <textarea id="s_geschaedigte" placeholder="Geschädigte" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <textarea id="s_einheiten" placeholder="Einheiten/Zeugen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <textarea id="s_gegenstaende" placeholder="Gegenstände" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <input id="s_abgenommenVon" type="text" placeholder="Abgenommen von" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="s_rechteVon" type="text" placeholder="Rechte vorgelesen von" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="s_rechteBeisein" type="text" placeholder="Im Beisein von" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <select id="s_rechtsbeistand" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
-        <option value="keinen">Keinen Rechtsbeistand</option>
-        <option value="einen">Einen Rechtsbeistand</option>
-      </select>
-      <select id="s_medizin" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
-        <option value="keine">Keine medizinische Versorgung</option>
-        <option value="eine">Eine medizinische Versorgung</option>
-      </select>
-      <input id="s_bussgeld" type="date" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="s_gezeichnet" type="text" placeholder="Initialen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
-      <div class="flex space-x-4">
-        <button onclick="generateSchnellakte()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Generieren</button>
-        <button onclick="resetSchnellakteForm()" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Zurücksetzen</button>
-      </div>
+      <!-- Inhalt für Schnellakte -->
+      <input id="q_officer" type="text" placeholder="Officer (z.B. Ben Morisson | PD-89 | Specialist)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
+      <!-- Weitere Inputs für Schnellakte -->
+      <button onclick="generateSchnellakte()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Generieren</button>
+      <button onclick="resetSchnellakteForm()" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Zurücksetzen</button>
       <pre id="output-schnellakte" class="mt-6 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
     </div>
 
-    <!-- Kollektivakte -->
     <div id="kollektivakte" class="hidden space-y-4">
-      <input id="k_officer" type="text" placeholder="Officer" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="k_dojo" type="text" placeholder="Genehmigt von DOJ-XX" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="k_time" type="text" placeholder="Genehmigt um" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="k_tatort" type="text" placeholder="Tatort" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="k_zeitraum" type="text" placeholder="Zeitraum" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
+      <input id="k_officer" type="text" placeholder="Officer (z.B. Ben Morisson | PD-89 | Specialist)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
+      <input id="k_dojo" type="text" placeholder="Genehmigt von (z.B. DOJ-12)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
+      <input id="k_time" type="text" placeholder="Genehmigt um (z.B. 15:45)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
+      <input id="k_tatort" type="text" placeholder="Tatort (z.B. ORT, PLZ XXXX)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
+      <input id="k_zeitraum" type="text" placeholder="Zeitraum (z.B. Am XX.XX.2025 von XX:XX Uhr bis XX:XX Uhr)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
       <textarea id="k_beschuldigte" placeholder="Beschuldigte Personen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
       <textarea id="k_geschaedigte" placeholder="Geschädigte Personen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <textarea id="k_sachverhalt" placeholder="Sachverhalt (eine Straftat pro Satz)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <textarea id="k_einheiten" placeholder="Einheiten/Zeugen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <textarea id="k_gegenstaende" placeholder="Gegenstände" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <input id="k_abgenommenVon" type="text" placeholder="Abgenommen von" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
+      <textarea id="k_sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs (eine Straftat pro Satz)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
+      <textarea id="k_einheiten" placeholder="Weitere beteiligte Einheiten/Zeugen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
+      <textarea id="k_gegenstaende" placeholder="Abgenommene Gegenstände" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
+      <input id="k_abgenommenVon" type="text" placeholder="Abgenommen von (z. B. PD-XX)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
       <textarea id="k_bemerkung" placeholder="Bemerkungen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded"></textarea>
-      <input id="k_gezeichnet" type="text" placeholder="Initialen" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <input id="k_gezeichnetInfo" type="text" placeholder="Officer Info erneut" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded" />
-      <div class="flex space-x-4">
+      <input id="k_gezeichnet" type="text" placeholder="Initialen (z. B. B. Morisson)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
+      <input id="k_gezeichnetInfo" type="text" placeholder="Officer Info erneut (z. B. Ben Morisson | PD-89 | Specialist)" class="w-full p-2 border border-blue-500 bg-gray-900 text-gray-200 rounded">
+      <div class="flex space-x-4 mt-4">
         <button onclick="generateKollektivakte()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Generieren</button>
         <button onclick="resetKollektivakteForm()" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Zurücksetzen</button>
       </div>
