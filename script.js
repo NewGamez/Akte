@@ -7,17 +7,17 @@ function generateStrafakte() {
   const sachverhalt = document.getElementById("sachverhalt").value;
   const einheiten = document.getElementById("einheiten").value;
   const gegenstaende = document.getElementById("gegenstaende").value;
-  const bemerkung = document.getElementById("bemerkung").value;
-  const strafen = document.getElementById("strafen").value;
-
+  const abgenommenVon = document.getElementById("abgenommenVon").value || "Unbekannt";
   const rechteVon = document.getElementById("rechteVon").value;
   const rechteBeisein = document.getElementById("rechteBeisein").value;
   const rechtsbeistand = document.getElementById("rechtsbeistand").value;
   const medizin = document.getElementById("medizin").value;
   const bussgeld = document.getElementById("bussgeld").value;
+  const bemerkung = document.getElementById("bemerkung").value;
+  const strafen = document.getElementById("strafen").value;
 
   const officerParts = officer.split("|").map(s => s.trim());
-  const abgenommenVon = officerParts.length > 1 ? officerParts[1] : "Unbekannt";
+  const zeichnung = officerParts[0] || "";
 
   const output = `
 | - Strafakte - |
@@ -49,11 +49,11 @@ Die Rechte wurden von der ${rechteVon} dem TV vorgelesen,
 im Beisein von ${rechteBeisein} zum frühestmöglichen Zeitpunkt nach Festsetzung und von dem TV verstanden.
 Der TV wünschte sich ${rechtsbeistand} Rechtsbeistand.
 Das Bußgeld ist bis zum ${bussgeld} zu bezahlen.
-TV wünschte sich ${medizin === "keine" ? "keine" : "eine"} medizinische Unterstützung.
+TV wünschte sich ${medizin} medizinische Unterstützung.
 ${bemerkung}
 
 | Gezeichnet von: | 
-${officerParts[0] || ""}
+${zeichnung}
 ${officer}
 
 ${strafen}
@@ -65,8 +65,8 @@ ${strafen}
 function resetForm() {
   const ids = [
     "officer", "tatort", "zeitraum", "beschuldigte", "geschaedigte",
-    "sachverhalt", "einheiten", "gegenstaende", "bemerkung", "strafen",
-    "rechteVon", "rechteBeisein", "bussgeld"
+    "sachverhalt", "einheiten", "gegenstaende", "abgenommenVon",
+    "rechteVon", "rechteBeisein", "bussgeld", "bemerkung", "strafen"
   ];
   ids.forEach(id => document.getElementById(id).value = "");
   document.getElementById("rechtsbeistand").value = "keinen";
