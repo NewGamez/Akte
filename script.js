@@ -47,3 +47,12 @@ ${strafen}
 
   document.getElementById("output").textContent = output;
 }
+
+function resetForm() {
+  const ids = [
+    "officer", "tatort", "zeitraum", "beschuldigte", "geschaedigte",
+    "sachverhalt", "einheiten", "gegenstaende", "bemerkung", "strafen"
+  ];
+  ids.forEach(id => document.getElementById(id).value = "");
+  document.getElementById("output").textContent = "";
+}
