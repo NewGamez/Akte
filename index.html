@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strafakte Generator</title>
+  <script defer src="script.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-900 p-6">
+  <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">Strafakte Generator</h1>
+
+    <div class="space-y-4">
+      <input type="text" id="officer" placeholder="Officer (z.B. Anton Horvath | PA-31 | Rookie)" class="w-full p-2 border rounded" />
+      <input type="text" id="tatort" placeholder="Tatort (z.B. Staatsbank, PLZ 7080)" class="w-full p-2 border rounded" />
+      <input type="text" id="zeitraum" placeholder="Zeitraum (z.B. 16.07.2025 von 23:00 Uhr bis 23:55 Uhr)" class="w-full p-2 border rounded" />
+      <textarea id="beschuldigte" placeholder="Beschuldigte Person(en) (z.B. Max Mustermann, Geb. 24.02.1995)" class="w-full p-2 border rounded"></textarea>
+      <textarea id="geschaedigte" placeholder="Geschädigte Person(en), jeweils neue Zeile" class="w-full p-2 border rounded"></textarea>
+      <textarea id="sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs" class="w-full p-2 border rounded" rows="5"></textarea>
+      <input type="text" id="einheiten" placeholder="Weitere Einheiten/Zeugen (z.B. PD-13, PD-23)" class="w-full p-2 border rounded" />
+      <textarea id="gegenstaende" placeholder="Abgenommene Gegenstände (z.B. 1x Pistole)" class="w-full p-2 border rounded"></textarea>
+      <textarea id="bemerkung" placeholder="Bemerkungen" class="w-full p-2 border rounded" rows="4"></textarea>
+      <textarea id="strafen" placeholder="Tatbestände (eine pro Zeile)" class="w-full p-2 border rounded"></textarea>
+    </div>
+
+    <button onclick="generateStrafakte()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+      Generieren
+    </button>
+
+    <pre id="output" class="mt-6 bg-gray-200 p-4 whitespace-pre-wrap rounded"></pre>
+  </div>
+</body>
+</html>
