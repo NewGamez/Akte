@@ -1,6 +1,6 @@
 function switchTab(tabId) {
-  const tabs = ["strafakte-tab", "schnellakte-tab"];
-  const contents = ["strafakte-content", "schnellakte-content"];
+  const tabs = ["strafakte-tab", "schnellakte-tab", "kollektivakte-tab"];
+  const contents = ["strafakte-content", "schnellakte-content", "kollektivakte-content"];
 
   tabs.forEach((id, index) => {
     const tab = document.getElementById(id);
@@ -111,7 +111,6 @@ function generateSchnellakte() {
   const medizin = document.getElementById("s_medizin").value || "keine";
   const bussgeld = document.getElementById("s_bussgeld").value || "";
 
-  // Bußgeld +7 Tage berechnen
   let bussgeldDatumText = "";
   if (bussgeld) {
     const date = new Date(bussgeld);
@@ -170,4 +169,86 @@ function resetSchnellakteForm() {
   document.getElementById("s_rechtsbeistand").value = "keinen";
   document.getElementById("s_medizin").value = "keine";
   document.getElementById("output-schnellakte").textContent = "";
+}
+
+// KOLLEKTIVAKTE
+function generateKollektivakte() {
+  const officer = document.getElementById("k_officer").value;
+  const genehmigtVon = document.getElementById("k_genehmigtVon").value;
+  const uhrzeit = document.getElementById("k_uhrzeit").value;
+  const tatort = document.getElementById("k_tatort").value;
+  const zeitraum = document.getElementById("k_zeitraum").value;
+  const beschuldigte = document.getElementById("k_beschuldigte").value;
+  const geschaedigte = document.getElementById("k_geschaedigte").value;
+  const sachverhalt = document.getElementById("k_sachverhalt").value;
+  const einheiten = document.getElementById("k_einheiten").value;
+  const abgenommenVon = document.getElementById("k_abgenommenVon").value;
+  const gegenstaende = document.getElementById("k_gegenstaende").value;
+  const rechteVon = document.getElementById("k_rechteVon").value;
+  const rechteBeisein = document.getElementById("k_rechteBeisein").value;
+  const rechtsbeistand = document.getElementById("k_rechtsbeistand").value;
+  const medizin = document.getElementById("k_medizin").value;
+  const bussgeld = document.getElementById("k_bussgeld").value;
+
+  let bussgeldDatumText = "";
+  if (bussgeld) {
+    const date = new Date(bussgeld);
+    date.setDate(date.getDate() + 7);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    bussgeldDatumText = `${bussgeld} [+7 Tage] (${day}.${month}.${year})`;
+  }
+
+  const output = `
+| - Kollektivakte - |
+Narco City Police Department
+${officer}
+Kollektivakte wurde von ${genehmigtVon} um ${uhrzeit} genehmigt
+
+| Tatort und Zeitraum: |
+${tatort}
+Am ${zeitraum}
+
+| Beschuldigte Personen: |
+${beschuldigte}
+
+| Geschädigte Person(en): |
+${geschaedigte}
+
+| Sachverhalt aus Sicht des NCPDs: |
+${sachverhalt}
+
+Die Identität wurde mittels Treffe Auswahl... festgestellt.
+
+| Weitere beteiligte Einheiten/Zeugen: | 
+${einheiten}
+
+| Abgenommene Gegenstände: |  Abgenommen von: ${abgenommenVon}
+${gegenstaende}
+
+| Bemerkungen: |
+Die Rechte wurden dem Beschuldigten durch ${rechteVon} im Beisein von ${rechteBeisein} verlesen und verstanden. 
+Der TV wünschte sich ${rechtsbeistand} Rechtsbeistand.
+TV wünschte sich ${medizin} medizinische Unterstützung.
+${bussgeld ? `Das Bußgeld ist bis zum ${bussgeldDatumText} zu bezahlen.` : ""}
+
+| Gezeichnet von: |                   
+${officer}
+  `.trim();
+
+  document.getElementById("output-kollektivakte").textContent = output;
+}
+
+function resetKollektivakteForm() {
+  const ids = [
+    "k_officer", "k_genehmigtVon", "k_uhrzeit", "k_tatort", "k_zeitraum",
+    "k_beschuldigte", "k_geschaedigte", "k_sachverhalt", "k_einheiten",
+    "k_abgenommenVon", "k_gegenstaende", "k_rechteVon", "k_rechteBeisein",
+    "k_bussgeld"
+  ];
+  ids.forEach(id => document.getElementById(id).value = "");
+  document.getElementById("k_rechtsbeistand").value = "keinen";
+  document.getElementById("k_medizin").value = "keine";
+  document.getElementById("output-kollektivakte").textContent = "";
 }
