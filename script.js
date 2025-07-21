@@ -146,8 +146,8 @@ ${gegenstaende}
 
 | Bemerkungen: |
 Die Rechte wurden dem Beschuldigten durch ${rechteVon} im Beisein von ${rechteBeisein} verlesen und verstanden.
-Dieser Treffen Auswahl auf einen Rechtsbeistand: ${rechtsbeistand}.
-Der TV Treffen Auswahl auf medizinische Versorgung: ${medizin}.
+Der TV wünschte sich ${rechtsbeistand} Rechtsbeistand.
+TV wünschte sich ${medizin} medizinische Unterstützung.
 ${bussgeld ? `Das Bußgeld ist bis zum ${bussgeldDatumText} zu bezahlen.` : ""}
 Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.
 ${bemerkung}
