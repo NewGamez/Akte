@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="de" class="bg-gray-900 text-white">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Akten Generator – Narco City PD</title>
-  <script src="script.js" defer></script>
+  <title>Akten Generator – NCPD</title>
+  <script defer src="script.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="p-8 space-y-6">
-  <h1 class="text-3xl font-bold text-center">Akten Generator – Narco City Police Department</h1>
+<body class="bg-gray-900 text-white font-sans p-6">
+  <h1 class="text-3xl font-bold mb-6 text-center">Akten Generator – Narco City Police Department</h1>
 
-  <!-- TABS -->
-  <div class="flex justify-center space-x-6 border-b border-gray-600">
-    <button id="strafakte-tab" onclick="switchTab('strafakte-tab')" class="pb-2 border-b-2 text-white border-blue-500">
+  <!-- TAB NAVIGATION -->
+  <div class="flex justify-center gap-6 border-b border-gray-700 mb-6">
+    <button id="strafakte-tab" onclick="switchTab('strafakte-tab')" class="pb-2 border-b-2 border-blue-500 text-blue-500">
       Strafakte
     </button>
     <button id="schnellakte-tab" onclick="switchTab('schnellakte-tab')" class="pb-2 border-b-2 text-gray-400 hover:text-white">
@@ -25,61 +25,113 @@
 
   <!-- STRAFAKTE -->
   <div id="strafakte-content" class="space-y-4">
-    <p>⚠️ Hier kommt dein Strafakte-Formular.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input id="officer" placeholder="Officer Name & Rang" class="input" />
+      <input id="tatort" placeholder="Tatort" class="input" />
+      <input id="zeitraum" placeholder="Tatzeit (z. B. 21.07.2025 von 14:00 bis 16:00 Uhr)" class="input" />
+      <input id="beschuldigte" placeholder="Beschuldigte Person(en)" class="input" />
+      <input id="geschaedigte" placeholder="Geschädigte Person(en)" class="input" />
+      <textarea id="sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs" class="input h-24"></textarea>
+      <input id="einheiten" placeholder="Weitere Einheiten/Zeugen" class="input" />
+      <textarea id="gegenstaende" placeholder="Abgenommene Gegenstände" class="input h-24"></textarea>
+      <input id="abgenommenVon" placeholder="Abgenommen von (z. B. PD-XX)" class="input" />
+      <input id="rechteVon" placeholder="Rechte verlesen von" class="input" />
+      <input id="rechteBeisein" placeholder="Rechte im Beisein von" class="input" />
+      <select id="rechtsbeistand" class="input">
+        <option value="keinen">Keinen Rechtsbeistand</option>
+        <option value="einen">Einen Rechtsbeistand</option>
+      </select>
+      <select id="medizin" class="input">
+        <option value="keine">Keine medizinische Unterstützung</option>
+        <option value="medizinische">Medizinische Unterstützung</option>
+      </select>
+      <input id="bussgeld" type="date" class="input" />
+      <textarea id="bemerkung" placeholder="Weitere Bemerkungen" class="input h-24"></textarea>
+      <textarea id="strafen" placeholder="Strafen/Vergehen" class="input h-24"></textarea>
+      <input id="zeichner" placeholder="Gezeichnet von (Name)" class="input" />
+      <input id="zeichnerInfo" placeholder="Dienstnummer & Rang" class="input" />
+    </div>
+    <div class="flex gap-4">
+      <button onclick="generateStrafakte()" class="btn">Generieren</button>
+      <button onclick="resetStrafakteForm()" class="btn-secondary">Zurücksetzen</button>
+    </div>
+    <pre id="output" class="mt-4 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
   </div>
 
   <!-- SCHNELLAKTE -->
   <div id="schnellakte-content" class="hidden space-y-4">
-    <p>⚠️ Hier kommt dein Schnellakte-Formular.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input id="s_officer" placeholder="Officer Name & Rang" class="input" />
+      <input id="s_tatort" placeholder="Tatort" class="input" />
+      <input id="s_zeitraum" placeholder="Tatzeit (z. B. 21.07.2025 von 14:00 bis 16:00 Uhr)" class="input" />
+      <input id="s_beschuldigte" placeholder="Beschuldigte Person(en)" class="input" />
+      <input id="s_geschaedigte" placeholder="Geschädigte Person(en)" class="input" />
+      <input id="s_einheiten" placeholder="Einheiten/Zeugen" class="input" />
+      <textarea id="s_gegenstaende" placeholder="Abgenommene Gegenstände" class="input h-24"></textarea>
+      <input id="s_abgenommenVon" placeholder="Abgenommen von (z. B. PD-XX)" class="input" />
+      <textarea id="s_bemerkung" placeholder="Bemerkungen" class="input h-24"></textarea>
+      <input id="s_gezeichnet" placeholder="Gezeichnet von" class="input" />
+      <input id="s_gezeichnetOfficer" placeholder="Dienstnummer & Rang" class="input" />
+      <input id="s_rechteVon" placeholder="Rechte verlesen von" class="input" />
+      <input id="s_rechteBeisein" placeholder="Im Beisein von" class="input" />
+      <select id="s_rechtsbeistand" class="input">
+        <option value="keinen">Keinen Rechtsbeistand</option>
+        <option value="einen">Einen Rechtsbeistand</option>
+      </select>
+      <select id="s_medizin" class="input">
+        <option value="keine">Keine medizinische Unterstützung</option>
+        <option value="medizinische">Medizinische Unterstützung</option>
+      </select>
+      <input id="s_bussgeld" type="date" class="input" />
+    </div>
+    <div class="flex gap-4">
+      <button onclick="generateSchnellakte()" class="btn">Generieren</button>
+      <button onclick="resetSchnellakteForm()" class="btn-secondary">Zurücksetzen</button>
+    </div>
+    <pre id="output-schnellakte" class="mt-4 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
   </div>
 
   <!-- KOLLEKTIVAKTE -->
   <div id="kollektivakte-content" class="hidden space-y-4">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input id="k_officer" placeholder="Officer Name & Rang" />
-      <input id="k_genehmigtVon" placeholder="Genehmigt von (DOJ-XX)" />
-      <input id="k_uhrzeit" placeholder="Genehmigungszeit (z. B. 14:05)" />
-      <input id="k_tatort" placeholder="Tatort inkl. PLZ" />
-      <input id="k_zeitraum" placeholder="Tatzeitraum (z. B. 21.07.2025 von 12:00 bis 14:00 Uhr)" />
-      <input id="k_beschuldigte" placeholder="Beschuldigte(r)" />
-      <input id="k_geschaedigte" placeholder="Geschädigte(r)" />
-      <textarea id="k_sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs"></textarea>
-      <input id="k_einheiten" placeholder="Einheiten/Zeugen (z. B. PD-XX, FIB-XX)" />
-      <input id="k_abgenommenVon" placeholder="Abgenommen von (z. B. PD-XX)" />
-      <textarea id="k_gegenstaende" placeholder="Gegenstände (z. B. 1x Smartphone)"></textarea>
-      <input id="k_rechteVon" placeholder="Rechte verlesen von (z. B. PD-XX)" />
-      <input id="k_rechteBeisein" placeholder="Rechte im Beisein von (z. B. PD-XX)" />
-      <select id="k_rechtsbeistand">
+      <input id="k_officer" placeholder="Officer Name & Rang" class="input" />
+      <input id="k_genehmigtVon" placeholder="Genehmigt von (DOJ-XX)" class="input" />
+      <input id="k_uhrzeit" placeholder="Genehmigungszeit (z. B. 14:05)" class="input" />
+      <input id="k_tatort" placeholder="Tatort inkl. PLZ" class="input" />
+      <input id="k_zeitraum" placeholder="Tatzeitraum (z. B. 21.07.2025 von 12:00 bis 14:00 Uhr)" class="input" />
+      <input id="k_beschuldigte" placeholder="Beschuldigte(r)" class="input" />
+      <input id="k_geschaedigte" placeholder="Geschädigte(r)" class="input" />
+      <textarea id="k_sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs" class="input h-24"></textarea>
+      <input id="k_einheiten" placeholder="Einheiten/Zeugen (z. B. PD-XX, FIB-XX)" class="input" />
+      <input id="k_abgenommenVon" placeholder="Abgenommen von (z. B. PD-XX)" class="input" />
+      <textarea id="k_gegenstaende" placeholder="Gegenstände (z. B. 1x Smartphone)" class="input h-24"></textarea>
+      <input id="k_rechteVon" placeholder="Rechte verlesen von (z. B. PD-XX)" class="input" />
+      <input id="k_rechteBeisein" placeholder="Rechte im Beisein von (z. B. PD-XX)" class="input" />
+      <select id="k_rechtsbeistand" class="input">
         <option value="keinen">Keinen Rechtsbeistand</option>
         <option value="einen">Einen Rechtsbeistand</option>
       </select>
-      <select id="k_medizin">
+      <select id="k_medizin" class="input">
         <option value="keine">Keine medizinische Unterstützung</option>
         <option value="medizinische">Medizinische Unterstützung</option>
       </select>
-      <input id="k_bussgeld" type="date" />
+      <input id="k_bussgeld" type="date" class="input" />
     </div>
-
     <div class="flex gap-4">
       <button onclick="generateKollektivakte()" class="btn">Generieren</button>
       <button onclick="resetKollektivakteForm()" class="btn-secondary">Zurücksetzen</button>
     </div>
-
     <pre id="output-kollektivakte" class="mt-4 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
   </div>
 
-  <!-- STYLE -->
+  <!-- STYLES (Tailwind Custom Inputs/Buttons) -->
   <style>
-    input,
-    textarea,
-    select {
-      @apply bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500;
+    .input {
+      @apply bg-gray-800 text-white p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500;
     }
-
     .btn {
       @apply bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded;
     }
-
     .btn-secondary {
       @apply bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded;
     }
