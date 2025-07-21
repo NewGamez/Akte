@@ -126,15 +126,19 @@
 
   <!-- STYLES (Tailwind Custom Inputs/Buttons) -->
   <style>
-    .input {
-      @apply bg-gray-800 text-white p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500;
-    }
-    .btn {
-      @apply bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded;
-    }
-    .btn-secondary {
-      @apply bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded;
-    }
-  </style>
+  input,
+  textarea,
+  select {
+    @apply bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500;
+  }
+
+  .btn {
+    @apply bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded;
+  }
+</style>
 </body>
 </html>
