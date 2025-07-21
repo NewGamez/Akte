@@ -1,250 +1,130 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strafakte - Strafen/Vergehen</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    max-width: 700px;
-    margin: auto;
-    background: #f9f9f9;
-  }
-  label {
-    font-weight: bold;
-  }
-  input[type="text"], select {
-    width: 100%;
-    padding: 8px;
-    margin: 6px 0 12px 0;
-    box-sizing: border-box;
-    font-size: 1rem;
-  }
-  select {
-    height: 300px;
-  }
-  .result-container {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
-  .result-box {
-    flex: 1;
-  }
-  button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    margin-right: 10px;
-    cursor: pointer;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akten Generator – NCPD</title>
+  <script defer src="script.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-900 text-white font-sans p-6">
+  <h1 class="text-3xl font-bold mb-6 text-center">Akten Generator – Narco City Police Department</h1>
 
-<h1>Strafakte - Strafen/Vergehen</h1>
-
-<label for="searchInput">Straftat suchen:</label>
-<input type="text" id="searchInput" placeholder="Suchbegriff eingeben..." autocomplete="off" />
-
-<label for="crimeSelect">Strafakte - Strafen/Vergehen:</label>
-<select id="crimeSelect" multiple aria-label="Straftaten auswählen"></select>
-
-<div class="result-container">
-  <div class="result-box">
-    <label for="fineInput">Geldstrafe:</label><br />
-    <input type="text" id="fineInput" readonly />
+  <!-- TAB NAVIGATION -->
+  <div class="flex justify-center gap-6 border-b border-gray-700 mb-6">
+    <button id="strafakte-tab" onclick="switchTab('strafakte-tab')" class="pb-2 border-b-2 border-blue-500 text-blue-500">
+      Strafakte
+    </button>
+    <button id="schnellakte-tab" onclick="switchTab('schnellakte-tab')" class="pb-2 border-b-2 text-gray-400 hover:text-white">
+      Schnellakte
+    </button>
+    <button id="kollektivakte-tab" onclick="switchTab('kollektivakte-tab')" class="pb-2 border-b-2 text-gray-400 hover:text-white">
+      Kollektivakte
+    </button>
   </div>
-  <div class="result-box">
-    <label for="prisonInput">Hafteinheiten:</label><br />
-    <input type="text" id="prisonInput" readonly />
+
+  <!-- STRAFAKTE -->
+  <div id="strafakte-content" class="space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input id="officer" placeholder="Officer Name & Rang" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="tatort" placeholder="Tatort" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="zeitraum" placeholder="Tatzeit (z. B. 21.07.2025 von 14:00 bis 16:00 Uhr)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="beschuldigte" placeholder="Beschuldigte Person(en)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="geschaedigte" placeholder="Geschädigte Person(en)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <textarea id="sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+      <input id="einheiten" placeholder="Weitere Einheiten/Zeugen" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <textarea id="gegenstaende" placeholder="Abgenommene Gegenstände" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+      <input id="abgenommenVon" placeholder="Abgenommen von (z. B. PD-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="rechteVon" placeholder="Rechte verlesen von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="rechteBeisein" placeholder="Rechte im Beisein von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <select id="rechtsbeistand" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="keinen">Keinen Rechtsbeistand</option>
+        <option value="einen">Einen Rechtsbeistand</option>
+      </select>
+      <select id="medizin" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="keine">Keine medizinische Unterstützung</option>
+        <option value="medizinische">Medizinische Unterstützung</option>
+      </select>
+      <input id="bussgeld" type="date" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <textarea id="bemerkung" placeholder="Weitere Bemerkungen" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+      <textarea id="strafen" placeholder="Strafen/Vergehen" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+      <input id="zeichner" placeholder="Gezeichnet von (Name)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="zeichnerInfo" placeholder="Dienstnummer & Rang" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </div>
+    <div class="flex gap-4">
+      <button onclick="generateStrafakte()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Generieren</button>
+      <button onclick="resetStrafakteForm()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">Zurücksetzen</button>
+    </div>
+    <pre id="output" class="mt-4 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
   </div>
-</div>
 
-<button id="generateBtn">Generieren</button>
-<button id="resetBtn">Zurücksetzen</button>
+  <!-- SCHNELLAKTE -->
+  <div id="schnellakte-content" class="hidden space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input id="s_officer" placeholder="Officer Name & Rang" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_tatort" placeholder="Tatort" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_zeitraum" placeholder="Tatzeit (z. B. 21.07.2025 von 14:00 bis 16:00 Uhr)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_beschuldigte" placeholder="Beschuldigte Person(en)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_geschaedigte" placeholder="Geschädigte Person(en)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_einheiten" placeholder="Einheiten/Zeugen" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <textarea id="s_gegenstaende" placeholder="Abgenommene Gegenstände" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+      <input id="s_abgenommenVon" placeholder="Abgenommen von (z. B. PD-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <textarea id="s_bemerkung" placeholder="Bemerkungen" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+      <input id="s_gezeichnet" placeholder="Gezeichnet von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_gezeichnetOfficer" placeholder="Dienstnummer & Rang" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_rechteVon" placeholder="Rechte verlesen von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_rechteBeisein" placeholder="Im Beisein von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <select id="s_rechtsbeistand" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="keinen">Keinen Rechtsbeistand</option>
+        <option value="einen">Einen Rechtsbeistand</option>
+      </select>
+      <select id="s_medizin" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="keine">Keine medizinische Unterstützung</option>
+        <option value="medizinische">Medizinische Unterstützung</option>
+      </select>
+      <input id="s_bussgeld" type="date" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </div>
+    <div class="flex gap-4">
+      <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Generieren</button>
+      <button onclick="resetSchnellakteForm()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">Zurücksetzen</button>
+    </div>
+    <pre id="output-schnellakte" class="mt-4 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
+  </div>
 
-<script>
-  const crimes = [
-    // §1 Straftaten gegen Leib und Leben
-    { name: "Körperverletzung", fine: 15000, fineText: "15.000 US-Dollar", prison: 10, prisonText: "10 Hafteinheiten" },
-    { name: "Schwere Körperverletzung", fine: 25000, fineText: "25.000 US-Dollar", prison: 15, prisonText: "15 Hafteinheiten" },
-    { name: "Fahrlässige Tötung", fine: 50000, fineText: "50.000 US-Dollar", prison: 40, prisonText: "40 Hafteinheiten" },
-    { name: "Versuchter Mord", fine: 40000, fineText: "40.000 US-Dollar", prison: 30, prisonText: "30 Hafteinheiten" },
-    { name: "Mord", fine: 80000, fineText: "80.000 US-Dollar", prison: 80, prisonText: "80 Hafteinheiten" },
-    { name: "Gefährliche Körperverletzung", fine: 20000, fineText: "20.000 US-Dollar", prison: 20, prisonText: "20 Hafteinheiten" },
+  <!-- KOLLEKTIVAKTE -->
+  <div id="kollektivakte-content" class="hidden space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input id="k_officer" placeholder="Officer Name & Rang" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_genehmigtVon" placeholder="Genehmigt von (DOJ-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_uhrzeit" placeholder="Genehmigungszeit (z. B. 14:05)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_tatort" placeholder="Tatort inkl. PLZ" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_zeitraum" placeholder="Tatzeitraum (z. B. 21.07.2025 von 12:00 bis 14:00 Uhr)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_beschuldigte" placeholder="Beschuldigte(r)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_geschaedigte" placeholder="Geschädigte(r)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <textarea id="k_sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+      <input id="k_einheiten" placeholder="Einheiten/Zeugen (z. B. PD-XX, FIB-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_abgenommenVon" placeholder="Abgenommen von (z. B. PD-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <textarea id="k_gegenstaende" placeholder="Gegenstände (z. B. 1x Smartphone)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+      <input id="k_rechteVon" placeholder="Rechte verlesen von (z. B. PD-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_rechteBeisein" placeholder="Rechte im Beisein von (z. B. PD-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <select id="k_rechtsbeistand" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="keinen">Keinen Rechtsbeistand</option>
+        <option value="einen">Einen Rechtsbeistand</option>
+      </select>
+      <select id="k_medizin" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="keine">Keine medizinische Unterstützung</option>
+        <option value="medizinische">Medizinische Unterstützung</option>
+      </select>
+      <input id="k_bussgeld" type="date" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </div>
+    <div class="flex gap-4">
+      <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Generieren</button>
+      <button onclick="resetKollektivakteForm()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">Zurücksetzen</button>
+    </div>
+    <pre id="output-kollektivakte" class="mt-4 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
+  </div>
 
-    // §2 Straftaten gegen die Freiheit
-    { name: "Freiheitsberaubung / Entführung", fine: 30000, fineText: "30.000 US-Dollar", prison: 20, prisonText: "20 Hafteinheiten" },
-    { name: "Erpressung", fine: 10000, fineText: "10.000 US-Dollar", prison: 10, prisonText: "10 Hafteinheiten" },
-    { name: "Beleidigung", fine: 10000, fineText: "10.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Beamtenbeleidigung", fine: 15000, fineText: "15.000 US-Dollar", prison: 5, prisonText: "5 Hafteinheiten" },
-    { name: "Üble Nachrede", fine: 10000, fineText: "10.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Drohung", fine: 15000, fineText: "15.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Morddrohung", fine: 20000, fineText: "20.000 US-Dollar", prison: 10, prisonText: "10 Hafteinheiten" },
-    // §2 Abs. 8 StGB ersetzt - übersprungen
-    { name: "Geiselnahme", fine: 60000, fineText: "60.000 US-Dollar", prison: 60, prisonText: "60 Hafteinheiten" },
-    { name: "Missachtung der Hausordnung", fine: 4000, fineText: "4.000 US-Dollar", prison: 25, prisonText: "25 Hafteinheiten" },
-    { name: "Verleumdung", fine: 15000, fineText: "15.000 US-Dollar", prison: 10, prisonText: "10 Hafteinheiten" },
-    { name: "Falsche Verdächtigung", fine: 50000, fineText: "50.000 US-Dollar", prison: 20, prisonText: "20 Hafteinheiten" },
-    { name: "Nötigung", fine: 30000, fineText: "30.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-
-    // §3 Straftaten von Personen
-    { name: "Versuchter Diebstahl", fine: 10000, fineText: "10.000 US-Dollar", prison: 10, prisonText: "10 Hafteinheiten" },
-    { name: "Diebstahl", fine: 20000, fineText: "20.000 US-Dollar", prison: 15, prisonText: "15 Hafteinheiten" },
-    { name: "Versuchter Raub", fine: 20000, fineText: "20.000 US-Dollar", prison: 20, prisonText: "20 Hafteinheiten" },
-    { name: "Raub", fine: 30000, fineText: "30.000 US-Dollar", prison: 25, prisonText: "25 Hafteinheiten" },
-    { name: "Sachbeschädigung", fine: 20000, fineText: "20.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Besitz von Schwarzgeld", fine: 30000, fineText: "30.000 US-Dollar", prison: 25, prisonText: "25 Hafteinheiten" },
-    { name: "Tragen einer Vermummung", fine: 10000, fineText: "10.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Vortäuschen einer Straftat", fine: 40000, fineText: "40.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Falschaussage", fine: 25000, fineText: "25.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Meineid", fine: 100000, fineText: "100.000 US-Dollar", prison: 60, prisonText: "60 Hafteinheiten" },
-    { name: "Verstoss gegen Auflagen", fine: 15000, fineText: "15.000 US-Dollar", prison: 5, prisonText: "5 Hafteinheiten" },
-    { name: "Belästigung", fine: 20000, fineText: "20.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Beamten Belästigung", fine: 30000, fineText: "30.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Sexuelle Belästigung", fine: null, fineText: "An Support wenden!", prison: null, prisonText: "" },
-    { name: "Betrug", fine: 50000, fineText: "50.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Erschleichung von Leistungen", fine: 50000, fineText: "50.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Volksverhetzung", fine: 20000, fineText: "20.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Unterlassene Hilfeleistung", fine: 10000, fineText: "10.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-
-    // §4 Straftaten gegen die öffentliche Ordnung
-    { name: "Behinderung von staatlichen Organen", fine: 20000, fineText: "20.000 US-Dollar", prison: 5, prisonText: "5 Hafteinheiten" },
-    { name: "Widerstand gegen die Staatsgewalt", fine: 30000, fineText: "30.000 US-Dollar", prison: 30, prisonText: "30 Hafteinheiten" },
-    { name: "Entziehung polizeilicher Maßnahmen", fine: 20000, fineText: "20.000 US-Dollar", prison: 15, prisonText: "15 Hafteinheiten" },
-    { name: "Straftaten gegenüber staatlichen Organisationen", fine: 50000, fineText: "50.000 US-Dollar", prison: 45, prisonText: "45 Hafteinheiten" },
-    { name: "Befreiung von Verdächtigen", fine: 20000, fineText: "20.000 US-Dollar", prison: 30, prisonText: "30 Hafteinheiten" },
-    { name: "Versuchter Ausbruch aus staatlichen Einrichtungen", fine: 40000, fineText: "40.000 US-Dollar", prison: 40, prisonText: "40 Hafteinheiten" },
-
-    // §5 Sonstige Straftaten
-    { name: "Randalierer", fine: 50000, fineText: "50.000 US-Dollar", prison: 25, prisonText: "25 Hafteinheiten" },
-    { name: "Störung der öffentlichen Ordnung", fine: 30000, fineText: "30.000 US-Dollar", prison: 0, prisonText: "0 Hafteinheiten" },
-    { name: "Falsche Polizeimeldung", fine: 40000, fineText: "40.000 US-Dollar", prison: 30, prisonText: "30 Hafteinheiten" },
-    { name: "Vorsätzliche Falschangabe", fine: 25000, fineText: "25.000 US-Dollar", prison: 20, prisonText: "20 Hafteinheiten" },
-    { name: "Unerlaubter Waffenbesitz", fine: 100000, fineText: "100.000 US-Dollar", prison: 45, prisonText: "45 Hafteinheiten" },
-  ];
-
-  const searchInput = document.getElementById('searchInput');
-  const crimeSelect = document.getElementById('crimeSelect');
-  const fineInput = document.getElementById('fineInput');
-  const prisonInput = document.getElementById('prisonInput');
-  const generateBtn = document.getElementById('generateBtn');
-  const resetBtn = document.getElementById('resetBtn');
-
-  // Dropdown füllen
-  function fillDropdown(items) {
-    crimeSelect.innerHTML = '';
-    if (items.length === 0) {
-      const option = document.createElement('option');
-      option.textContent = 'Keine Treffer';
-      option.disabled = true;
-      crimeSelect.appendChild(option);
-      fineInput.value = '';
-      prisonInput.value = '';
-      return;
-    }
-    items.forEach((crime, index) => {
-      const option = document.createElement('option');
-      option.value = index;
-      option.textContent = crime.name;
-      crimeSelect.appendChild(option);
-    });
-  }
-
-  // Höchste Strafe aus Auswahl ermitteln
-  function calculateMaxPenalty(selectedIndices, filtered) {
-    if (selectedIndices.length === 0) {
-      fineInput.value = '';
-      prisonInput.value = '';
-      return;
-    }
-    const selectedCrimes = selectedIndices
-      .map(i => filtered[i])
-      .filter(c => c);
-
-    let maxFineCrime = selectedCrimes.reduce((max, cur) => {
-      if (cur.fine === null) return max;
-      if (!max || cur.fine > max.fine) return cur;
-      return max;
-    }, null);
-
-    let maxPrisonCrime = selectedCrimes.reduce((max, cur) => {
-      if (cur.prison === null) return max;
-      if (!max || cur.prison > max.prison) return cur;
-      return max;
-    }, null);
-
-    fineInput.value = maxFineCrime ? maxFineCrime.fineText : 'An Support wenden!';
-    prisonInput.value = maxPrisonCrime ? maxPrisonCrime.prisonText : '';
-  }
-
-  // Filter & Dropdown aktualisieren
-  function updateFilter() {
-    const filter = searchInput.value.toLowerCase();
-    const filtered = crimes.filter(c => c.name.toLowerCase().includes(filter));
-    fillDropdown(filtered);
-    return filtered;
-  }
-
-  // Event Suchfeld
-  searchInput.addEventListener('input', () => {
-    const filtered = updateFilter();
-    fineInput.value = '';
-    prisonInput.value = '';
-  });
-
-  // Event Auswahl im Dropdown
-  crimeSelect.addEventListener('change', () => {
-    const selectedOptions = Array.from(crimeSelect.selectedOptions);
-    const selectedIndices = selectedOptions.map(opt => Number(opt.value));
-    const filter = searchInput.value.toLowerCase();
-    const filtered = crimes.filter(c => c.name.toLowerCase().includes(filter));
-    calculateMaxPenalty(selectedIndices, filtered);
-  });
-
-  // Button Generieren
-  generateBtn.addEventListener('click', () => {
-    const selectedOptions = Array.from(crimeSelect.selectedOptions);
-    if (selectedOptions.length === 0) {
-      alert('Bitte mindestens eine Straftat auswählen.');
-      return;
-    }
-    const selectedIndices = selectedOptions.map(opt => Number(opt.value));
-    const filter = searchInput.value.toLowerCase();
-    const filtered = crimes.filter(c => c.name.toLowerCase().includes(filter));
-    const selectedCrimes = selectedIndices.map(i => filtered[i]);
-    let message = 'Ausgewählte Straftaten:\n';
-    selectedCrimes.forEach(c => message += '- ' + c.name + '\n');
-
-    let maxFineCrime = selectedCrimes.reduce((max, cur) => {
-      if (cur.fine === null) return max;
-      if (!max || cur.fine > max.fine) return cur;
-      return max;
-    }, null);
-    let maxPrisonCrime = selectedCrimes.reduce((max, cur) => {
-      if (cur.prison === null) return max;
-      if (!max || cur.prison > max.prison) return cur;
-      return max;
-    }, null);
-    message += '\nHöchste Strafe:\n';
-    message += `Geldstrafe: ${maxFineCrime ? maxFineCrime.fineText : 'An Support wenden!'}\n`;
-    message += `Hafteinheiten: ${maxPrisonCrime ? maxPrisonCrime.prisonText : ''}`;
-    alert(message);
-  });
-
-  // Button Zurücksetzen
-  resetBtn.addEventListener('click', () => {
-    searchInput.value = '';
-    fillDropdown(crimes);
-    fineInput.value = '';
-    prisonInput.value = '';
-  });
-
-  // Initial laden
-  fillDropdown(crimes);
-</script>
-
+  <!-- STYLES (Tailwind Custom Inputs/Buttons) -->
+  <!-- Removed custom <style> block using @apply, use Tailwind classes directly in HTML elements instead -->
 </body>
 </html>
