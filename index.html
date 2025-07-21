@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Akten Generator – NCPD</title>
+  <script defer src="script.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white font-sans p-6">
@@ -37,25 +38,18 @@
       <input id="rechteVon" placeholder="Rechte verlesen von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <input id="rechteBeisein" placeholder="Rechte im Beisein von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <select id="rechtsbeistand" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option value="verzichtete">verzichtete</option>
-        <option value="bestand">bestand</option>
+        <option value="keinen">Keinen Rechtsbeistand</option>
+        <option value="einen">Einen Rechtsbeistand</option>
       </select>
       <select id="medizin" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option value="verzichtete">verzichtete</option>
-        <option value="bestand">bestand</option>
+        <option value="keine">Keine medizinische Unterstützung</option>
+        <option value="medizinische">Medizinische Unterstützung</option>
       </select>
       <input id="bussgeld" type="date" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <textarea id="bemerkung" placeholder="Weitere Bemerkungen" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
       <textarea id="strafen" placeholder="Strafen/Vergehen" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
       <input id="zeichner" placeholder="Gezeichnet von (Name)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <input id="zeichnerInfo" placeholder="Dienstnummer & Rang" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      <select id="eilverfahren" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option value="SD">SD</option>
-        <option value="PD">PD</option>
-        <option value="USMS">USMS</option>
-        <option value="FIB">FIB</option>
-        <option value="STA">STA</option>
-      </select>
     </div>
     <div class="flex gap-4">
       <button onclick="generateStrafakte()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Generieren</button>
@@ -64,101 +58,73 @@
     <pre id="output" class="mt-4 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
   </div>
 
-  <script>
-    function switchTab(tabId) {
-      const tabs = ['strafakte', 'schnellakte', 'kollektivakte'];
-      tabs.forEach(t => {
-        document.getElementById(t + '-tab').classList.remove('border-blue-500', 'text-blue-500');
-        document.getElementById(t + '-tab').classList.add('text-gray-400');
-        document.getElementById(t + '-content').classList.add('hidden');
-      });
-      document.getElementById(tabId).classList.add('border-blue-500', 'text-blue-500');
-      document.getElementById(tabId).classList.remove('text-gray-400');
-      const contentId = tabId.replace('-tab', '-content');
-      document.getElementById(contentId).classList.remove('hidden');
-    }
+  <!-- SCHNELLAKTE -->
+  <div id="schnellakte-content" class="hidden space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input id="s_officer" placeholder="Officer Name & Rang" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_tatort" placeholder="Tatort" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_zeitraum" placeholder="Tatzeit (z. B. 21.07.2025 von 14:00 bis 16:00 Uhr)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_beschuldigte" placeholder="Beschuldigte Person(en)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_geschaedigte" placeholder="Geschädigte Person(en)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_einheiten" placeholder="Einheiten/Zeugen" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <textarea id="s_gegenstaende" placeholder="Abgenommene Gegenstände" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+      <input id="s_abgenommenVon" placeholder="Abgenommen von (z. B. PD-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <textarea id="s_bemerkung" placeholder="Bemerkungen" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+      <input id="s_gezeichnet" placeholder="Gezeichnet von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_gezeichnetOfficer" placeholder="Dienstnummer & Rang" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_rechteVon" placeholder="Rechte verlesen von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="s_rechteBeisein" placeholder="Im Beisein von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <select id="s_rechtsbeistand" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="keinen">Keinen Rechtsbeistand</option>
+        <option value="einen">Einen Rechtsbeistand</option>
+      </select>
+      <select id="s_medizin" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="keine">Keine medizinische Unterstützung</option>
+        <option value="medizinische">Medizinische Unterstützung</option>
+      </select>
+      <input id="s_bussgeld" type="date" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </div>
+    <div class="flex gap-4">
+      <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Generieren</button>
+      <button onclick="resetSchnellakteForm()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">Zurücksetzen</button>
+    </div>
+    <pre id="output-schnellakte" class="mt-4 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
+  </div>
 
-    function generateStrafakte() {
-      const officer = document.getElementById('officer').value;
-      const tatort = document.getElementById('tatort').value;
-      const zeitraum = document.getElementById('zeitraum').value;
-      const beschuldigte = document.getElementById('beschuldigte').value;
-      const geschaedigte = document.getElementById('geschaedigte').value;
-      const sachverhalt = document.getElementById('sachverhalt').value;
-      const einheiten = document.getElementById('einheiten').value;
-      const gegenstaende = document.getElementById('gegenstaende').value;
-      const abgenommenVon = document.getElementById('abgenommenVon').value;
-      const rechteVon = document.getElementById('rechteVon').value;
-      const rechteBeisein = document.getElementById('rechteBeisein').value;
-      const rechtsbeistand = document.getElementById('rechtsbeistand').value; // "verzichtete" oder "bestand"
-      const medizin = document.getElementById('medizin').value; // "verzichtete" oder "bestand"
-      const bussgeld = document.getElementById('bussgeld').value; // yyyy-mm-dd
-      const bemerkungUser = document.getElementById('bemerkung').value;
-      const strafen = document.getElementById('strafen').value;
-      const zeichner = document.getElementById('zeichner').value;
-      const zeichnerInfo = document.getElementById('zeichnerInfo').value;
-      const eilverfahren = document.getElementById('eilverfahren').value;
+  <!-- KOLLEKTIVAKTE -->
+  <div id="kollektivakte-content" class="hidden space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input id="k_officer" placeholder="Officer Name & Rang" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_genehmigtVon" placeholder="Genehmigt von (DOJ-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_uhrzeit" placeholder="Genehmigungszeit (z. B. 14:05)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_tatort" placeholder="Tatort inkl. PLZ" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_zeitraum" placeholder="Tatzeitraum (z. B. 21.07.2025 von 12:00 bis 14:00 Uhr)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_beschuldigte" placeholder="Beschuldigte(r)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_geschaedigte" placeholder="Geschädigte(r)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <textarea id="k_sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+      <input id="k_einheiten" placeholder="Einheiten/Zeugen (z. B. PD-XX, FIB-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_abgenommenVon" placeholder="Abgenommen von (z. B. PD-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <textarea id="k_gegenstaende" placeholder="Gegenstände (z. B. 1x Smartphone)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+      <input id="k_rechteVon" placeholder="Rechte verlesen von (z. B. PD-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="k_rechteBeisein" placeholder="Rechte im Beisein von (z. B. PD-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <select id="k_rechtsbeistand" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="keinen">Keinen Rechtsbeistand</option>
+        <option value="einen">Einen Rechtsbeistand</option>
+      </select>
+      <select id="k_medizin" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="keine">Keine medizinische Unterstützung</option>
+        <option value="medizinische">Medizinische Unterstützung</option>
+      </select>
+      <input id="k_bussgeld" type="date" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </div>
+    <div class="flex gap-4">
+      <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Generieren</button>
+      <button onclick="resetKollektivakteForm()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">Zurücksetzen</button>
+    </div>
+    <pre id="output-kollektivakte" class="mt-4 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
+  </div>
 
-      // Berechne +7 Tage fürs Bußgelddatum
-      let bussgeldDatumPlus7 = '';
-      if (bussgeld) {
-        const date = new Date(bussgeld);
-        date.setDate(date.getDate() + 7);
-        bussgeldDatumPlus7 = date.toLocaleDateString('de-DE');
-      }
-
-      // Baue Bemerkung zusammen (mit deinem gewünschten Text)
-      const bemerkungText = `Die Rechte wurden dem Beschuldigten durch ${rechteVon} im Beisein von ${rechteBeisein} verlesen und verstanden.
-Dieser ${rechtsbeistand} auf einen Rechtsbeistand.
-Der TV ${medizin} auf medizinische Versorgung.
-Das Bußgeld ist bis zum ${bussgeldDatumPlus7} zu bezahlen.
-Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.
-Das Eilverfahren wurde durch ${eilverfahren} (${zeichnerInfo}) abgelehnt.
-${bemerkungUser}`.trim();
-
-      // Ausgabe formatieren
-      const outputText = 
-`--- Strafakte ---
-Officer: ${officer}
-Tatort: ${tatort}
-Tatzeitraum: ${zeitraum}
-Beschuldigte: ${beschuldigte}
-Geschädigte: ${geschaedigte}
-
-Sachverhalt:
-${sachverhalt}
-
-Weitere Einheiten/Zeugen:
-${einheiten}
-
-Abgenommene Gegenstände:
-${gegenstaende}
-Abgenommen von: ${abgenommenVon}
-
-Bemerkungen:
-${bemerkungText}
-
-Strafen/Vergehen:
-${strafen}
-
-Gezeichnet von: ${zeichner}
-Dienstnummer & Rang: ${zeichnerInfo}`;
-
-      document.getElementById('output').textContent = outputText;
-    }
-
-    function resetStrafakteForm() {
-      const ids = ['officer','tatort','zeitraum','beschuldigte','geschaedigte','sachverhalt','einheiten','gegenstaende','abgenommenVon','rechteVon','rechteBeisein','rechtsbeistand','medizin','bussgeld','bemerkung','strafen','zeichner','zeichnerInfo','eilverfahren'];
-      ids.forEach(id => {
-        const el = document.getElementById(id);
-        if (el.tagName === 'SELECT') el.selectedIndex = 0;
-        else el.value = '';
-      });
-      document.getElementById('output').textContent = '';
-    }
-
-    // Start mit Strafakte-Tab offen
-    switchTab('strafakte-tab');
-  </script>
+  <!-- STYLES (Tailwind Custom Inputs/Buttons) -->
+  <!-- Removed custom <style> block using @apply, use Tailwind classes directly in HTML elements instead -->
 </body>
 </html>
