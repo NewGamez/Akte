@@ -116,10 +116,10 @@ ${get("k_officer")}
 | Beschuldigte: | ${get("k_beschuldigte")}
 | Geschädigte: | ${get("k_geschaedigte")}
 
-| Sachverhalt:
+| Sachverhalt: |
 ${get("k_sachverhalt")}
 
-| Einheiten/Zeugen: ${get("k_einheiten")}
+| Einheiten/Zeugen: | ${get("k_einheiten")}
 
 | Gegenstände: |
 ${get("k_gegenstaende")}
