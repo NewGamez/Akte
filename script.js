@@ -1,39 +1,21 @@
-// Reiter-Steuerung
 function switchTab(tabId) {
-  const tabs = ["strafakte", "schnellakte", "kollektivakte"];
-  tabs.forEach((tab) => {
-    document.getElementById(`${tab}-tab`).classList.remove("text-blue-500", "border-blue-500");
-    document.getElementById(`${tab}-tab`).classList.add("text-gray-400");
-    document.getElementById(`${tab}-content`).classList.add("hidden");
+  const tabs = ["strafakte-tab", "schnellakte-tab", "kollektivakte-tab"];
+  const contents = ["strafakte-content", "schnellakte-content", "kollektivakte-content"];
+
+  tabs.forEach((id, index) => {
+    const tab = document.getElementById(id);
+    const content = document.getElementById(contents[index]);
+    if (id === tabId) {
+      tab.classList.add("border-blue-500", "text-blue-500");
+      content.classList.remove("hidden");
+    } else {
+      tab.classList.remove("border-blue-500", "text-blue-500");
+      content.classList.add("hidden");
+    }
   });
-  document.getElementById(tabId).classList.add("text-blue-500", "border-blue-500");
-  document.getElementById(tabId).classList.remove("text-gray-400");
-  document.getElementById(`${tabId.replace("-tab", "")}-content`).classList.remove("hidden");
 }
 
-// Text kopieren
-function copyToClipboard(elementId) {
-  const el = document.getElementById(elementId);
-  el.select();
-  el.setSelectionRange(0, 99999);
-  navigator.clipboard.writeText(el.value);
-  alert("Kopiert!");
-}
-
-// Formular zurücksetzen
-function resetStrafakteForm() {
-  const fields = [
-    "officer", "tatort", "zeitraum", "beschuldigte", "geschaedigte", "sachverhalt",
-    "einheiten", "gegenstaende", "abgenommenVon", "rechteVon", "rechteBeisein",
-    "bussgeld", "bemerkung", "strafen", "zeichner", "zeichnerInfo"
-  ];
-  fields.forEach((id) => document.getElementById(id).value = "");
-  document.getElementById("checkboxRechtsbeistand").checked = false;
-  document.getElementById("checkboxMedizin").checked = false;
-  document.getElementById("output").textContent = "";
-}
-
-// STRAFAKTE GENERIEREN
+// STRAFAKTE
 function generateStrafakte() {
   const officer = document.getElementById("officer").value;
   const tatort = document.getElementById("tatort").value;
@@ -43,16 +25,17 @@ function generateStrafakte() {
   const sachverhalt = document.getElementById("sachverhalt").value;
   const einheiten = document.getElementById("einheiten").value;
   const gegenstaende = document.getElementById("gegenstaende").value;
-  const abgenommenVon = document.getElementById("abgenommenVon").value;
-  const rechteVon = document.getElementById("rechteVon").value;
-  const rechteBeisein = document.getElementById("rechteBeisein").value;
-  const checkboxRechtsbeistand = document.getElementById("checkboxRechtsbeistand").checked;
-  const checkboxMedizin = document.getElementById("checkboxMedizin").checked;
+  const abgenommenVon = document.getElementById("abgenommenVon").value || "Unbekannt";
+  const rechteVon = document.getElementById("rechteVon").value || "PD-XX";
+  const rechteBeisein = document.getElementById("rechteBeisein").value || "PD-XX";
   const bussgeld = document.getElementById("bussgeld").value;
   const bemerkung = document.getElementById("bemerkung").value;
   const strafen = document.getElementById("strafen").value;
   const zeichner = document.getElementById("zeichner").value;
   const zeichnerInfo = document.getElementById("zeichnerInfo").value;
+
+  const rechtsbeistandChecked = document.getElementById("checkboxRechtsbeistand").checked;
+  const medizinChecked = document.getElementById("checkboxMedizin").checked;
 
   let bussgeldDatumText = "";
   if (bussgeld) {
@@ -65,29 +48,107 @@ function generateStrafakte() {
   }
 
   const bemerkungstext = `
-Die Rechte wurden dem Beschuldigten durch ${rechteVon || "PD-XX"} im Beisein von ${rechteBeisein || "PD-XX"} verlesen und verstanden.
-Dieser ${checkboxRechtsbeistand ? "bestand" : "verzichtete"} auf einen Rechtsbeistand.
-Der TV ${checkboxMedizin ? "bestand" : "verzichtete"} auf medizinische Versorgung.
+Die Rechte wurden dem Beschuldigten durch ${rechteVon} im Beisein von ${rechteBeisein} verlesen und verstanden.
+Dieser ${rechtsbeistandChecked ? "bestand" : "verzichtete"} auf einen Rechtsbeistand.
+Der TV ${medizinChecked ? "bestand" : "verzichtete"} auf medizinische Versorgung.
 ${bussgeld ? `Das Bußgeld ist bis zum ${bussgeldDatumText} [+7 Tage] zu bezahlen.` : ""}
 Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.
 ${bemerkung}
-  `.trim();
+`.trim();
 
   const output = `
-| Officer: ${officer}
-| Tatort: ${tatort}
-| Tatzeitraum: ${zeitraum}
-| Beschuldigte(r): ${beschuldigte}
-| Geschädigte(r): ${geschaedigte}
-| Sachverhalt: ${sachverhalt}
-| Beteiligte Einheiten/Zeugen: ${einheiten}
-| Abgenommene Gegenstände: ${gegenstaende}
-| Abgenommen von: ${abgenommenVon}
-| Strafen/Vergehen: ${strafen}
-| Bemerkungen:
+| - Strafakte - |
+
+Narco City Police Department
+${officer}
+
+| Tatort und Zeitraum: |
+${tatort}
+Am ${zeitraum}
+
+| Beschuldigte Person(en): |
+${beschuldigte}
+
+| Geschädigte Person(en): |
+${geschaedigte}
+
+| Sachverhalt aus Sicht des NCPDs: |
+${sachverhalt}
+
+| Weitere beteiligte Einheiten/Zeugen: | 
+${einheiten}
+
+| Abgenommene Gegenstände: |  Abgenommen von: ${abgenommenVon}
+${gegenstaende}
+
+| Bemerkungen: |
 ${bemerkungstext}
-| Gezeichnet: ${zeichner} (${zeichnerInfo})
-  `;
+
+| Gezeichnet von: |
+${zeichner}
+${zeichnerInfo}
+
+${strafen}
+  `.trim();
 
   document.getElementById("output").textContent = output;
+}
+
+function resetStrafakteForm() {
+  const ids = [
+    "officer", "tatort", "zeitraum", "beschuldigte", "geschaedigte",
+    "sachverhalt", "einheiten", "gegenstaende", "abgenommenVon",
+    "rechteVon", "rechteBeisein", "bussgeld", "bemerkung", "strafen",
+    "zeichner", "zeichnerInfo"
+  ];
+  ids.forEach(id => document.getElementById(id).value = "");
+  document.getElementById("checkboxRechtsbeistand").checked = false;
+  document.getElementById("checkboxMedizin").checked = false;
+  document.getElementById("output").textContent = "";
+}
+
+// SCHNELLAKTE (aus deiner ersten Nachricht)
+function generateSchnellakte() {
+  const officerName = document.getElementById("officerName").value;
+  const name = document.getElementById("name").value;
+  const geburtsdatum = document.getElementById("geburtsdatum").value;
+  const straftat = document.getElementById("straftat").value;
+  const strafe = document.getElementById("strafe").value;
+  const datum = document.getElementById("datum").value;
+  const unterschrift = document.getElementById("unterschrift").value;
+
+  const akte = `
+| - Schnellakte - |
+
+Narco City Police Department
+
+Name: ${name}
+Geburtsdatum: ${geburtsdatum}
+
+Straftat:
+${straftat}
+
+Strafe:
+${strafe}
+
+Datum: ${datum}
+Unterschrift: ${unterschrift}
+
+Bearbeitet durch:
+${officerName}
+`.trim();
+
+  document.getElementById("schnellakte-output").textContent = akte;
+}
+
+function resetSchnellakteForm() {
+  const fields = ["officerName", "name", "geburtsdatum", "straftat", "strafe", "datum", "unterschrift"];
+  fields.forEach(id => document.getElementById(id).value = "");
+  document.getElementById("schnellakte-output").textContent = "";
+}
+
+// Optional: KOLLEKTIVAKTE – vorbereiten, wenn du möchtest
+function generateKollektivakte() {
+  // Hier könntest du eine Funktion bauen, falls du eine brauchst.
+  document.getElementById("kollektivakte-output").textContent = "Noch nicht implementiert.";
 }
