@@ -8,17 +8,19 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white p-4">
-  <div class="max-w-7xl mx-auto">
-    <h1 class="text-3xl font-bold mb-4 text-center">NCPD II Akten Generator</h1>
+  <div class="max-w-7xl mx-auto relative">
+  <img src="bild.jpg" alt="Profilbild"
+     class="absolute top-4 right-4 w-16 h-16 rounded-full border-2 border-white shadow-lg" />
+     <h1 class="text-3xl font-bold mb-4 text-center">NCPD II Akten Generator</h1>
     
-    <!-- Tabs -->
-    <div class="flex space-x-4 mb-6 border-b border-gray-700">
+     <!-- Tabs -->
+     <div class="flex space-x-4 mb-6 border-b border-gray-700">
       <button id="strafakte-tab" class="px-4 py-2 border-b-2 border-blue-500 text-blue-500" onclick="switchTab('strafakte-tab')">Strafakte</button>
       <button id="schnellakte-tab" class="px-4 py-2" onclick="switchTab('schnellakte-tab')">Schnellakte</button>
       <button id="kollektivakte-tab" class="px-4 py-2" onclick="switchTab('kollektivakte-tab')">Kollektivakte</button>
-    </div>
+     </div>
 
-    <!-- Strafakte Tab -->
+     <!-- Strafakte Tab -->
     <div id="strafakte-content" class="grid grid-cols-2 gap-4">
       <textarea id="officer" placeholder="Name / Dienstnummer" class="bg-gray-800 p-2 rounded h-20"></textarea>
       <textarea id="tatort" placeholder="Tatort" class="bg-gray-800 p-2 rounded h-20"></textarea>
