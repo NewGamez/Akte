@@ -37,14 +37,14 @@
       <input id="abgenommenVon" placeholder="Abgenommen von (z. B. PD-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <input id="rechteVon" placeholder="Rechte verlesen von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <input id="rechteBeisein" placeholder="Rechte im Beisein von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      <select id="rechtsbeistand" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option value="verzichtet">verzichtete auf einen Rechtsbeistand</option>
-        <option value="bestand">bestand auf einen Rechtsbeistand</option>
-      </select>
-      <select id="medizin" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option value="verzichtete">verzichtete auf medizinische Unterstützung</option>
-        <option value="medizinische">Medizinische Unterstützung</option>
-      </select>
+     <div class="flex items-center gap-2">
+        <input type="checkbox" id="checkboxRechtsbeistand" class="accent-blue-600" />
+        <label for="checkboxRechtsbeistand">bestand auf einen Rechtsbeistand</label>
+      </div>
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="checkboxMedizin" class="accent-blue-600" />
+        <label for="checkboxMedizin">bestand auf medizinische Versorgung</label>
+      </div>
       <input id="bussgeld" type="date" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <textarea id="bemerkung" placeholder="Weitere Bemerkungen" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
       <textarea id="strafen" placeholder="Strafen/Vergehen" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
