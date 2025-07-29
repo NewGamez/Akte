@@ -15,94 +15,122 @@ function switchTab(tabId) {
   });
 }
 
-// STRAFAKTE
+function formatBussgeldDatum(dateStr) {
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  date.setDate(date.getDate() + 7);
+  return `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}.${date.getFullYear()}`;
+}
+
 function generateStrafakte() {
-  const officer = document.getElementById("officer").value;
-  const tatort = document.getElementById("tatort").value;
-  const zeitraum = document.getElementById("zeitraum").value;
-  const beschuldigte = document.getElementById("beschuldigte").value;
-  const geschaedigte = document.getElementById("geschaedigte").value;
-  const sachverhalt = document.getElementById("sachverhalt").value;
-  const einheiten = document.getElementById("einheiten").value;
-  const gegenstaende = document.getElementById("gegenstaende").value;
-  const abgenommenVon = document.getElementById("abgenommenVon").value || "Unbekannt";
-  const rechteVon = document.getElementById("rechteVon").value || "PD-XX";
-  const rechteBeisein = document.getElementById("rechteBeisein").value || "PD-XX";
-  const bussgeld = document.getElementById("bussgeld").value;
-  const bemerkung = document.getElementById("bemerkung").value;
-  const strafen = document.getElementById("strafen").value;
-  const zeichner = document.getElementById("zeichner").value;
-  const zeichnerInfo = document.getElementById("zeichnerInfo").value;
-
-  const rechtsbeistandChecked = document.getElementById("checkboxRechtsbeistand").checked;
-  const medizinChecked = document.getElementById("checkboxMedizin").checked;
-
-  let bussgeldDatumText = "";
-  if (bussgeld) {
-    const date = new Date(bussgeld);
-    date.setDate(date.getDate() + 7);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-    bussgeldDatumText = `${day}.${month}.${year}`;
-  }
-
-  const bemerkungstext = `
-Die Rechte wurden dem Beschuldigten durch ${rechteVon} im Beisein von ${rechteBeisein} verlesen und verstanden.
-Dieser ${rechtsbeistandChecked ? "bestand" : "verzichtete"} auf einen Rechtsbeistand.
-Der TV ${medizinChecked ? "bestand" : "verzichtete"} auf medizinische Versorgung.
-${bussgeld ? `Das Bußgeld ist bis zum ${bussgeldDatumText} [+7 Tage] zu bezahlen.` : ""}
-Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.
-${bemerkung}
-`.trim();
+  const get = id => document.getElementById(id).value;
+  const checked = id => document.getElementById(id).checked;
 
   const output = `
 | - Strafakte - |
 
 Narco City Police Department
-${officer}
+${get("officer")}
 
-| Tatort und Zeitraum: |
-${tatort}
-${zeitraum}
+Tatort: ${get("tatort")}
+Zeitraum: ${get("zeitraum")}
 
-| Beschuldigte Person(en): |
-${beschuldigte}
+Beschuldigte: ${get("beschuldigte")}
+Geschädigte: ${get("geschaedigte")}
 
-| Geschädigte Person(en): |
-${geschaedigte}
+Sachverhalt:
+${get("sachverhalt")}
 
-| Sachverhalt aus Sicht des NCPDs: |
-${sachverhalt}
+Einheiten/Zeugen: ${get("einheiten")}
 
-| Weitere beteiligte Einheiten/Zeugen: | 
-${einheiten}
+Gegenstände:
+${get("gegenstaende")}
+Abgenommen von: ${get("abgenommenVon")}
 
-| Abgenommene Gegenstände: |  Abgenommen von: ${abgenommenVon}
-${gegenstaende}
+Bemerkungen:
+Die Rechte wurden dem Beschuldigten durch ${get("rechteVon")} im Beisein von ${get("rechteBeisein")} verlesen und verstanden.
+Dieser ${checked("checkboxRechtsbeistand_s") ? "bestand" : "verzichtete"} auf einen Rechtsbeistand.
+Der TV ${checked("checkboxMedizin_s") ? "bestand" : "verzichtete"} auf medizinische Versorgung.
+${get("bussgeld") ? `Das Bußgeld ist bis zum ${formatBussgeldDatum(get("bussgeld"))} [+7 Tage] zu bezahlen.` : ""}
+${get("bemerkung")}
 
-| Bemerkungen: |
-${bemerkungstext}
+Gezeichnet von:
+${get("zeichner")} (${get("zeichnerInfo")})
 
-| Gezeichnet von: |
-${zeichner}
-${zeichnerInfo}
-
-${strafen}
-  `.trim();
+${get("strafen")}
+`.trim();
 
   document.getElementById("output").textContent = output;
 }
 
-function resetStrafakteForm() {
-  const ids = [
-    "officer", "tatort", "zeitraum", "beschuldigte", "geschaedigte",
-    "sachverhalt", "einheiten", "gegenstaende", "abgenommenVon",
-    "rechteVon", "rechteBeisein", "bussgeld", "bemerkung", "strafen",
-    "zeichner", "zeichnerInfo"
-  ];
-  ids.forEach(id => document.getElementById(id).value = "");
-  document.getElementById("checkboxRechtsbeistand").checked = false;
-  document.getElementById("checkboxMedizin").checked = false;
-  document.getElementById("output").textContent = "";
+function generateSchnellakte() {
+  const get = id => document.getElementById(id).value;
+  const checked = id => document.getElementById(id).checked;
+
+  const output = `
+| - Schnellakte - |
+
+Narco City Police Department
+${get("s_officer")}
+
+Tatort: ${get("s_tatort")}
+Tatzeit: ${get("s_zeitraum")}
+
+Beschuldigte: ${get("s_beschuldigte")}
+Geschädigte: ${get("s_geschaedigte")}
+
+Einheiten/Zeugen: ${get("s_einheiten")}
+
+Gegenstände:
+${get("s_gegenstaende")}
+Abgenommen von: ${get("s_abgenommenVon")}
+
+Bemerkungen:
+Die Rechte wurden dem Beschuldigten durch ${get("s_rechteVon")} im Beisein von ${get("s_rechteBeisein")} verlesen und verstanden.
+Dieser ${checked("checkboxRechtsbeistand_sn") ? "bestand" : "verzichtete"} auf einen Rechtsbeistand.
+Der TV ${checked("checkboxMedizin_sn") ? "bestand" : "verzichtete"} auf medizinische Versorgung.
+${get("s_bussgeld") ? `Das Bußgeld ist bis zum ${formatBussgeldDatum(get("s_bussgeld"))} [+7 Tage] zu bezahlen.` : ""}
+${get("s_bemerkung")}
+
+Gezeichnet von:
+${get("s_gezeichnet")} (${get("s_gezeichnetOfficer")})
+`.trim();
+
+  document.getElementById("output-schnellakte").textContent = output;
+}
+
+function generateKollektivakte() {
+  const get = id => document.getElementById(id).value;
+  const checked = id => document.getElementById(id).checked;
+
+  const output = `
+| - Kollektivakte - |
+
+Narco City Police Department
+${get("k_officer")}
+
+Genehmigt von: ${get("k_genehmigtVon")} um ${get("k_uhrzeit")}
+Tatort: ${get("k_tatort")}
+Tatzeitraum: ${get("k_zeitraum")}
+
+Beschuldigte: ${get("k_beschuldigte")}
+Geschädigte: ${get("k_geschaedigte")}
+
+Sachverhalt:
+${get("k_sachverhalt")}
+
+Einheiten/Zeugen: ${get("k_einheiten")}
+
+Gegenstände:
+${get("k_gegenstaende")}
+Abgenommen von: ${get("k_abgenommenVon")}
+
+Bemerkungen:
+Die Rechte wurden dem Beschuldigten durch ${get("k_rechteVon")} im Beisein von ${get("k_rechteBeisein")} verlesen und verstanden.
+Dieser ${checked("checkboxRechtsbeistand_k") ? "bestand" : "verzichtete"} auf einen Rechtsbeistand.
+Der TV ${checked("checkboxMedizin_k") ? "bestand" : "verzichtete"} auf medizinische Versorgung.
+${get("k_bussgeld") ? `Das Bußgeld ist bis zum ${formatBussgeldDatum(get("k_bussgeld"))} [+7 Tage] zu bezahlen.` : ""}
+`.trim();
+
+  document.getElementById("output-kollektivakte").textContent = output;
 }
