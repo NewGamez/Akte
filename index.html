@@ -20,69 +20,69 @@
 
     <!-- Strafakte Tab -->
     <div id="strafakte-content" class="grid grid-cols-2 gap-4">
-      <textarea id="officer" placeholder="Name / Dienstnummer" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="tatort" placeholder="Tatort" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="zeitraum" placeholder="Tatzeit" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="beschuldigte" placeholder="Beschuldigte Person(en)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="geschaedigte" placeholder="Geschädigte Person(en)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="sachverhalt" placeholder="Sachverhalt" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="einheiten" placeholder="Weitere Einheiten / Zeugen" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="gegenstaende" placeholder="Abgenommene Gegenstände" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="abgenommenVon" placeholder="Abgenommen von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="rechteVon" placeholder="Rechte verlesen von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="rechteBeisein" placeholder="Im Beisein von" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="officer" placeholder="|Name / Dienstnummer: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="tatort" placeholder="|Tatort: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="zeitraum" placeholder="|Tatzeit: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="beschuldigte" placeholder="|Beschuldigte Person(en): |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="geschaedigte" placeholder="|Geschädigte Person(en): |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="sachverhalt" placeholder="|Sachverhalt: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="einheiten" placeholder="|Weitere Einheiten / Zeugen: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="gegenstaende" placeholder="|Abgenommene Gegenstände: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="abgenommenVon" placeholder="|Abgenommen von: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="rechteVon" placeholder="|Rechte verlesen von: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="rechteBeisein" placeholder="|Im Beisein von: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
       <div class="flex flex-col gap-2">
         <label><input type="checkbox" id="checkboxRechtsbeistand_s" class="mr-2" /> Rechtsbeistand</label>
         <label><input type="checkbox" id="checkboxMedizin_s" class="mr-2" /> Medizinische Versorgung</label>
       </div>
       <input type="date" id="bussgeld" class="bg-gray-800 p-2 rounded" />
-      <textarea id="bemerkung" placeholder="Weitere Bemerkungen" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="strafen" placeholder="Strafen" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="zeichner" placeholder="Gezeichnet von (Name)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="zeichnerInfo" placeholder="Dienstnummer / Einheit" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="bemerkung" placeholder="|Weitere Bemerkungen: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="strafen" placeholder="|Strafen: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="zeichner" placeholder="|Gezeichnet von (Name): |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="zeichnerInfo" placeholder="|Dienstnummer / Einheit: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
       <button onclick="generateStrafakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Strafakte generieren</button>
       <textarea id="output" class="col-span-2 h-64 bg-gray-800 p-2 rounded" readonly></textarea>
     </div>
 
     <!-- Schnellakte Tab -->
     <div id="schnellakte-content" class="hidden grid grid-cols-2 gap-4">
-      <textarea id="s_officer" placeholder="Name / Dienstnummer" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_tatort" placeholder="Tatort" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_zeitraum" placeholder="Tatzeit" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_beschuldigte" placeholder="Beschuldigte Person(en)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_geschaedigte" placeholder="Geschädigte Person(en)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_einheiten" placeholder="Einheiten / Zeugen" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_gegenstaende" placeholder="Gegenstände" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_abgenommenVon" placeholder="Abgenommen von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_rechteVon" placeholder="Rechte verlesen von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_rechteBeisein" placeholder="Im Beisein von" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_officer" placeholder="|Name / Dienstnummer: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_tatort" placeholder="|Tatort: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_zeitraum" placeholder="|Tatzeit: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_beschuldigte" placeholder="|Beschuldigte Person(en: |)" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_geschaedigte" placeholder="|Geschädigte Person(en): |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_einheiten" placeholder="|Einheiten / Zeugen: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_gegenstaende" placeholder="|Gegenstände: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_abgenommenVon" placeholder="|Abgenommen von: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_rechteVon" placeholder="|Rechte verlesen von: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_rechteBeisein" placeholder="|Im Beisein von: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
       <div class="flex flex-col gap-2">
         <label><input type="checkbox" id="checkboxRechtsbeistand_sn" class="mr-2" /> Rechtsbeistand</label>
         <label><input type="checkbox" id="checkboxMedizin_sn" class="mr-2" /> Medizinische Versorgung</label>
       </div>
       <input type="date" id="s_bussgeld" class="bg-gray-800 p-2 rounded" />
-      <textarea id="s_bemerkung" placeholder="Weitere Bemerkungen" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_gezeichnet" placeholder="Gezeichnet von (Name)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_gezeichnetOfficer" placeholder="Dienstnummer / Einheit" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_bemerkung" placeholder="|Weitere Bemerkungen: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_gezeichnet" placeholder="|Gezeichnet von (Name): |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="s_gezeichnetOfficer" placeholder="|Dienstnummer / Einheit: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
       <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Schnellakte generieren</button>
       <textarea id="output-schnellakte" class="col-span-2 h-64 bg-gray-800 p-2 rounded" readonly></textarea>
     </div>
 
     <!-- Kollektivakte Tab -->
     <div id="kollektivakte-content" class="hidden grid grid-cols-2 gap-4">
-      <textarea id="k_officer" placeholder="Name / Dienstnummer" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_genehmigtVon" placeholder="Genehmigt von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_uhrzeit" placeholder="Uhrzeit Genehmigung" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_tatort" placeholder="Tatort" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_zeitraum" placeholder="Tatzeitraum" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_beschuldigte" placeholder="Beschuldigte Person(en)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_geschaedigte" placeholder="Geschädigte Person(en)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_sachverhalt" placeholder="Sachverhalt" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_einheiten" placeholder="Einheiten / Zeugen" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_gegenstaende" placeholder="Gegenstände" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_abgenommenVon" placeholder="Abgenommen von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_rechteVon" placeholder="Rechte verlesen von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_rechteBeisein" placeholder="Im Beisein von" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_officer" placeholder="|Name / Dienstnummer: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_genehmigtVon" placeholder="|Genehmigt von: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_uhrzeit" placeholder="|Uhrzeit Genehmigung: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_tatort" placeholder="|Tatort: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_zeitraum" placeholder="|Tatzeitraum: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_beschuldigte" placeholder="|Beschuldigte Person(en): |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_geschaedigte" placeholder="|Geschädigte Person(en): |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_sachverhalt" placeholder="|Sachverhalt: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_einheiten" placeholder="|Einheiten / Zeugen: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_gegenstaende" placeholder="|Gegenstände: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_abgenommenVon" placeholder="|Abgenommen von: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_rechteVon" placeholder="|Rechte verlesen von: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
+      <textarea id="k_rechteBeisein" placeholder="|Im Beisein von: |" class="bg-gray-800 p-2 rounded h-20"></textarea>
       <div class="flex flex-col gap-2">
         <label><input type="checkbox" id="checkboxRechtsbeistand_k" class="mr-2" /> Rechtsbeistand</label>
         <label><input type="checkbox" id="checkboxMedizin_k" class="mr-2" /> Medizinische Versorgung</label>
