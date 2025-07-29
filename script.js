@@ -64,7 +64,7 @@ ${officer}
 
 | Tatort und Zeitraum: |
 ${tatort}
-Am ${zeitraum}
+${zeitraum}
 
 | Beschuldigte Person(en): |
 ${beschuldigte}
