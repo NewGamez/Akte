@@ -74,14 +74,14 @@
       <input id="s_gezeichnetOfficer" placeholder="Dienstnummer & Rang" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <input id="s_rechteVon" placeholder="Rechte verlesen von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <input id="s_rechteBeisein" placeholder="Im Beisein von" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      <select id="s_rechtsbeistand" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option value="bestand">verzichtete auf einen Rechtsbeistand</option>
-        <option value="verzichtete">bestand auf einen Rechtsbeistand</option>
-      </select>
-      <select id="s_medizin" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option value="verzichtete">verzichtete auf medizinische Unterstützung</option>
-        <option value="medizinische">Medizinische Unterstützung</option>
-      </select>
+         <div class="flex items-center gap-2">
+        <input type="checkbox" id="checkboxRechtsbeistand" class="accent-blue-600" />
+        <label for="checkboxRechtsbeistand">bestand auf einen Rechtsbeistand</label>
+      </div>
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="checkboxMedizin" class="accent-blue-600" />
+        <label for="checkboxMedizin">bestand auf medizinische Versorgung</label>
+      </div>
       <input id="s_bussgeld" type="date" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
     <div class="flex gap-4">
@@ -107,14 +107,14 @@
       <textarea id="k_gegenstaende" placeholder="Gegenstände (z. B. 1x Smartphone)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
       <input id="k_rechteVon" placeholder="Rechte verlesen von (z. B. PD-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <input id="k_rechteBeisein" placeholder="Rechte im Beisein von (z. B. PD-XX)" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      <select id="k_rechtsbeistand" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option value="verzichtete">verzichtete auf einen Rechtsbeistand</option>
-        <option value="bestand">bestand auf einen Rechtsbeistand</option>
-      </select>
-      <select id="k_medizin" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option value="bestand">bestand auf medizinische Unterstützung</option>
-        <option value="medizinische">Medizinische Unterstützung</option>
-      </select>
+     <div class="flex items-center gap-2">
+        <input type="checkbox" id="checkboxRechtsbeistand" class="accent-blue-600" />
+        <label for="checkboxRechtsbeistand">bestand auf einen Rechtsbeistand</label>
+      </div>
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="checkboxMedizin" class="accent-blue-600" />
+        <label for="checkboxMedizin">bestand auf medizinische Versorgung</label>
+      </div>
       <input id="k_bussgeld" type="date" class="bg-gray-800 text-white placeholder-gray-400 p-2 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
     <div class="flex gap-4">
