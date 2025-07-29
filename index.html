@@ -37,8 +37,6 @@
       <input id="abgenommenVon" placeholder="Abgenommen von (z. B. PD-XX)" class="input-field" />
       <input id="rechteVon" placeholder="Rechte verlesen von" class="input-field" />
       <input id="rechteBeisein" placeholder="Rechte im Beisein von" class="input-field" />
-
-      <!-- Neue Checkboxen -->
       <div class="flex items-center gap-2">
         <input type="checkbox" id="checkboxRechtsbeistand" class="accent-blue-600" />
         <label for="checkboxRechtsbeistand">bestand auf einen Rechtsbeistand</label>
@@ -47,7 +45,6 @@
         <input type="checkbox" id="checkboxMedizin" class="accent-blue-600" />
         <label for="checkboxMedizin">bestand auf medizinische Versorgung</label>
       </div>
-
       <input id="bussgeld" type="date" class="input-field" />
       <textarea id="bemerkung" placeholder="Weitere Bemerkungen" class="textarea-field"></textarea>
       <textarea id="strafen" placeholder="Strafen/Vergehen" class="textarea-field"></textarea>
@@ -61,7 +58,17 @@
     <pre id="output" class="mt-4 bg-gray-950 text-gray-200 p-4 whitespace-pre-wrap rounded border border-blue-600"></pre>
   </div>
 
-  <!-- Hier folgen "Schnellakte" & "Kollektivakte" unverändert -->
+  <!-- SCHNELLAKTE -->
+  <div id="schnellakte-content" class="hidden space-y-4">
+    <textarea id="schnellakteText" placeholder="Schnellakte einfügen..." class="textarea-field w-full"></textarea>
+    <button onclick="copyToClipboard('schnellakteText')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Kopieren</button>
+  </div>
+
+  <!-- KOLLEKTIVAKTE -->
+  <div id="kollektivakte-content" class="hidden space-y-4">
+    <textarea id="kollektivakteText" placeholder="Kollektivakte einfügen..." class="textarea-field w-full"></textarea>
+    <button onclick="copyToClipboard('kollektivakteText')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Kopieren</button>
+  </div>
 
   <style>
     .input-field {
