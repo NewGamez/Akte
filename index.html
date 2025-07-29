@@ -13,10 +13,6 @@
      class="absolute top-4 right-4 w-16 h-16 rounded-full shadow-lg" />
      <h1 class="text-3xl font-bold mb-4 text-center">NCPD II Akten Generator</h1>
 
-    <div class="text-center text-gray-400 mb-6">
-      Diese Seite wurde <span id="visitor-count">0</span> mal besucht.
-    </div>
-    
      <!-- Tabs -->
      <div class="flex space-x-4 mb-6 border-b border-gray-700">
       <button id="strafakte-tab" class="px-4 py-2 border-b-2 border-blue-500 text-blue-500" onclick="switchTab('strafakte-tab')">Strafakte</button>
@@ -110,16 +106,5 @@
       <p>Insta - _benjamin_neu</p>
     </div>
   </footer>
-  <script>
-  const namespace = 'newgamez-aktesite';
-  const key = 'pageviews';
-
-  fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById('visitor-count').textContent = data.value;
-    })
-    .catch(err => console.error('CountAPI Fehler:', err));
-</script>
 </body>
 </html>
