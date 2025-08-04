@@ -134,3 +134,26 @@ ${get("k_bussgeld") ? `Das Bußgeld ist bis zum ${formatBussgeldDatum(get("k_bus
 
   document.getElementById("output-kollektivakte").textContent = output;
 }
+
+function resetForm(containerId) {
+  const container = document.getElementById(containerId);
+  const inputs = container.querySelectorAll("textarea, input");
+
+  inputs.forEach(input => {
+    if (input.type === "checkbox") {
+      input.checked = false;
+    } else if (input.type === "date") {
+      input.value = "";
+    } else {
+      input.value = "";
+    }
+  });
+
+  if (containerId === "strafakte-content") {
+    document.getElementById("output").textContent = "";
+  } else if (containerId === "schnellakte-content") {
+    document.getElementById("output-schnellakte").textContent = "";
+  } else if (containerId === "kollektivakte-content") {
+    document.getElementById("output-kollektivakte").textContent = "";
+  }
+}
