@@ -43,6 +43,7 @@
       <textarea id="zeichner" placeholder="Gezeichnet von (Name)" class="bg-gray-800 p-2 rounded h-20"></textarea>
       <textarea id="zeichnerInfo" placeholder="Dienstnummer / Einheit" class="bg-gray-800 p-2 rounded h-20"></textarea>
       <button onclick="generateStrafakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Strafakte generieren</button>
+      <button onclick="resetForm('strafakte-content')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Zurücksetzen</button>
       <textarea id="output" class="col-span-2 h-64 bg-gray-800 p-2 rounded" readonly></textarea>
     </div>
 
@@ -67,6 +68,7 @@
       <textarea id="s_gezeichnet" placeholder="Gezeichnet von (Name)" class="bg-gray-800 p-2 rounded h-20"></textarea>
       <textarea id="s_gezeichnetOfficer" placeholder="Dienstnummer / Einheit" class="bg-gray-800 p-2 rounded h-20"></textarea>
       <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Schnellakte generieren</button>
+      <button onclick="resetForm('strafakte-content')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Zurücksetzen</button>
       <textarea id="output-schnellakte" class="col-span-2 h-64 bg-gray-800 p-2 rounded" readonly></textarea>
     </div>
 
@@ -91,6 +93,7 @@
       </div>
       <input type="date" id="k_bussgeld" class="bg-gray-800 p-2 rounded" />
       <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Kollektivakte generieren</button>
+      <button onclick="resetForm('strafakte-content')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Zurücksetzen</button>
       <textarea id="output-kollektivakte" class="col-span-2 h-64 bg-gray-800 p-2 rounded" readonly></textarea>
     </div>
   </div>
