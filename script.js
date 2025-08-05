@@ -16,10 +16,9 @@ function switchTab(tabId) {
 }
 
 function formatBussgeldDatum(dateStr) {
-  if (!dateStr) return "";
+  if (!dateStr) return '';
   const date = new Date(dateStr);
-  date.setDate(date.getDate() + 7);
-  return `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}.${date.getFullYear()}`;
+  return date.toLocaleDateString('de-DE');  // Gibt z.B. "05.08.2025" zurück
 }
 
 function generateStrafakte() {
@@ -133,9 +132,4 @@ ${get("k_bussgeld") ? `Das Bußgeld ist bis zum ${formatBussgeldDatum(get("k_bus
 `.trim();
 
   document.getElementById("output-kollektivakte").textContent = output;
-
-function formatBussgeldDatum(dateStr) {
-  if (!dateStr) return '';
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('de-DE');  // Gibt z.B. "05.08.2025" zurück
 }
