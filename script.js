@@ -133,4 +133,9 @@ ${get("k_bussgeld") ? `Das Bußgeld ist bis zum ${formatBussgeldDatum(get("k_bus
 `.trim();
 
   document.getElementById("output-kollektivakte").textContent = output;
+
+function formatBussgeldDatum(dateStr) {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('de-DE');  // Gibt z.B. "05.08.2025" zurück
 }
