@@ -1,124 +1,136 @@
 function switchTab(tabId) {
-  const tabs = ['strafakte', 'schnellakte', 'kollektivakte'];
-  tabs.forEach(tab => {
-    const content = document.getElementById(`${tab}-content`);
-    const button = document.getElementById(`${tab}-tab`);
-    if (tabId === `${tab}-tab`) {
-      content.classList.remove('hidden');
-      button.classList.add('border-b-2', 'border-blue-500', 'text-blue-500');
+  const tabs = ["strafakte-tab", "schnellakte-tab", "kollektivakte-tab"];
+  const contents = ["strafakte-content", "schnellakte-content", "kollektivakte-content"];
+
+  tabs.forEach((id, index) => {
+    const tab = document.getElementById(id);
+    const content = document.getElementById(contents[index]);
+    if (id === tabId) {
+      tab.classList.add("border-blue-500", "text-blue-500");
+      content.classList.remove("hidden");
     } else {
-      content.classList.add('hidden');
-      button.classList.remove('border-b-2', 'border-blue-500', 'text-blue-500');
+      tab.classList.remove("border-blue-500", "text-blue-500");
+      content.classList.add("hidden");
     }
   });
 }
 
-function resetForm(formId) {
-  const container = document.getElementById(formId);
-  if (!container) return;
-
-  container.querySelectorAll('textarea, input[type="date"]').forEach(el => el.value = '');
-  container.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
-  container.querySelectorAll('textarea[readonly]').forEach(el => el.value = '');
+function formatBussgeldDatum(dateStr) {
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  date.setDate(date.getDate() + 7);
+  return `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}.${date.getFullYear()}`;
 }
 
-// Strafakte generieren
 function generateStrafakte() {
-  const rechtsbeistand = document.getElementById('checkboxRechtsbeistand_s').checked ? '✓' : '✗';
-  const medizinisch = document.getElementById('checkboxMedizin_s').checked ? '✓' : '✗';
+  const get = id => document.getElementById(id).value;
+  const checked = id => document.getElementById(id).checked;
+
   const output = `
+| - Strafakte - |
 
-Strafakte - N.C.P.D. || Dienststelle II
+Narco City Police Department
+${get("officer")}
 
-Name / Dienstnummer: ${getValue('officer')}
-Tatort: ${getValue('tatort')}
-Tatzeit: ${getValue('zeitraum')}
-Beschuldigte Person(en): ${getValue('beschuldigte')}
-Geschädigte Person(en): ${getValue('geschaedigte')}
-Sachverhalt:
-${getValue('sachverhalt')}
-Weitere Einheiten / Zeugen: ${getValue('einheiten')}
-Abgenommene Gegenstände: ${getValue('gegenstaende')}
-Abgenommen von: ${getValue('abgenommenVon')}
-Rechte verlesen von: ${getValue('rechteVon')} im Beisein von: ${getValue('rechteBeisein')}
+| Tatort: | ${get("tatort")}
+| Zeitraum: | ${get("zeitraum")}
 
-Rechte:
-- Recht zu Schweigen: ${rechtsbeistand}
-- Medizinische Versorgung: ${medizinisch}
-- Recht auf Rechtsbeistand: ${rechtsbeistand}
+| Beschuldigte: | ${get("beschuldigte")}
+| Geschädigte: | ${get("geschaedigte")}
 
-Datum: ${getValue('bussgeld')}
-Weitere Bemerkungen: ${getValue('bemerkung')}
-Strafen: ${getValue('strafen')}
+| Sachverhalt: |
+${get("sachverhalt")}
 
-Gezeichnet: ${getValue('zeichner')} - ${getValue('zeichnerInfo')}
-  `;
-  document.getElementById('output').value = output;
+| Einheiten/Zeugen: | ${get("einheiten")}
+
+| Gegenstände: |
+${get("gegenstaende")}
+|Abgenommen von: | ${get("abgenommenVon")}
+
+| Bemerkungen: |
+Die Rechte wurden dem Beschuldigten durch ${get("rechteVon")} im Beisein von ${get("rechteBeisein")} verlesen und verstanden.
+Dieser ${checked("checkboxRechtsbeistand_s") ? "bestand" : "verzichtete"} auf einen Rechtsbeistand.
+Der TV ${checked("checkboxMedizin_s") ? "bestand" : "verzichtete"} auf medizinische Versorgung.
+${get("bussgeld") ? `Das Bußgeld ist bis zum ${formatBussgeldDatum(get("bussgeld"))} [+7 Tage] zu bezahlen.` : ""}
+${get("bemerkung")}
+
+| Gezeichnet von: |
+${get("zeichner")} (${get("zeichnerInfo")})
+
+${get("strafen")}
+`.trim();
+
+  document.getElementById("output").textContent = output;
 }
 
-// Schnellakte generieren
 function generateSchnellakte() {
-  const rechtsbeistand = document.getElementById('checkboxRechtsbeistand_sn').checked ? '✓' : '✗';
-  const medizinisch = document.getElementById('checkboxMedizin_sn').checked ? '✓' : '✗';
+  const get = id => document.getElementById(id).value;
+  const checked = id => document.getElementById(id).checked;
+
   const output = `
+| - Schnellakte - |
 
-Schnellakte - N.C.P.D. || Dienststelle II
+Narco City Police Department
+${get("s_officer")}
 
-Name / Dienstnummer: ${getValue('s_officer')}
-Tatort: ${getValue('s_tatort')}
-Tatzeit: ${getValue('s_zeitraum')}
-Beschuldigte Person(en): ${getValue('s_beschuldigte')}
-Geschädigte Person(en): ${getValue('s_geschaedigte')}
-Einheiten / Zeugen: ${getValue('s_einheiten')}
-Abgenommene Gegenstände: ${getValue('s_gegenstaende')}
-Abgenommen von: ${getValue('s_abgenommenVon')}
-Rechte verlesen von: ${getValue('s_rechteVon')} im Beisein von: ${getValue('s_rechteBeisein')}
+| Tatort: | ${get("s_tatort")}
+| Tatzeit: | ${get("s_zeitraum")}
 
-Rechte:
-- Recht zu Schweigen: ${rechtsbeistand}
-- Medizinische Versorgung: ${medizinisch}
-- Recht auf Rechtsbeistand: ${rechtsbeistand}
+| Beschuldigte: | ${get("s_beschuldigte")}
+| Geschädigte: | ${get("s_geschaedigte")}
 
-Datum: ${getValue('s_bussgeld')}
-Weitere Bemerkungen: ${getValue('s_bemerkung')}
+| Einheiten/Zeugen: | ${get("s_einheiten")}
 
-Gezeichnet: ${getValue('s_gezeichnet')} - ${getValue('s_gezeichnetOfficer')}
-  `;
-  document.getElementById('output-schnellakte').value = output;
+| Gegenstände: |
+${get("s_gegenstaende")}
+|Abgenommen von: ${get("s_abgenommenVon")}
+
+| Bemerkungen: |
+Die Rechte wurden dem Beschuldigten durch ${get("s_rechteVon")} im Beisein von ${get("s_rechteBeisein")} verlesen und verstanden.
+Dieser ${checked("checkboxRechtsbeistand_sn") ? "bestand" : "verzichtete"} auf einen Rechtsbeistand.
+Der TV ${checked("checkboxMedizin_sn") ? "bestand" : "verzichtete"} auf medizinische Versorgung.
+${get("s_bussgeld") ? `Das Bußgeld ist bis zum ${formatBussgeldDatum(get("s_bussgeld"))} [+7 Tage] zu bezahlen.` : ""}
+${get("s_bemerkung")}
+
+| Gezeichnet von: |
+${get("s_gezeichnet")} (${get("s_gezeichnetOfficer")})
+`.trim();
+
+  document.getElementById("output-schnellakte").textContent = output;
 }
 
-// Kollektivakte generieren
 function generateKollektivakte() {
-  const rechtsbeistand = document.getElementById('checkboxRechtsbeistand_k').checked ? '✓' : '✗';
-  const medizinisch = document.getElementById('checkboxMedizin_k').checked ? '✓' : '✗';
+  const get = id => document.getElementById(id).value;
+  const checked = id => document.getElementById(id).checked;
+
   const output = `
+| - Kollektivakte - |
 
-Kollektivakte - N.C.P.D. || Dienststelle II
+Narco City Police Department
+${get("k_officer")}
 
-Name / Dienstnummer: ${getValue('k_officer')}
-Genehmigt von: ${getValue('k_genehmigtVon')} um ${getValue('k_uhrzeit')}
-Tatort: ${getValue('k_tatort')}
-Tatzeitraum: ${getValue('k_zeitraum')}
-Beschuldigte Person(en): ${getValue('k_beschuldigte')}
-Geschädigte Person(en): ${getValue('k_geschaedigte')}
-Sachverhalt:
-${getValue('k_sachverhalt')}
-Einheiten / Zeugen: ${getValue('k_einheiten')}
-Abgenommene Gegenstände: ${getValue('k_gegenstaende')}
-Abgenommen von: ${getValue('k_abgenommenVon')}
-Rechte verlesen von: ${getValue('k_rechteVon')} im Beisein von: ${getValue('k_rechteBeisein')}
+| Genehmigt von: | ${get("k_genehmigtVon")} um ${get("k_uhrzeit")}
+| Tatort: | ${get("k_tatort")}
+| Tatzeitraum: | ${get("k_zeitraum")}
 
-Rechte:
-- Recht zu Schweigen: ${rechtsbeistand}
-- Medizinische Versorgung: ${medizinisch}
-- Recht auf Rechtsbeistand: ${rechtsbeistand}
+| Beschuldigte: | ${get("k_beschuldigte")}
+| Geschädigte: | ${get("k_geschaedigte")}
 
-Datum: ${getValue('k_bussgeld')}
-  `;
-  document.getElementById('output-kollektivakte').value = output;
-}
+| Sachverhalt:
+${get("k_sachverhalt")}
 
-function getValue(id) {
-  const el = document.getElementById(id);
-  return el ? el.value.trim() : '';
+| Einheiten/Zeugen: ${get("k_einheiten")}
+
+| Gegenstände: |
+${get("k_gegenstaende")}
+| Abgenommen von: | ${get("k_abgenommenVon")}
+
+| Bemerkungen: |
+Die Rechte wurden dem Beschuldigten durch ${get("k_rechteVon")} im Beisein von ${get("k_rechteBeisein")} verlesen und verstanden.
+Dieser ${checked("checkboxRechtsbeistand_k") ? "bestand" : "verzichtete"} auf einen Rechtsbeistand.
+Der TV ${checked("checkboxMedizin_k") ? "bestand" : "verzichtete"} auf medizinische Versorgung.
+${get("k_bussgeld") ? `Das Bußgeld ist bis zum ${formatBussgeldDatum(get("k_bussgeld"))} [+7 Tage] zu bezahlen.` : ""}
+`.trim();
+
+  document.getElementById("output-kollektivakte").textContent = output;
 }
