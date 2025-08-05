@@ -68,7 +68,7 @@
       <textarea id="s_gezeichnet" placeholder="Gezeichnet von (Name)" class="bg-gray-800 p-2 rounded h-20"></textarea>
       <textarea id="s_gezeichnetOfficer" placeholder="Dienstnummer / Einheit" class="bg-gray-800 p-2 rounded h-20"></textarea>
       <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Schnellakte generieren</button>
-      <button onclick="resetForm('strafakte-content')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Zurücksetzen</button>
+      <button onclick="resetForm('schnellakte-content')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Zurücksetzen</button>
       <textarea id="output-schnellakte" class="col-span-2 h-64 bg-gray-800 p-2 rounded" readonly></textarea>
     </div>
 
@@ -93,12 +93,12 @@
       </div>
       <input type="date" id="k_bussgeld" class="bg-gray-800 p-2 rounded" />
       <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Kollektivakte generieren</button>
-      <button onclick="resetForm('strafakte-content')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Zurücksetzen</button>
+      <button onclick="resetForm('kollektivakte-content')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Zurücksetzen</button>
       <textarea id="output-kollektivakte" class="col-span-2 h-64 bg-gray-800 p-2 rounded" readonly></textarea>
     </div>
   </div>
 
-   <!-- Footer -->
+  <!-- Footer -->
   <footer class="mt-8 text-sm text-gray-400 border-t border-gray-700 pt-4 text-center">
     <div class="flex flex-col sm:flex-row justify-between items-center max-w-4xl mx-auto px-4">
       <p>Bei Verbesserungsvorschlägen/Problemen</p>
