@@ -136,6 +136,9 @@ ${beschuldigte}
 | Geschädigte Person(en): |
 ${geschaedigte}
 
+| Sachverhalt: |
+${get("k_sachverhalt")}
+
 Die Identität wurde mittels ${identitaet} festgestellt.
 
 | Weitere beteiligte Einheiten/Zeugen: |
