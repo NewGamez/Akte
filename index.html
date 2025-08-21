@@ -203,5 +203,31 @@
   </div>
 
 </div>
+   <!-- Buttons -->
+  <button id="resetBtn" onclick="resetAkte()">Zurücksetzen</button>
+  <button id="copyBtn" onclick="copyAkte()">Kopieren</button>
+
+  <script>
+    function resetAkte() {
+      // Alle Eingabefelder zurücksetzen
+      const inputs = document.querySelectorAll('input, textarea');
+      inputs.forEach(input => input.value = '');
+    }
+
+    function copyAkte() {
+      // Gesamten Text der Seite kopieren (ohne Bilder)
+      const container = document.querySelector('body');
+      const tempElement = document.createElement('textarea');
+      tempElement.value = container.innerText;
+      document.body.appendChild(tempElement);
+      tempElement.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempElement);
+      alert('Inhalt kopiert!');
+    }
+  </script>
+
+</body>
+</html>
 </body>
 </html>
