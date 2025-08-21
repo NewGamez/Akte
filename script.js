@@ -15,7 +15,7 @@ function switchTab(tabId) {
   document.getElementById(tabId).classList.remove('hidden');
 }
 
-// Hilfsfunktion Datum formatieren
+// Datum formatieren
 function formatDatum(dateStr) {
   if (!dateStr) return '';
   const d = new Date(dateStr);
@@ -80,8 +80,8 @@ function generateSchnellakte() {
   const beschuldigte = document.getElementById('sn_beschuldigte').value;
   const geschaedigte = document.getElementById('sn_geschaedigte').value;
   const identitaet = document.getElementById('sn_identitaet').value;
-  const gegenstaende = document.getElementById('st_gegenstaende').value;
-  const abgenommenVon = document.getElementById('st_abgenommenVon').value;
+  const gegenstaende = document.getElementById('sn_gegenstaende').value;
+  const abgenommenVon = document.getElementById('sn_abgenommenVon').value;
   const weitere = document.getElementById('sn_weitereEinheiten').value;
   const eil = document.getElementById('sn_eilverfahren').value;
   const bussgeld = document.getElementById('sn_bussgeld').value;
@@ -126,9 +126,9 @@ function generateKollektivakte() {
   const tatort = document.getElementById('k_tatortTatzeit').value;
   const beschuldigte = document.getElementById('k_beschuldigte').value;
   const geschaedigte = document.getElementById('k_geschaedigte').value;
-  const sachverhalt = document.getElementById('k_sachverhalt').value; // korrigiert
-  const gegenstaende = document.getElementById('st_gegenstaende').value;
-  const abgenommenVon = document.getElementById('st_abgenommenVon').value;
+  const sachverhalt = document.getElementById('k_sachverhalt').value;
+  const gegenstaende = document.getElementById('k_gegenstaende').value;
+  const abgenommenVon = document.getElementById('k_abgenommenVon').value;
   const identitaet = document.getElementById('k_identitaet').value;
   const weitere = document.getElementById('k_weitereEinheiten').value;
   const bestaetigtVon = document.getElementById('k_bestaetigtVon').value;
@@ -149,7 +149,7 @@ ${beschuldigte}
 | Geschädigte Person(en): |
 ${geschaedigte}
 
-| Sachverhalt: |
+| Sachverhalt aus Sicht des NCPDs: |
 ${sachverhalt}
 
 Die Identität wurde mittels ${identitaet} festgestellt.
