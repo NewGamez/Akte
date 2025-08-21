@@ -116,6 +116,7 @@ function generateKollektivakte() {
   const tatort = document.getElementById('k_tatortTatzeit').value;
   const beschuldigte = document.getElementById('k_beschuldigte').value;
   const geschaedigte = document.getElementById('k_geschaedigte').value;
+  const sachverhalt = document.getElementById('k_sachverhalt').value; // korrigiert
   const identitaet = document.getElementById('k_identitaet').value;
   const weitere = document.getElementById('k_weitereEinheiten').value;
   const bestaetigtVon = document.getElementById('k_bestaetigtVon').value;
@@ -137,7 +138,7 @@ ${beschuldigte}
 ${geschaedigte}
 
 | Sachverhalt: |
-${get("k_sachverhalt")}
+${sachverhalt}
 
 Die Identität wurde mittels ${identitaet} festgestellt.
 
