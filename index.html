@@ -25,16 +25,16 @@
     <input type="text" id="st_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
 
     <label>Tatort und Tatzeit:</label>
-    <input type="text" id="st_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="st_tatortTatzeit" placeholder="Ort, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
 
     <label>Beschuldigte Personen:</label>
-    <input type="text" id="st_beschuldigte" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="st_beschuldigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
 
     <label>Geschädigte Personen:</label>
-    <input type="text" id="st_geschaedigte" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="st_geschaedigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
 
     <label>Sachverhalt aus Sicht des NCPDs:</label>
-    <textarea id="st_sachverhalt" class="bg-gray-800 p-2 rounded"></textarea>
+    <textarea id="st_sachverhalt" placeholder="Eine Straftat pro Satz" class="bg-gray-800 p-2 rounded"></textarea>
 
     <label>Identitätsfeststellung:</label>
     <select id="st_identitaet" class="bg-gray-800 p-2 rounded">
@@ -45,16 +45,16 @@
     </select>
 
     <label>Weitere beteiligte Einheiten/Zeugen:</label>
-    <input type="text" id="st_weitereEinheiten" class="bg-gray-800 p-2 rounded">
-
+    <input type="text" id="st_weitereEinheiten" placeholder="PD-XX, PA-XX, FIB-XX, ..." class="bg-gray-800 p-2 rounded">
+    
     <label>Abgenommene Gegenstände:</label>
     <textarea id="st_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
 
     <label>Abgenommen von:</label>
-    <input type="text" id="st_abgenommenVon" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="st_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
 
     <label>Eilverfahren abgelehnt durch:</label>
-    <input type="text" id="st_eilverfahren" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="st_eilverfahren" placeholder="DOJ-XX" class="bg-gray-800 p-2 rounded">
 
     <label>Bußgelddatum:</label>
     <input type="date" id="st_bussgeld" class="bg-gray-800 p-2 rounded">
@@ -67,16 +67,16 @@
   <!-- Schnellakte -->
   <div id="schnellakte" class="tab-content grid grid-cols-2 gap-4 hidden">
     <label>Officer:</label>
-    <input type="text" id="sn_nameDienst" class="bg-gray-800 p-2 rounded">
-
+    <input type="text" id="sn_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
+    
     <label>Tatort und Tatzeit:</label>
-    <input type="text" id="sn_tatortTatzeit" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="sn_tatortTatzeit" placeholder="Ort, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
 
     <label>Beschuldigte Personen:</label>
-    <input type="text" id="sn_beschuldigte" class="bg-gray-800 p-2 rounded">
-
+    <input type="text" id="sn_beschuldigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
+    
     <label>Geschädigte Personen:</label>
-    <input type="text" id="sn_geschaedigte" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="sn_geschaedigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
 
     <label>Identitätsfeststellung:</label>
     <select id="sn_identitaet" class="bg-gray-800 p-2 rounded">
@@ -87,16 +87,16 @@
     </select>
 
     <label>Weitere beteiligte Einheiten/Zeugen:</label>
-    <input type="text" id="sn_weitereEinheiten" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="sn_weitereEinheiten" placeholder="PD-XX, PA-XX, FIB-XX, ..." class="bg-gray-800 p-2 rounded">
 
     <label>Abgenommene Gegenstände:</label>
-    <textarea id="sn_gegenstaende" class="bg-gray-800 p-2 rounded"></textarea>
+    <textarea id="sn_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
 
     <label>Abgenommen von:</label>
-    <input type="text" id="sn_abgenommenVon" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="sn_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
 
     <label>Eilverfahren abgelehnt durch:</label>
-    <input type="text" id="sn_eilverfahren" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="sn_eilverfahren" placeholder="DOJ-XX" class="bg-gray-800 p-2 rounded">
 
     <label>Bußgelddatum:</label>
     <input type="date" id="sn_bussgeld" class="bg-gray-800 p-2 rounded">
@@ -109,19 +109,19 @@
   <!-- Kollektivakte -->
   <div id="kollektivakte" class="tab-content grid grid-cols-2 gap-4 hidden">
     <label>Officer:</label>
-    <input type="text" id="k_nameDienst" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="k_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
 
     <label>Tatort und Tatzeit:</label>
-    <input type="text" id="k_tatortTatzeit" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="k_tatortTatzeit" placeholder="Ort, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
 
     <label>Beschuldigte Personen:</label>
-    <input type="text" id="k_beschuldigte" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="k_beschuldigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
 
     <label>Geschädigte Personen:</label>
-    <input type="text" id="k_geschaedigte" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="k_geschaedigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
 
     <label>Sachverhalt aus Sicht des NCPDs:</label>
-    <textarea id="k_sachverhalt" class="bg-gray-800 p-2 rounded"></textarea>
+    <textarea id="k_sachverhalt" placeholder="Eine Straftat pro Satz" class="bg-gray-800 p-2 rounded"></textarea>
 
     <label>Identitätsfeststellung:</label>
     <select id="k_identitaet" class="bg-gray-800 p-2 rounded">
@@ -132,19 +132,19 @@
     </select>
 
     <label>Weitere beteiligte Einheiten/Zeugen:</label>
-    <input type="text" id="k_weitereEinheiten" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="k_weitereEinheiten" placeholder="PD-XX, PA-XX, FIB-XX, ..." class="bg-gray-800 p-2 rounded">
 
     <label>Abgenommene Gegenstände:</label>
-    <textarea id="k_gegenstaende" class="bg-gray-800 p-2 rounded"></textarea>
+    <textarea id="k_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
 
     <label>Abgenommen von:</label>
-    <input type="text" id="k_abgenommenVon" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="k_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
 
     <label>Bestätigt von:</label>
-    <input type="text" id="k_bestaetigtVon" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="k_bestaetigtVon" placeholder="DOJ-XX" class="bg-gray-800 p-2 rounded">
 
     <label>Bestätigt um (Uhrzeit):</label>
-    <input type="text" id="k_bestaetigtUm" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="k_bestaetigtUm" placeholder="XX:XX" class="bg-gray-800 p-2 rounded">
 
     <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Kollektivakte generieren</button>
 
