@@ -25,16 +25,16 @@
     <input type="text" id="st_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
 
     <label>Tatort und Tatzeit:</label>
-    <input type="text" id="st_tatortTatzeit" placeholder="Ort, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="st_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
 
     <label>Beschuldigte Personen:</label>
-    <input type="text" id="st_beschuldigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="st_beschuldigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
 
     <label>Geschädigte Personen:</label>
-    <input type="text" id="st_geschaedigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="st_geschaedigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
 
     <label>Sachverhalt aus Sicht des NCPDs:</label>
-    <textarea id="st_sachverhalt" placeholder="Eine Straftat pro Satz" class="bg-gray-800 p-2 rounded"></textarea>
+    <textarea id="st_sachverhalt" class="bg-gray-800 p-2 rounded"></textarea>
 
     <label>Identitätsfeststellung:</label>
     <select id="st_identitaet" class="bg-gray-800 p-2 rounded">
@@ -45,22 +45,40 @@
     </select>
 
     <label>Weitere beteiligte Einheiten/Zeugen:</label>
-    <input type="text" id="st_weitereEinheiten" placeholder="PD-XX, PA-XX, FIB-XX, ..." class="bg-gray-800 p-2 rounded">
-    
+    <input type="text" id="st_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
+
     <label>Abgenommene Gegenstände:</label>
-    <textarea id="st_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
+    <input type="text" id="st_gegenstaende" placeholder="1x Handy, 1x Pistole" class="bg-gray-800 p-2 rounded">
 
     <label>Abgenommen von:</label>
     <input type="text" id="st_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
 
     <label>Eilverfahren abgelehnt durch:</label>
-    <input type="text" id="st_eilverfahren" placeholder="DOJ-XX" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="st_eilverfahren" placeholder="DOJ-XX , ..." class="bg-gray-800 p-2 rounded">
 
     <label>Bußgelddatum:</label>
     <input type="date" id="st_bussgeld" class="bg-gray-800 p-2 rounded">
 
-    <button onclick="generateStrafakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Strafakte generieren</button>
+    <!-- Neue Bemerkungen-Felder -->
+    <label>Rechte verlesen von:</label>
+    <input type="text" id="st_verlesen" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
 
+    <label>Beisein:</label>
+    <input type="text" id="st_beisein" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
+
+    <label>Rechtsbeistand:</label>
+    <select id="st_rechtsbeistand" class="bg-gray-800 p-2 rounded">
+      <option value="bestand">bestand</option>
+      <option value="verzichtete">verzichtete</option>
+    </select>
+
+    <label>Medizinische Versorgung:</label>
+    <select id="st_medizin" class="bg-gray-800 p-2 rounded">
+      <option value="bestand">bestand</option>
+      <option value="verzichtete">verzichtete</option>
+    </select>
+
+    <button onclick="generateStrafakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Strafakte generieren</button>
     <pre id="st_output" class="col-span-2 bg-gray-800 p-2 rounded h-64 overflow-auto"></pre>
   </div>
 
@@ -68,15 +86,15 @@
   <div id="schnellakte" class="tab-content grid grid-cols-2 gap-4 hidden">
     <label>Officer:</label>
     <input type="text" id="sn_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
-    
+
     <label>Tatort und Tatzeit:</label>
-    <input type="text" id="sn_tatortTatzeit" placeholder="Ort, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="sn_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
 
     <label>Beschuldigte Personen:</label>
-    <input type="text" id="sn_beschuldigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
-    
+    <input type="text" id="sn_beschuldigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
+
     <label>Geschädigte Personen:</label>
-    <input type="text" id="sn_geschaedigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="sn_geschaedigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
 
     <label>Identitätsfeststellung:</label>
     <select id="sn_identitaet" class="bg-gray-800 p-2 rounded">
@@ -87,22 +105,37 @@
     </select>
 
     <label>Weitere beteiligte Einheiten/Zeugen:</label>
-    <input type="text" id="sn_weitereEinheiten" placeholder="PD-XX, PA-XX, FIB-XX, ..." class="bg-gray-800 p-2 rounded">
+    <input type="text" id="sn_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
 
     <label>Abgenommene Gegenstände:</label>
-    <textarea id="sn_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
+    <input type="text" id="sn_gegenstaende" placeholder="1x Handy, 1x Pistole" class="bg-gray-800 p-2 rounded">
 
     <label>Abgenommen von:</label>
     <input type="text" id="sn_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
 
-    <label>Eilverfahren abgelehnt durch:</label>
-    <input type="text" id="sn_eilverfahren" placeholder="DOJ-XX" class="bg-gray-800 p-2 rounded">
-
     <label>Bußgelddatum:</label>
     <input type="date" id="sn_bussgeld" class="bg-gray-800 p-2 rounded">
 
-    <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Schnellakte generieren</button>
+    <!-- Neue Bemerkungen-Felder -->
+    <label>Rechte verlesen von:</label>
+    <input type="text" id="sn_verlesen" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
 
+    <label>Beisein:</label>
+    <input type="text" id="sn_beisein" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
+
+    <label>Rechtsbeistand:</label>
+    <select id="sn_rechtsbeistand" class="bg-gray-800 p-2 rounded">
+      <option value="bestand">bestand</option>
+      <option value="verzichtete">verzichtete</option>
+    </select>
+
+    <label>Medizinische Versorgung:</label>
+    <select id="sn_medizin" class="bg-gray-800 p-2 rounded">
+      <option value="bestand">bestand</option>
+      <option value="verzichtete">verzichtete</option>
+    </select>
+
+    <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Schnellakte generieren</button>
     <pre id="sn_output" class="col-span-2 bg-gray-800 p-2 rounded h-64 overflow-auto"></pre>
   </div>
 
@@ -112,16 +145,16 @@
     <input type="text" id="k_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
 
     <label>Tatort und Tatzeit:</label>
-    <input type="text" id="k_tatortTatzeit" placeholder="Ort, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="k_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
 
     <label>Beschuldigte Personen:</label>
-    <input type="text" id="k_beschuldigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="k_beschuldigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
 
     <label>Geschädigte Personen:</label>
-    <input type="text" id="k_geschaedigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
+    <input type="text" id="k_geschaedigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
 
     <label>Sachverhalt aus Sicht des NCPDs:</label>
-    <textarea id="k_sachverhalt" placeholder="Eine Straftat pro Satz" class="bg-gray-800 p-2 rounded"></textarea>
+    <textarea id="k_sachverhalt" class="bg-gray-800 p-2 rounded"></textarea>
 
     <label>Identitätsfeststellung:</label>
     <select id="k_identitaet" class="bg-gray-800 p-2 rounded">
@@ -132,10 +165,10 @@
     </select>
 
     <label>Weitere beteiligte Einheiten/Zeugen:</label>
-    <input type="text" id="k_weitereEinheiten" placeholder="PD-XX, PA-XX, FIB-XX, ..." class="bg-gray-800 p-2 rounded">
+    <input type="text" id="k_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
 
     <label>Abgenommene Gegenstände:</label>
-    <textarea id="k_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
+    <input type="text" id="k_gegenstaende" placeholder="1x Handy, 1x Pistole" class="bg-gray-800 p-2 rounded">
 
     <label>Abgenommen von:</label>
     <input type="text" id="k_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
@@ -146,8 +179,26 @@
     <label>Bestätigt um (Uhrzeit):</label>
     <input type="text" id="k_bestaetigtUm" placeholder="XX:XX" class="bg-gray-800 p-2 rounded">
 
-    <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Kollektivakte generieren</button>
+    <!-- Neue Bemerkungen-Felder -->
+    <label>Rechte verlesen von:</label>
+    <input type="text" id="k_verlesen" placeholder="PD-XX, PD-XX" class="bg-gray-800 p-2 rounded">
 
+    <label>Beisein:</label>
+    <input type="text" id="k_beisein" placeholder="PD-XX, PD-XX" class="bg-gray-800 p-2 rounded">
+
+    <label>Rechtsbeistand:</label>
+    <select id="k_rechtsbeistand" class="bg-gray-800 p-2 rounded">
+      <option value="bestand">bestand</option>
+      <option value="verzichtete">verzichtete</option>
+    </select>
+
+    <label>Medizinische Versorgung:</label>
+    <select id="k_medizin" class="bg-gray-800 p-2 rounded">
+      <option value="bestand">bestand</option>
+      <option value="verzichtete">verzichtete</option>
+    </select>
+
+    <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Kollektivakte generieren</button>
     <pre id="k_output" class="col-span-2 bg-gray-800 p-2 rounded h-64 overflow-auto"></pre>
   </div>
 </div>
