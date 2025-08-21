@@ -201,31 +201,5 @@
     <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Kollektivakte generieren</button>
     <pre id="k_output" class="col-span-2 bg-gray-800 p-2 rounded h-64 overflow-auto"></pre>
   </div>
-
-</div>
-   <!-- Buttons -->
-  <button id="resetBtn" onclick="resetAkte()">Zurücksetzen</button>
-  <button id="copyBtn" onclick="copyAkte()">Kopieren</button>
-
-  <script>
-    function resetAkte() {
-      // Alle Eingabefelder zurücksetzen
-      const inputs = document.querySelectorAll('input, textarea');
-      inputs.forEach(input => input.value = '');
-    }
-
-    function copyAkte() {
-      // Gesamten Text der Seite kopieren (ohne Bilder)
-      const container = document.querySelector('body');
-      const tempElement = document.createElement('textarea');
-      tempElement.value = container.innerText;
-      document.body.appendChild(tempElement);
-      tempElement.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempElement);
-      alert('Inhalt kopiert!');
-    }
-  </script>
-
 </body>
 </html>
