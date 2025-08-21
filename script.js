@@ -29,6 +29,8 @@ function generateStrafakte() {
   const beschuldigte = document.getElementById('st_beschuldigte').value;
   const geschaedigte = document.getElementById('st_geschaedigte').value;
   const sachverhalt = document.getElementById('st_sachverhalt').value;
+  const gegenstaende = document.getElementById('st_gegenstaende').value;
+  const abgenommenVon = document.getElementById('st_abgenommenVon').value;
   const identitaet = document.getElementById('st_identitaet').value;
   const weitere = document.getElementById('st_weitereEinheiten').value;
   const eil = document.getElementById('st_eilverfahren').value;
@@ -61,6 +63,9 @@ Die Identität wurde mittels ${identitaet} festgestellt.
 | Weitere beteiligte Einheiten/Zeugen: |
 ${weitere}
 
+| Abgenommene Gegenstände: | Abgenommen von: ${abgenommenVon}
+${gegenstaende}
+
 | Bemerkungen: |
 ${bemerkungen}
 `.trim();
@@ -75,6 +80,8 @@ function generateSchnellakte() {
   const beschuldigte = document.getElementById('sn_beschuldigte').value;
   const geschaedigte = document.getElementById('sn_geschaedigte').value;
   const identitaet = document.getElementById('sn_identitaet').value;
+  const gegenstaende = document.getElementById('st_gegenstaende').value;
+  const abgenommenVon = document.getElementById('st_abgenommenVon').value;
   const weitere = document.getElementById('sn_weitereEinheiten').value;
   const eil = document.getElementById('sn_eilverfahren').value;
   const bussgeld = document.getElementById('sn_bussgeld').value;
@@ -103,6 +110,9 @@ Die Identität wurde mittels ${identitaet} festgestellt.
 | Weitere beteiligte Einheiten/Zeugen: |
 ${weitere}
 
+| Abgenommene Gegenstände: | Abgenommen von: ${abgenommenVon}
+${gegenstaende}
+
 | Bemerkungen: |
 ${bemerkungen}
 `.trim();
@@ -117,6 +127,8 @@ function generateKollektivakte() {
   const beschuldigte = document.getElementById('k_beschuldigte').value;
   const geschaedigte = document.getElementById('k_geschaedigte').value;
   const sachverhalt = document.getElementById('k_sachverhalt').value; // korrigiert
+  const gegenstaende = document.getElementById('st_gegenstaende').value;
+  const abgenommenVon = document.getElementById('st_abgenommenVon').value;
   const identitaet = document.getElementById('k_identitaet').value;
   const weitere = document.getElementById('k_weitereEinheiten').value;
   const bestaetigtVon = document.getElementById('k_bestaetigtVon').value;
@@ -144,6 +156,9 @@ Die Identität wurde mittels ${identitaet} festgestellt.
 
 | Weitere beteiligte Einheiten/Zeugen: |
 ${weitere}
+
+| Abgenommene Gegenstände: | Abgenommen von: ${abgenommenVon}
+${gegenstaende}
 
 Kollektivakte wurde von ${bestaetigtVon} um ${bestaetigtUm} genehmigt.
 `.trim();
