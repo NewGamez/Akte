@@ -98,20 +98,17 @@
     <label>Officer:</label>
     <input type="text" id="k_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
 
-    <label>Bestätigt von:</label>
-    <input type="text" id="k_bestaetigtVon" placeholder="DOJ-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Bestätigt um (Uhrzeit):</label>
-    <input type="text" id="k_bestaetigtUm" placeholder="XX:XX" class="bg-gray-800 p-2 rounded">
-    
     <label>Tatort und Tatzeit:</label>
     <input type="text" id="k_tatortTatzeit" placeholder="Human Labs, bei PLZ 2060 Am 20.08.2025 von 22:38 Uhr bis 23:50 Uhr" class="bg-gray-800 p-2 rounded">
-    
+
     <label>Beschuldigte Personen:</label>
     <input type="text" id="k_beschuldigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
-    
+
     <label>Geschädigte Personen:</label>
     <input type="text" id="k_geschaedigte" placeholder="Vorname Nachname, Geb. XX.XX.XXXX" class="bg-gray-800 p-2 rounded">
+
+    <label>Sachverhalt:</label>
+    <textarea id="k_sachverhalt"></textarea>
 
     <label>Identitätsfeststellung:</label>
     <select id="k_identitaet" class="bg-gray-800 p-2 rounded">
@@ -123,6 +120,13 @@
 
     <label>Weitere beteiligte Einheiten/Zeugen:</label>
     <input type="text" id="k_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
+
+    <label>Bestätigt von:</label>
+    <input type="text" id="k_bestaetigtVon" placeholder="DOJ-XX" class="bg-gray-800 p-2 rounded">
+
+    <label>Bestätigt um (Uhrzeit):</label>
+    <input type="text" id="k_bestaetigtUm" placeholder="XX:XX" class="bg-gray-800 p-2 rounded">
+
 
     <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Kollektivakte generieren</button>
 
