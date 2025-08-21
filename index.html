@@ -3,205 +3,146 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NC Akten Generator</title>
-<script src="script.js" defer></script>
-<script src="https://cdn.tailwindcss.com"></script>
+<title>Akte Formular</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #eef2f5;
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+
+  .akte-container {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    max-width: 800px;
+    margin: 20px auto;
+    min-height: 500px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+  }
+
+  button#resetBtn {
+    background-color: #f44336;
+    color: white;
+  }
+
+  button#resetBtn:hover {
+    background-color: #d32f2f;
+  }
+
+  button#copyBtn {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  button#copyBtn:hover {
+    background-color: #388E3C;
+  }
+
+  .preview-container {
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 30px;
+    white-space: pre-wrap;
+    font-family: "Courier New", Courier, monospace;
+    min-height: 200px;
+  }
+</style>
 </head>
-<body class="bg-gray-900 text-white p-4">
+<body>
 
-<div class="max-w-7xl mx-auto">
-  <h1 class="text-3xl font-bold mb-4 text-center">NCPD II Akten Generator</h1>
+<h1>Akte Formular</h1>
 
-  <!-- Tabs -->
-  <div class="flex space-x-4 mb-6 border-b border-gray-700">
-    <button id="strafakte-tab" class="px-4 py-2 border-b-2 border-blue-500 text-blue-500" onclick="switchTab('strafakte')">Strafakte</button>
-    <button id="schnellakte-tab" class="px-4 py-2" onclick="switchTab('schnellakte')">Schnellakte</button>
-    <button id="kollektivakte-tab" class="px-4 py-2" onclick="switchTab('kollektivakte')">Kollektivakte</button>
-  </div>
+<div class="akte-container">
+  <label for="name">Name:</label>
+  <input type="text" id="name" placeholder="Name eingeben" oninput="updatePreview()">
 
-  <!-- Strafakte -->
-  <div id="strafakte" class="tab-content grid grid-cols-2 gap-4">
-    <label>Officer:</label>
-    <input type="text" id="st_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
-    
-    <label>Tatort und Tatzeit:</label>
-    <input type="text" id="st_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
-    
-    <label>Beschuldigte Personen:</label>
-    <input type="text" id="st_beschuldigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
-    
-    <label>Geschädigte Personen:</label>
-    <input type="text" id="st_geschaedigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
-    
-    <label>Sachverhalt aus Sicht des NCPDs:</label>
-    <textarea id="st_sachverhalt" class="bg-gray-800 p-2 rounded"></textarea>
-    
-    <label>Identitätsfeststellung:</label>
-    <select id="st_identitaet" class="bg-gray-800 p-2 rounded">
-      <option value="Personalausweis">Personalausweis</option>
-      <option value="Waffenschein">Waffenschein</option>
-      <option value="Führerschein">Führerschein</option>
-      <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
-    </select>
-    
-    <label>Weitere beteiligte Einheiten/Zeugen:</label>
-    <input type="text" id="st_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
+  <label for="geburtsdatum">Geburtsdatum:</label>
+  <input type="date" id="geburtsdatum" oninput="updatePreview()">
 
-    <label>Abgenommene Gegenstände:</label>
-    <textarea id="st_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
-    
-    <label>Abgenommen von:</label>
-    <input type="text" id="st_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Verlesen:</label>
-    <input type="text" id="st_verlesen" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-    
-    <label>Beisein:</label>
-    <input type="text" id="st_beisein" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Rechtsbeistand:</label>
-    <select id="st_rechtsbeistand" class="bg-gray-800 p-2 rounded">
-      <option value="bestand">bestand</option>
-      <option value="verzichtete">verzichtete</option>
-    </select>
-
-    <label>Medizinische Versorgung:</label>
-    <select id="st_medizin" class="bg-gray-800 p-2 rounded">
-      <option value="bestand">bestand</option>
-      <option value="verzichtete">verzichtete</option>
-    </select>
-
-    <label>Eilverfahren abgelehnt durch:</label>
-    <input type="text" id="st_eilverfahren" placeholder="DOJ-XX , ..." class="bg-gray-800 p-2 rounded">
-
-    <label>Bußgelddatum:</label>
-    <input type="date" id="st_bussgeld" class="bg-gray-800 p-2 rounded">
-
-    <button onclick="generateStrafakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Strafakte generieren</button>
-    <pre id="st_output" class="col-span-2 bg-gray-800 p-2 rounded h-64 overflow-auto"></pre>
-  </div>
-
-  <!-- Schnellakte -->
-  <div id="schnellakte" class="tab-content grid grid-cols-2 gap-4 hidden">
-    <label>Officer:</label>
-    <input type="text" id="sn_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
-    
-    <label>Tatort und Tatzeit:</label>
-    <input type="text" id="sn_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
-    
-    <label>Beschuldigte Personen:</label>
-    <input type="text" id="sn_beschuldigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
-    
-    <label>Geschädigte Personen:</label>
-    <input type="text" id="sn_geschaedigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
-    
-    <label>Identitätsfeststellung:</label>
-    <select id="sn_identitaet" class="bg-gray-800 p-2 rounded">
-      <option value="Personalausweis">Personalausweis</option>
-      <option value="Waffenschein">Waffenschein</option>
-      <option value="Führerschein">Führerschein</option>
-      <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
-    </select>
-    
-    <label>Weitere beteiligte Einheiten/Zeugen:</label>
-    <input type="text" id="sn_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
-
-    <label>Abgenommene Gegenstände:</label>
-    <textarea id="sn_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
-    
-    <label>Abgenommen von:</label>
-    <input type="text" id="sn_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Verlesen:</label>
-    <input type="text" id="sn_verlesen" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-    
-    <label>Beisein:</label>
-    <input type="text" id="sn_beisein" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Rechtsbeistand:</label>
-    <select id="sn_rechtsbeistand" class="bg-gray-800 p-2 rounded">
-      <option value="bestand">bestand</option>
-      <option value="verzichtete">verzichtete</option>
-    </select>
-
-    <label>Medizinische Versorgung:</label>
-    <select id="sn_medizin" class="bg-gray-800 p-2 rounded">
-      <option value="bestand">bestand</option>
-      <option value="verzichtete">verzichtete</option>
-    </select>
-
-    <label>Bußgelddatum:</label>
-    <input type="date" id="sn_bussgeld" class="bg-gray-800 p-2 rounded">
-
-    <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Schnellakte generieren</button>
-    <pre id="sn_output" class="col-span-2 bg-gray-800 p-2 rounded h-64 overflow-auto"></pre>
-  </div>
-
-  <!-- Kollektivakte -->
-  <div id="kollektivakte" class="tab-content grid grid-cols-2 gap-4 hidden">
-    <label>Officer:</label>
-    <input type="text" id="k_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
-    
-    <label>Tatort und Tatzeit:</label>
-    <input type="text" id="k_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
-    
-    <label>Beschuldigte Personen:</label>
-    <input type="text" id="k_beschuldigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
-    
-    <label>Geschädigte Personen:</label>
-    <input type="text" id="k_geschaedigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
-
-    <label>Sachverhalt aus Sicht des NCPDs:</label>
-    <textarea id="k_sachverhalt" class="bg-gray-800 p-2 rounded"></textarea>
-    
-    <label>Identitätsfeststellung:</label>
-    <select id="k_identitaet" class="bg-gray-800 p-2 rounded">
-      <option value="Personalausweis">Personalausweis</option>
-      <option value="Waffenschein">Waffenschein</option>
-      <option value="Führerschein">Führerschein</option>
-      <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
-    </select>
-    
-    <label>Weitere beteiligte Einheiten/Zeugen:</label>
-    <input type="text" id="k_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
-
-    <label>Abgenommene Gegenstände:</label>
-    <textarea id="k_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
-    
-    <label>Abgenommen von:</label>
-    <input type="text" id="k_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Verlesen:</label>
-    <input type="text" id="k_verlesen" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-    
-    <label>Beisein:</label>
-    <input type="text" id="k_beisein" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Rechtsbeistand:</label>
-    <select id="k_rechtsbeistand" class="bg-gray-800 p-2 rounded">
-      <option value="bestand">bestand</option>
-      <option value="verzichtete">verzichtete</option>
-    </select>
-
-    <label>Medizinische Versorgung:</label>
-    <select id="k_medizin" class="bg-gray-800 p-2 rounded">
-      <option value="bestand">bestand</option>
-      <option value="verzichtete">verzichtete</option>
-    </select>
-
-    <label>Bußgelddatum:</label>
-    <input type="date" id="k_bussgeld" class="bg-gray-800 p-2 rounded">
-
-    <label>Bestätigt von:</label>
-    <input type="text" id="k_bestaetigtVon" placeholder="DOJ-XX" class="bg-gray-800 p-2 rounded">
-    
-    <label>Bestätigt um (Uhrzeit):</label>
-    <input type="text" id="k_bestaetigtUm" placeholder="XX:XX" class="bg-gray-800 p-2 rounded">
-
-    <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Kollektivakte generieren</button>
-    <pre id="k_output" class="col-span-2 bg-gray-800 p-2 rounded h-64 overflow-auto"></pre>
-  </div>
-
+  <label for="beschreibung">Beschreibung:</label>
+  <textarea id="beschreibung" rows="12" placeholder="Beschreibung eingeben" oninput="updatePreview()"></textarea>
 </div>
+
+<div style="text-align: center; margin-top: 20px;">
+  <button id="resetBtn" onclick="resetAkte()">Zurücksetzen</button>
+  <button id="copyBtn" onclick="copyAkte()">Kopieren</button>
+</div>
+
+<h2 style="text-align:center; margin-top: 40px;">Live-Vorschau</h2>
+<div class="preview-container" id="preview">
+Name:  
+Geburtsdatum:  
+Beschreibung:  
+</div>
+
+<script>
+function resetAkte() {
+  document.getElementById('name').value = '';
+  document.getElementById('geburtsdatum').value = '';
+  document.getElementById('beschreibung').value = '';
+  updatePreview();
+}
+
+function copyAkte() {
+  const akteContent = `
+Name: ${document.getElementById('name').value}
+Geburtsdatum: ${document.getElementById('geburtsdatum').value}
+Beschreibung:
+${document.getElementById('beschreibung').value}
+  `;
+  navigator.clipboard.writeText(akteContent)
+    .then(() => alert('Akte kopiert!'))
+    .catch(err => alert('Fehler beim Kopieren: ' + err));
+}
+
+function updatePreview() {
+  const name = document.getElementById('name').value;
+  const geburtsdatum = document.getElementById('geburtsdatum').value;
+  const beschreibung = document.getElementById('beschreibung').value;
+
+  document.getElementById('preview').textContent = 
+`Name: ${name}
+Geburtsdatum: ${geburtsdatum}
+Beschreibung:
+${beschreibung}`;
+}
+</script>
+
 </body>
 </html>
