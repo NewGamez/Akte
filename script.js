@@ -1,5 +1,17 @@
 function switchTab(tabId) {
   document.querySelectorAll('.tab-content').forEach(div => div.classList.add('hidden'));
+
+  // Tabs hervorheben
+  const tabs = ['strafakte-tab', 'schnellakte-tab', 'kollektivakte-tab'];
+  tabs.forEach(id => {
+    const btn = document.getElementById(id);
+    if (tabId === id.replace('-tab', '')) {
+      btn.classList.add('border-blue-500', 'text-blue-500');
+    } else {
+      btn.classList.remove('border-blue-500', 'text-blue-500');
+    }
+  });
+
   document.getElementById(tabId).classList.remove('hidden');
 }
 
