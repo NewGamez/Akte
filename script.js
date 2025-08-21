@@ -1,6 +1,7 @@
 function switchTab(tabId) {
   document.querySelectorAll('.tab-content').forEach(div => div.classList.add('hidden'));
 
+  // Tabs hervorheben
   const tabs = ['strafakte-tab', 'schnellakte-tab', 'kollektivakte-tab'];
   tabs.forEach(id => {
     const btn = document.getElementById(id);
@@ -14,7 +15,7 @@ function switchTab(tabId) {
   document.getElementById(tabId).classList.remove('hidden');
 }
 
-// Datum formatieren
+// Hilfsfunktion Datum formatieren
 function formatDatum(dateStr) {
   if (!dateStr) return '';
   const d = new Date(dateStr);
@@ -37,12 +38,11 @@ function generateStrafakte() {
 
   const verlesen = document.getElementById('st_verlesen').value;
   const beisein = document.getElementById('st_beisein').value;
-  const rechts = document.getElementById('st_rechtsbeistand').value;
+  const rechtsbeistand = document.getElementById('st_rechtsbeistand').value;
   const medizin = document.getElementById('st_medizin').value;
 
-  let bemerkungen = '';
-  bemerkungen += `Die Rechte wurden dem Beschuldigten durch ${verlesen} im Beisein von ${beisein} verlesen und verstanden.\n`;
-  bemerkungen += `Dieser ${rechts} auf einen Rechtsbeistand.\n`;
+  let bemerkungen = `Die Rechte wurden dem Beschuldigten durch ${verlesen} im Beisein von ${beisein} verlesen und verstanden.\n`;
+  bemerkungen += `Dieser ${rechtsbeistand} auf einen Rechtsbeistand.\n`;
   bemerkungen += `Der TV ${medizin} auf medizinische Versorgung.\n`;
   bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} [+7 Tage] zu bezahlen.\n`;
   bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.\n`;
@@ -87,20 +87,20 @@ function generateSchnellakte() {
   const tatort = document.getElementById('sn_tatortTatzeit').value;
   const beschuldigte = document.getElementById('sn_beschuldigte').value;
   const geschaedigte = document.getElementById('sn_geschaedigte').value;
-  const identitaet = document.getElementById('sn_identitaet').value;
+  const sachverhalt = document.getElementById('sn_sachverhalt') ? document.getElementById('sn_sachverhalt').value : '';
   const gegenstaende = document.getElementById('sn_gegenstaende').value;
   const abgenommenVon = document.getElementById('sn_abgenommenVon').value;
+  const identitaet = document.getElementById('sn_identitaet').value;
   const weitere = document.getElementById('sn_weitereEinheiten').value;
   const bussgeld = document.getElementById('sn_bussgeld').value;
 
   const verlesen = document.getElementById('sn_verlesen').value;
   const beisein = document.getElementById('sn_beisein').value;
-  const rechts = document.getElementById('sn_rechtsbeistand').value;
+  const rechtsbeistand = document.getElementById('sn_rechtsbeistand').value;
   const medizin = document.getElementById('sn_medizin').value;
 
-  let bemerkungen = '';
-  bemerkungen += `Die Rechte wurden dem Beschuldigten durch ${verlesen} im Beisein von ${beisein} verlesen und verstanden.\n`;
-  bemerkungen += `Dieser ${rechts} auf einen Rechtsbeistand.\n`;
+  let bemerkungen = `Die Rechte wurden dem Beschuldigten durch ${verlesen} im Beisein von ${beisein} verlesen und verstanden.\n`;
+  bemerkungen += `Dieser ${rechtsbeistand} auf einen Rechtsbeistand.\n`;
   bemerkungen += `Der TV ${medizin} auf medizinische Versorgung.\n`;
   bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} [+7 Tage] zu bezahlen.\n`;
   bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.\n`;
@@ -148,18 +148,18 @@ function generateKollektivakte() {
   const weitere = document.getElementById('k_weitereEinheiten').value;
   const bestaetigtVon = document.getElementById('k_bestaetigtVon').value;
   const bestaetigtUm = document.getElementById('k_bestaetigtUm').value;
+  const bussgeld = document.getElementById('k_bussgeld').value;
 
   const verlesen = document.getElementById('k_verlesen').value;
   const beisein = document.getElementById('k_beisein').value;
-  const rechts = document.getElementById('k_rechtsbeistand').value;
+  const rechtsbeistand = document.getElementById('k_rechtsbeistand').value;
   const medizin = document.getElementById('k_medizin').value;
 
-  let bemerkungen = '';
-  bemerkungen += `Die Rechte wurden dem Beschuldigten durch ${verlesen} im Beisein von ${beisein} verlesen und verstanden.\n`;
-  bemerkungen += `Diese ${rechts} auf einen Rechtsbeistand.\n`;
-  bemerkungen += `Die TV´s ${medizin} auf medizinische Versorgung.\n`;
-  bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(new Date())} [+7 Tage] zu bezahlen.\n`;
-  bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in ihren persönlichen Spind gelegt.\n`;
+  let bemerkungen = `Die Rechte wurden den Beschuldigten durch ${verlesen} im Beisein von ${beisein} verlesen und verstanden.\n`;
+  bemerkungen += `Diese ${rechtsbeistand} auf einen Rechtsbeistand.\n`;
+  bemerkungen += `Die TV's ${medizin} auf medizinische Versorgung.\n`;
+  bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} [+7 Tage] zu bezahlen.\n`;
+  bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.\n`;
 
   const output = `
 | - Kollektivakte - |
