@@ -1,7 +1,6 @@
 function switchTab(tabId) {
   document.querySelectorAll('.tab-content').forEach(div => div.classList.add('hidden'));
 
-  // Tabs hervorheben
   const tabs = ['strafakte-tab', 'schnellakte-tab', 'kollektivakte-tab'];
   tabs.forEach(id => {
     const btn = document.getElementById(id);
@@ -36,7 +35,16 @@ function generateStrafakte() {
   const eil = document.getElementById('st_eilverfahren').value;
   const bussgeld = document.getElementById('st_bussgeld').value;
 
-  let bemerkungen = `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} [+7 Tage] zu bezahlen.\n`;
+  const verlesen = document.getElementById('st_verlesen').value;
+  const beisein = document.getElementById('st_beisein').value;
+  const rechts = document.getElementById('st_rechtsbeistand').value;
+  const medizin = document.getElementById('st_medizin').value;
+
+  let bemerkungen = '';
+  bemerkungen += `Die Rechte wurden dem Beschuldigten durch ${verlesen} im Beisein von ${beisein} verlesen und verstanden.\n`;
+  bemerkungen += `Dieser ${rechts} auf einen Rechtsbeistand.\n`;
+  bemerkungen += `Der TV ${medizin} auf medizinische Versorgung.\n`;
+  bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} [+7 Tage] zu bezahlen.\n`;
   bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.\n`;
   if(eil) bemerkungen += `Das Eilverfahren wurde durch ${eil} abgelehnt.\n`;
 
@@ -83,12 +91,19 @@ function generateSchnellakte() {
   const gegenstaende = document.getElementById('sn_gegenstaende').value;
   const abgenommenVon = document.getElementById('sn_abgenommenVon').value;
   const weitere = document.getElementById('sn_weitereEinheiten').value;
-  const eil = document.getElementById('sn_eilverfahren').value;
   const bussgeld = document.getElementById('sn_bussgeld').value;
 
-  let bemerkungen = `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} [+7 Tage] zu bezahlen.\n`;
+  const verlesen = document.getElementById('sn_verlesen').value;
+  const beisein = document.getElementById('sn_beisein').value;
+  const rechts = document.getElementById('sn_rechtsbeistand').value;
+  const medizin = document.getElementById('sn_medizin').value;
+
+  let bemerkungen = '';
+  bemerkungen += `Die Rechte wurden dem Beschuldigten durch ${verlesen} im Beisein von ${beisein} verlesen und verstanden.\n`;
+  bemerkungen += `Dieser ${rechts} auf einen Rechtsbeistand.\n`;
+  bemerkungen += `Der TV ${medizin} auf medizinische Versorgung.\n`;
+  bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} [+7 Tage] zu bezahlen.\n`;
   bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.\n`;
-  if(eil) bemerkungen += `Das Eilverfahren wurde durch ${eil} abgelehnt.\n`;
 
   const output = `
 | - Schnellakte - |
@@ -134,6 +149,18 @@ function generateKollektivakte() {
   const bestaetigtVon = document.getElementById('k_bestaetigtVon').value;
   const bestaetigtUm = document.getElementById('k_bestaetigtUm').value;
 
+  const verlesen = document.getElementById('k_verlesen').value;
+  const beisein = document.getElementById('k_beisein').value;
+  const rechts = document.getElementById('k_rechtsbeistand').value;
+  const medizin = document.getElementById('k_medizin').value;
+
+  let bemerkungen = '';
+  bemerkungen += `Die Rechte wurden dem Beschuldigten durch ${verlesen} im Beisein von ${beisein} verlesen und verstanden.\n`;
+  bemerkungen += `Diese ${rechts} auf einen Rechtsbeistand.\n`;
+  bemerkungen += `Die TV´s ${medizin} auf medizinische Versorgung.\n`;
+  bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(new Date())} [+7 Tage] zu bezahlen.\n`;
+  bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in ihren persönlichen Spind gelegt.\n`;
+
   const output = `
 | - Kollektivakte - |
 
@@ -149,7 +176,7 @@ ${beschuldigte}
 | Geschädigte Person(en): |
 ${geschaedigte}
 
-| Sachverhalt aus Sicht des NCPDs: |
+| Sachverhalt: |
 ${sachverhalt}
 
 Die Identität wurde mittels ${identitaet} festgestellt.
@@ -159,6 +186,9 @@ ${weitere}
 
 | Abgenommene Gegenstände: | Abgenommen von: ${abgenommenVon}
 ${gegenstaende}
+
+| Bemerkungen: |
+${bemerkungen}
 
 Kollektivakte wurde von ${bestaetigtVon} um ${bestaetigtUm} genehmigt.
 `.trim();
