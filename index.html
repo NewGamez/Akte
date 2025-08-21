@@ -1,110 +1,135 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NC Akten Generator</title>
-  <script src="script.js" defer></script>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NC Akten Generator</title>
+<script src="script.js" defer></script>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white p-4">
-  <div class="max-w-7xl mx-auto relative">
- <img src="bild.png" alt="Profilbild"
-     class="absolute top-4 right-4 w-16 h-16 rounded-full shadow-lg" />
-     <h1 class="text-3xl font-bold mb-4 text-center">NCPD II Akten Generator</h1>
-    
-     <!-- Tabs -->
-     <div class="flex space-x-4 mb-6 border-b border-gray-700">
-      <button id="strafakte-tab" class="px-4 py-2 border-b-2 border-blue-500 text-blue-500" onclick="switchTab('strafakte-tab')">Strafakte</button>
-      <button id="schnellakte-tab" class="px-4 py-2" onclick="switchTab('schnellakte-tab')">Schnellakte</button>
-      <button id="kollektivakte-tab" class="px-4 py-2" onclick="switchTab('kollektivakte-tab')">Kollektivakte</button>
-     </div>
 
-     <!-- Strafakte Tab -->
-    <div id="strafakte-content" class="grid grid-cols-2 gap-4">
-      <textarea id="officer" placeholder="Name / Dienstnummer" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="tatort" placeholder="Tatort" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="zeitraum" placeholder="Tatzeit" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="beschuldigte" placeholder="Beschuldigte Person(en)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="geschaedigte" placeholder="Geschädigte Person(en)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="sachverhalt" placeholder="Sachverhalt" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="einheiten" placeholder="Weitere Einheiten / Zeugen" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="gegenstaende" placeholder="Abgenommene Gegenstände" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="abgenommenVon" placeholder="Abgenommen von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="rechteVon" placeholder="Rechte verlesen von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="rechteBeisein" placeholder="Im Beisein von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <div class="flex flex-col gap-2">
-        <label><input type="checkbox" id="checkboxRechtsbeistand_s" class="mr-2" /> Rechtsbeistand</label>
-        <label><input type="checkbox" id="checkboxMedizin_s" class="mr-2" /> Medizinische Versorgung</label>
-      </div>
-      <input type="date" id="bussgeld" class="bg-gray-800 p-2 rounded" />
-      <textarea id="bemerkung" placeholder="Weitere Bemerkungen" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="strafen" placeholder="Strafen" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="zeichner" placeholder="Gezeichnet von (Name)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="zeichnerInfo" placeholder="Dienstnummer / Einheit" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <button onclick="generateStrafakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Strafakte generieren</button>
-      <textarea id="output" class="col-span-2 h-64 bg-gray-800 p-2 rounded" readonly></textarea>
-    </div>
+<div class="max-w-7xl mx-auto">
+  <h1 class="text-3xl font-bold mb-4 text-center">NCPD II Akten Generator</h1>
 
-    <!-- Schnellakte Tab -->
-    <div id="schnellakte-content" class="hidden grid grid-cols-2 gap-4">
-      <textarea id="s_officer" placeholder="Name / Dienstnummer" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_tatort" placeholder="Tatort" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_zeitraum" placeholder="Tatzeit" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_beschuldigte" placeholder="Beschuldigte Person(en)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_geschaedigte" placeholder="Geschädigte Person(en)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_einheiten" placeholder="Einheiten / Zeugen" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_gegenstaende" placeholder="Gegenstände" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_abgenommenVon" placeholder="Abgenommen von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_rechteVon" placeholder="Rechte verlesen von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_rechteBeisein" placeholder="Im Beisein von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <div class="flex flex-col gap-2">
-        <label><input type="checkbox" id="checkboxRechtsbeistand_sn" class="mr-2" /> Rechtsbeistand</label>
-        <label><input type="checkbox" id="checkboxMedizin_sn" class="mr-2" /> Medizinische Versorgung</label>
-      </div>
-      <input type="date" id="s_bussgeld" class="bg-gray-800 p-2 rounded" />
-      <textarea id="s_bemerkung" placeholder="Weitere Bemerkungen" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_gezeichnet" placeholder="Gezeichnet von (Name)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="s_gezeichnetOfficer" placeholder="Dienstnummer / Einheit" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Schnellakte generieren</button>
-      <textarea id="output-schnellakte" class="col-span-2 h-64 bg-gray-800 p-2 rounded" readonly></textarea>
-    </div>
-
-    <!-- Kollektivakte Tab -->
-    <div id="kollektivakte-content" class="hidden grid grid-cols-2 gap-4">
-      <textarea id="k_officer" placeholder="Name / Dienstnummer" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_genehmigtVon" placeholder="Genehmigt von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_uhrzeit" placeholder="Uhrzeit Genehmigung" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_tatort" placeholder="Tatort" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_zeitraum" placeholder="Tatzeitraum" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_beschuldigte" placeholder="Beschuldigte Person(en)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_geschaedigte" placeholder="Geschädigte Person(en)" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_sachverhalt" placeholder="Sachverhalt" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_einheiten" placeholder="Einheiten / Zeugen" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_gegenstaende" placeholder="Gegenstände" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_abgenommenVon" placeholder="Abgenommen von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_rechteVon" placeholder="Rechte verlesen von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <textarea id="k_rechteBeisein" placeholder="Im Beisein von" class="bg-gray-800 p-2 rounded h-20"></textarea>
-      <div class="flex flex-col gap-2">
-        <label><input type="checkbox" id="checkboxRechtsbeistand_k" class="mr-2" /> Rechtsbeistand</label>
-        <label><input type="checkbox" id="checkboxMedizin_k" class="mr-2" /> Medizinische Versorgung</label>
-      </div>
-      <input type="date" id="k_bussgeld" class="bg-gray-800 p-2 rounded" />
-      <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Kollektivakte generieren</button>
-      <textarea id="output-kollektivakte" class="col-span-2 h-64 bg-gray-800 p-2 rounded" readonly></textarea>
-    </div>
+  <!-- Tabs -->
+  <div class="flex space-x-4 mb-6 border-b border-gray-700">
+    <button id="strafakte-tab" class="px-4 py-2 border-b-2 border-blue-500 text-blue-500" onclick="switchTab('strafakte')">Strafakte</button>
+    <button id="schnellakte-tab" class="px-4 py-2" onclick="switchTab('schnellakte')">Schnellakte</button>
+    <button id="kollektivakte-tab" class="px-4 py-2" onclick="switchTab('kollektivakte')">Kollektivakte</button>
   </div>
 
-   <!-- Footer -->
-  <footer class="mt-8 text-sm text-gray-400 border-t border-gray-700 pt-4 text-center">
-    <div class="flex flex-col sm:flex-row justify-between items-center max-w-4xl mx-auto px-4">
-      <p>Bei Verbesserungsvorschlägen/Problemen</p>
-      <p>Discord - Bl4ck_Schnitzel</p>
-    </div>
-    <div class="flex flex-col sm:flex-row justify-between items-center max-w-4xl mx-auto px-4 mt-2">
-      <p>Lasst Liebe da</p>
-      <p>Insta - _benjamin_neu</p>
-    </div>
-  </footer>
+  <!-- Strafakte -->
+  <div id="strafakte" class="tab-content grid grid-cols-2 gap-4">
+    <label>Vor/Nachname / PD-XX / Dienstgrad:</label>
+    <input type="text" id="st_nameDienst" placeholder="Max Mustermann / PD-01 / Hauptkommissar" class="bg-gray-800 p-2 rounded">
+
+    <label>Tatort und Tatzeit:</label>
+    <input type="text" id="st_tatortTatzeit" placeholder="Bsp.: Human Labs, bei PLZ 2060 Am 20.08.2025 von 22:38 Uhr bis 23:50 Uhr" class="bg-gray-800 p-2 rounded">
+
+    <label>Beschuldigte Personen:</label>
+    <input type="text" id="st_beschuldigte" class="bg-gray-800 p-2 rounded">
+
+    <label>Geschädigte Personen:</label>
+    <input type="text" id="st_geschaedigte" class="bg-gray-800 p-2 rounded">
+
+    <label>Sachverhalt aus Sicht des NCPDs:</label>
+    <textarea id="st_sachverhalt" class="bg-gray-800 p-2 rounded"></textarea>
+
+    <label>Identitätsfeststellung:</label>
+    <select id="st_identitaet" class="bg-gray-800 p-2 rounded">
+      <option value="Personalausweis">Personalausweis</option>
+      <option value="Waffenschein">Waffenschein</option>
+      <option value="Führerschein">Führerschein</option>
+      <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
+    </select>
+
+    <label>Weitere beteiligte Einheiten/Zeugen:</label>
+    <input type="text" id="st_weitereEinheiten" class="bg-gray-800 p-2 rounded">
+
+    <label>Eilverfahren (Dienstnummer):</label>
+    <input type="text" id="st_eilverfahren" class="bg-gray-800 p-2 rounded">
+
+    <label>Bußgeld (Datum):</label>
+    <input type="date" id="st_bussgeld" class="bg-gray-800 p-2 rounded">
+
+    <button onclick="generateStrafakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Strafakte generieren</button>
+
+    <pre id="st_output" class="col-span-2 bg-gray-800 p-2 rounded h-64 overflow-auto"></pre>
+  </div>
+
+  <!-- Schnellakte -->
+  <div id="schnellakte" class="tab-content grid grid-cols-2 gap-4 hidden">
+    <label>Vor/Nachname / PD-XX / Dienstgrad:</label>
+    <input type="text" id="sn_nameDienst" class="bg-gray-800 p-2 rounded">
+
+    <label>Tatort und Tatzeit:</label>
+    <input type="text" id="sn_tatortTatzeit" class="bg-gray-800 p-2 rounded">
+
+    <label>Beschuldigte Personen:</label>
+    <input type="text" id="sn_beschuldigte" class="bg-gray-800 p-2 rounded">
+
+    <label>Geschädigte Personen:</label>
+    <input type="text" id="sn_geschaedigte" class="bg-gray-800 p-2 rounded">
+
+    <label>Identitätsfeststellung:</label>
+    <select id="sn_identitaet" class="bg-gray-800 p-2 rounded">
+      <option value="Personalausweis">Personalausweis</option>
+      <option value="Waffenschein">Waffenschein</option>
+      <option value="Führerschein">Führerschein</option>
+      <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
+    </select>
+
+    <label>Weitere beteiligte Einheiten/Zeugen:</label>
+    <input type="text" id="sn_weitereEinheiten" class="bg-gray-800 p-2 rounded">
+
+    <label>Eilverfahren (Dienstnummer):</label>
+    <input type="text" id="sn_eilverfahren" class="bg-gray-800 p-2 rounded">
+
+    <label>Bußgeld (Datum):</label>
+    <input type="date" id="sn_bussgeld" class="bg-gray-800 p-2 rounded">
+
+    <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Schnellakte generieren</button>
+
+    <pre id="sn_output" class="col-span-2 bg-gray-800 p-2 rounded h-64 overflow-auto"></pre>
+  </div>
+
+  <!-- Kollektivakte -->
+  <div id="kollektivakte" class="tab-content grid grid-cols-2 gap-4 hidden">
+    <label>Vor/Nachname / PD-XX / Dienstgrad:</label>
+    <input type="text" id="k_nameDienst" class="bg-gray-800 p-2 rounded">
+
+    <label>Bestätigt von:</label>
+    <input type="text" id="k_bestaetigtVon" class="bg-gray-800 p-2 rounded">
+
+    <label>Bestätigt um (Uhrzeit):</label>
+    <input type="text" id="k_bestaetigtUm" class="bg-gray-800 p-2 rounded">
+
+    <label>Tatort und Tatzeit:</label>
+    <input type="text" id="k_tatortTatzeit" class="bg-gray-800 p-2 rounded">
+
+    <label>Beschuldigte Personen:</label>
+    <input type="text" id="k_beschuldigte" class="bg-gray-800 p-2 rounded">
+
+    <label>Geschädigte Personen:</label>
+    <input type="text" id="k_geschaedigte" class="bg-gray-800 p-2 rounded">
+
+    <label>Identitätsfeststellung:</label>
+    <select id="k_identitaet" class="bg-gray-800 p-2 rounded">
+      <option value="Personalausweis">Personalausweis</option>
+      <option value="Waffenschein">Waffenschein</option>
+      <option value="Führerschein">Führerschein</option>
+      <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
+    </select>
+
+    <label>Weitere beteiligte Einheiten/Zeugen:</label>
+    <input type="text" id="k_weitereEinheiten" class="bg-gray-800 p-2 rounded">
+
+    <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Kollektivakte generieren</button>
+
+    <pre id="k_output" class="col-span-2 bg-gray-800 p-2 rounded h-64 overflow-auto"></pre>
+  </div>
+</div>
+
 </body>
 </html>
