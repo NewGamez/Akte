@@ -6,9 +6,9 @@ function switchTab(tabId) {
   tabs.forEach(id => {
     const btn = document.getElementById(id);
     if (tabId === id.replace('-tab', '')) {
-      btn.classList.add('border-blue-500', 'text-blue-500');
+      btn.classList.add('border-blue-500', 'text-blue-500', 'border-b-2');
     } else {
-      btn.classList.remove('border-blue-500', 'text-blue-500');
+      btn.classList.remove('border-blue-500', 'text-blue-500', 'border-b-2');
     }
   });
 
