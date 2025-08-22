@@ -2,7 +2,7 @@ function switchTab(tabId) {
   document.querySelectorAll('.tab-content').forEach(div => div.classList.add('hidden'));
 
   // Tabs hervorheben
-  const tabs = ['strafakte-tab', 'schnellakte-tab', 'kollektivakte-tab'];
+  const tabs = ['strafakte-tab', 'schnellakte-tab', 'kollektivakte-tab', 'dokumente-tab', 'weisungen-tab'];
   tabs.forEach(id => {
     const btn = document.getElementById(id);
     if (tabId === id.replace('-tab', '')) {
