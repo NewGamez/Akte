@@ -83,7 +83,6 @@ ${gegenstaende}
 ${bemerkungen}
 `.trim();
 
-  document.getElementById('st_output').textContent = output;
   openModal(output);
 }
 
@@ -138,7 +137,6 @@ ${gegenstaende}
 ${bemerkungen}
 `.trim();
 
-  document.getElementById('sn_output').textContent = output;
   openModal(output);
 }
 
@@ -200,6 +198,5 @@ ${bemerkungen}
 Kollektivakte wurde von ${bestaetigtVon} um ${bestaetigtUm} genehmigt.
 `.trim();
 
-  document.getElementById('k_output').textContent = output;
   openModal(output);
 }
