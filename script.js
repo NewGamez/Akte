@@ -53,7 +53,9 @@ function generateStrafakte() {
   bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.\n`;
   if(eil) bemerkungen += `Das Eilverfahren wurde durch ${eil} abgelehnt.\n`;
 
-  const output = `
+  const gezeichnetVon = document.getElementById('st_gezeichnetVon').value;
+
+const output = `
 | - Strafakte - |
 
 Narco City Police Department
@@ -81,6 +83,9 @@ ${gegenstaende}
 
 | Bemerkungen: |
 ${bemerkungen}
+
+| Gezeichnet von: |
+${gezeichnetVon}
 `.trim();
 
   openModal(output);
@@ -110,6 +115,8 @@ function generateSchnellakte() {
   bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} [+7 Tage] zu bezahlen.\n`;
   bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.\n`;
 
+  const gezeichnetVon = document.getElementById('sn_gezeichnetVon').value;
+
   const output = `
 | - Schnellakte - |
 
@@ -135,6 +142,9 @@ ${gegenstaende}
 
 | Bemerkungen: |
 ${bemerkungen}
+
+| Gezeichnet von: |
+${gezeichnetVon}
 `.trim();
 
   openModal(output);
@@ -166,6 +176,8 @@ function generateKollektivakte() {
   bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} [+7 Tage] zu bezahlen.\n`;
   bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.\n`;
 
+  const gezeichnetVon = document.getElementById('k_gezeichnetVon').value;
+
   const output = `
 | - Kollektivakte - |
 
@@ -196,6 +208,9 @@ ${gegenstaende}
 ${bemerkungen}
 
 Kollektivakte wurde von ${bestaetigtVon} um ${bestaetigtUm} genehmigt.
+
+| Gezeichnet von: |
+${gezeichnetVon}
 `.trim();
 
   openModal(output);
