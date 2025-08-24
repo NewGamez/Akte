@@ -1,7 +1,5 @@
 function switchTab(tabId) {
   document.querySelectorAll('.tab-content').forEach(div => div.classList.add('hidden'));
-
-  // Tabs hervorheben
   const tabs = ['strafakte-tab', 'schnellakte-tab', 'kollektivakte-tab', 'dokumente-tab', 'weisungen-tab'];
   tabs.forEach(id => {
     const btn = document.getElementById(id);
@@ -11,18 +9,25 @@ function switchTab(tabId) {
       btn.classList.remove('border-blue-500', 'text-blue-500', 'border-b-2');
     }
   });
-
   document.getElementById(tabId).classList.remove('hidden');
 }
 
-// Hilfsfunktion Datum formatieren
 function formatDatum(dateStr) {
   if (!dateStr) return '';
   const d = new Date(dateStr);
   return d.toLocaleDateString('de-DE');
 }
 
-// ---------------- STRAFAKTE ----------------
+function openModal(content) {
+  document.getElementById('akteContent').textContent = content;
+  document.getElementById('akteModal').classList.remove('hidden');
+}
+
+function closeModal() {
+  document.getElementById('akteModal').classList.add('hidden');
+}
+
+// STRAFAKTE
 function generateStrafakte() {
   const name = document.getElementById('st_nameDienst').value;
   const tatort = document.getElementById('st_tatortTatzeit').value;
@@ -79,9 +84,10 @@ ${bemerkungen}
 `.trim();
 
   document.getElementById('st_output').textContent = output;
+  openModal(output);
 }
 
-// ---------------- SCHNELLAKTE ----------------
+// SCHNELLAKTE
 function generateSchnellakte() {
   const name = document.getElementById('sn_nameDienst').value;
   const tatort = document.getElementById('sn_tatortTatzeit').value;
@@ -133,9 +139,10 @@ ${bemerkungen}
 `.trim();
 
   document.getElementById('sn_output').textContent = output;
+  openModal(output);
 }
 
-// ---------------- KOLLEKTIVAKTE ----------------
+// KOLLEKTIVAKTE
 function generateKollektivakte() {
   const name = document.getElementById('k_nameDienst').value;
   const tatort = document.getElementById('k_tatortTatzeit').value;
@@ -194,4 +201,5 @@ Kollektivakte wurde von ${bestaetigtVon} um ${bestaetigtUm} genehmigt.
 `.trim();
 
   document.getElementById('k_output').textContent = output;
+  openModal(output);
 }
