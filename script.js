@@ -49,7 +49,7 @@ function generateStrafakte() {
   let bemerkungen = `Die Rechte wurden dem Beschuldigten durch ${verlesen} im Beisein von ${beisein} verlesen und verstanden.\n`;
   bemerkungen += `Dieser ${rechtsbeistand} auf einen Rechtsbeistand.\n`;
   bemerkungen += `Der TV ${medizin} auf medizinische Versorgung.\n`;
-  bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} [+7 Tage] zu bezahlen.\n`;
+  bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} zu bezahlen.\n`;
   bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.\n`;
   if(eil) bemerkungen += `Das Eilverfahren wurde durch ${eil} abgelehnt.\n`;
 
@@ -112,7 +112,7 @@ function generateSchnellakte() {
   let bemerkungen = `Die Rechte wurden dem Beschuldigten durch ${verlesen} im Beisein von ${beisein} verlesen und verstanden.\n`;
   bemerkungen += `Dieser ${rechtsbeistand} auf einen Rechtsbeistand.\n`;
   bemerkungen += `Der TV ${medizin} auf medizinische Versorgung.\n`;
-  bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} [+7 Tage] zu bezahlen.\n`;
+  bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} zu bezahlen.\n`;
   bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.\n`;
 
   const gezeichnetVon = document.getElementById('sn_gezeichnetVon').value;
@@ -173,7 +173,7 @@ function generateKollektivakte() {
   let bemerkungen = `Die Rechte wurden den Beschuldigten durch ${verlesen} im Beisein von ${beisein} verlesen und verstanden.\n`;
   bemerkungen += `Diese ${rechtsbeistand} auf einen Rechtsbeistand.\n`;
   bemerkungen += `Die TV's ${medizin} auf medizinische Versorgung.\n`;
-  bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} [+7 Tage] zu bezahlen.\n`;
+  bemerkungen += `Das Bußgeld ist bis zum ${formatDatum(bussgeld)} zu bezahlen.\n`;
   bemerkungen += `Die dem Tatverdächtigen abgenommenen Gegenstände wurden in seinen persönlichen Spind gelegt.\n`;
 
   const gezeichnetVon = document.getElementById('k_gezeichnetVon').value;
