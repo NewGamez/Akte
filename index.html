@@ -4,63 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NCPD · Portal</title>
-  <style>
-    :root{
-      --bg:#050814; --bg2:#0b1220;
-      --card:#0f172aee; --border:#1f2a44;
-      --text:#e6e9ef; --muted:#9fb2c8;
-      --primary:#2563eb; --primary-2:#60a5fa;
-      --radius:20px; --shadow:0 16px 50px rgba(0,0,0,.55);
-      --field:#0b1426; --field-border:#2b3b58;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 800px at 70% -10%, #1b2a55 0%, transparent 60%),
-        radial-gradient(900px 700px at -10% 110%, #122238 0%, transparent 60%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-      min-height:100dvh;
-    }
-    .container{max-width:1200px; margin:0 auto; padding:24px;}
-    /* Topbar */
-    .topbar{background:rgba(12,19,35,.75); border-bottom:1px solid var(--border);
-      backdrop-filter: blur(10px); position:sticky; top:0; z-index:50;}
-    .topbar .inner{max-width:1200px; margin:0 auto; padding:12px 24px;
-      display:flex; align-items:center; gap:16px;}
-    .topbar .logo{width:48px; height:48px; border-radius:12px; overflow:hidden}
-    .topbar h1{margin:0; font-size:20px; font-weight:900; letter-spacing:.3px;}
-    .topbar .sub{color:var(--muted); font-size:13px}
-    .topbar .right{margin-left:auto; display:flex; gap:10px; align-items:center}
-    .chip{padding:6px 10px; border-radius:999px; border:1px solid var(--border);
-      background:#0b1426; font-size:12px;}
-    /* Cards */
-    .card{padding:28px 26px; background:var(--card); border:1px solid var(--border);
-      border-radius:var(--radius); box-shadow:var(--shadow);}
-    .card-title{font-size:18px; font-weight:800; margin:0 0 12px}
-    /* Grid / Tiles */
-    .grid{display:grid; gap:16px}
-    @media (min-width: 900px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} }
-    .tile{padding:22px; border:1px solid var(--border); border-radius:16px;
-      background:#0d1528e6; box-shadow:0 8px 30px rgba(0,0,0,.35)}
-    .tile h3{margin:0 0 8px; font-size:18px}
-    /* Buttons */
-    .btn{padding:10px 14px; border-radius:12px; border:1px solid var(--border);
-      background:#0b1426; color:#e6e9ef; cursor:pointer; font-weight:600;}
-    .btn-primary{background:linear-gradient(135deg, var(--primary), var(--primary-2));
-      border-color:#2b3b58; color:#fff; font-weight:800;}
-    .btn-ghost{background:#0b1426}
-    /* Forms */
-    label{font-weight:600; font-size:14px; color:#cbd5e1}
-    .field{display:grid; gap:8px}
-    input, textarea{width:100%; padding:12px 14px; border-radius:12px;
-      border:1px solid var(--field-border); background:var(--field);
-      color:var(--text); font-size:15px;}
-    textarea{min-height:150px; resize:vertical}
-    .form-row{display:grid; gap:14px}
-    @media (min-width: 900px){ .form-row.cols-2{grid-template-columns:1fr 1fr} }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- Topbar -->
@@ -89,23 +33,53 @@
             <h3>Akten</h3>
             <p>Strafakten, Schnellakten und Kollektivakten erstellen.</p>
             <div class="tile-actions">
-              <button class="btn btn-primary" onclick="openAkte('aktenwahl')">Öffnen</button>
+              <button class="btn btn-primary" onclick="openAktenwahl()">Öffnen</button>
             </div>
           </div>
           <!-- Weisungen -->
           <div class="card tile">
             <h3>Weisungen</h3>
-            <p>Interne Weisungen verfassen und verwalten.</p>
+            <p>Interne Weisungen einsehen.</p>
             <div class="tile-actions">
-              <button class="btn btn-primary" onclick="openAkte('weisungen')">Öffnen</button>
+              <button class="btn btn-primary" onclick="window.open('https://docs.google.com/document/d/DEIN_WEISUNGEN_LINK', '_blank')">Öffnen</button>
             </div>
           </div>
           <!-- Dokumente -->
           <div class="card tile">
             <h3>Dokumente</h3>
-            <p>Allgemeine Dokumente hochladen oder erstellen.</p>
+            <p>Dienstdokumente abrufen.</p>
             <div class="tile-actions">
-              <button class="btn btn-primary" onclick="openAkte('dokumente')">Öffnen</button>
+              <button class="btn btn-primary" onclick="window.open('https://docs.google.com/document/d/DEIN_DOKUMENTE_LINK', '_blank')">Öffnen</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aktenauswahl -->
+    <div id="aktenAuswahl" class="section" style="display:none;">
+      <div class="card">
+        <h2>Aktenauswahl</h2>
+        <div class="grid cols-3">
+          <div class="card tile">
+            <h3>Strafakte</h3>
+            <p>Neue Strafakte erstellen.</p>
+            <div class="tile-actions">
+              <button class="btn btn-primary" onclick="openAkte('strafakte')">Öffnen</button>
+            </div>
+          </div>
+          <div class="card tile">
+            <h3>Schnellakte</h3>
+            <p>Schnellakte verfassen.</p>
+            <div class="tile-actions">
+              <button class="btn btn-primary" onclick="openAkte('schnellakte')">Öffnen</button>
+            </div>
+          </div>
+          <div class="card tile">
+            <h3>Kollektivakte</h3>
+            <p>Kollektivakte anlegen.</p>
+            <div class="tile-actions">
+              <button class="btn btn-primary" onclick="openAkte('kollektivakte')">Öffnen</button>
             </div>
           </div>
         </div>
@@ -115,12 +89,12 @@
     <!-- Formular-Bereich -->
     <div id="aktenFormular" class="section" style="display:none;">
       <div class="card">
-        <h2 id="aktenTitel">Formular</h2>
+        <h2 id="aktenTitel">Akte</h2>
         <form id="akteForm">
           <div class="form-row cols-2">
             <div class="field">
-              <label for="akteName">Titel / Name</label>
-              <input type="text" id="akteName" placeholder="Titel oder Name">
+              <label for="akteName">Name</label>
+              <input type="text" id="akteName" placeholder="Name des Beschuldigten">
             </div>
             <div class="field">
               <label for="akteDatum">Datum</label>
@@ -130,7 +104,7 @@
           <div class="form-row">
             <div class="field">
               <label for="akteInhalt">Inhalt</label>
-              <textarea id="akteInhalt" placeholder="Details eintragen..."></textarea>
+              <textarea id="akteInhalt" placeholder="Details zur Akte"></textarea>
             </div>
           </div>
           <div class="form-row cols-2">
@@ -138,6 +112,17 @@
             <button type="button" class="btn btn-ghost" onclick="closeAkte()">Abbrechen</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="akteModal" class="modal" style="display:none;">
+    <div class="modal-content card">
+      <h2>Fertige Akte</h2>
+      <pre id="akteOutput"></pre>
+      <div style="margin-top:16px; text-align:right;">
+        <button class="btn btn-primary" onclick="closeModal()">Schließen</button>
       </div>
     </div>
   </div>
