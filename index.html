@@ -1,276 +1,279 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NC Akten Generator</title>
+<script src="script.js" defer></script>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-4">
 
-  <!doctype html>
-  <html lang="de">
-  <head>
+<div class="flex justify-end mb-4">
+  <img src="bild.png" alt="Logo" class="h-20 w-auto rounded">
+</div>
 
-    <meta name="theme-color" content="#0b1220">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Narco City Police Department">
-  <meta property="og:title" content="Dashboard">
-  <meta property="og:description" content="Academy Portal · Übersicht">
-  <meta property="og:url" content="https://cookienc.de/dashboard.php">
-  <!-- <meta property="og:image" content="https://cookienc.de/assets/ncpd.png"> -->
-  <!-- <meta property="og:image:width" content="1200"> -->
-  <!-- <meta property="og:image:height" content="630"> -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dashboard">
-  <meta name="twitter:description" content="Academy Portal · Übersicht">
-  <meta name="twitter:image" content="https://cookienc.de/assets/ncpd.png">
+<div class="max-w-7xl mx-auto">
+  <h1 class="text-3xl font-bold mb-4 text-center">NCPD II Übersicht</h1>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard</title>
-    <style>
-      :root{
-        --bg:#050814; --bg2:#0b1220;
-        --card:#0f172aee; --border:#1f2a44;
-        --text:#e6e9ef; --muted:#9fb2c8;
-        --primary:#2563eb; --primary-2:#60a5fa;
-        --green:#16a34a; --red:#dc2626; --amber:#f59e0b;
-        --radius:20px; --shadow:0 16px 50px rgba(0,0,0,.55);
-        --field:#0b1426; --field-border:#2b3b58;
-      }
-
-      *{box-sizing:border-box}
-
-      html{min-height:100%; height:auto}
-      body{
-        margin:0;
-        font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-        color:var(--text);
-        background:
-          radial-gradient(1200px 800px at 70% -10%, #1b2a55 0%, transparent 60%),
-          radial-gradient(900px 700px at -10% 110%, #122238 0%, transparent 60%),
-          linear-gradient(180deg, var(--bg), var(--bg2));
-        min-height:100dvh;
-        overflow-y:auto; overflow-x:hidden;
-      }
-
-      .container{
-        max-width:1200px; margin:0 auto;
-        padding:24px;
-        padding-bottom:calc(72px + env(safe-area-inset-bottom, 0px));
-      }
-
-      .space{height:14px}
-      .muted{color:var(--muted)}
-
-            /* ===== Topbar ===== */
-      .topbar{
-        background:rgba(12,19,35,.75);
-        border-bottom:1px solid var(--border);
-        backdrop-filter: blur(10px);
-        position:sticky; top:0; z-index:50;
-      }
-      .topbar .inner{
-        max-width:1200px; margin:0 auto; padding:12px 24px;
-        display:flex; align-items:center; gap:16px;
-      }
-      .topbar .logo{width:48px; height:48px; border-radius:12px; overflow:hidden}
-      .topbar .logo img{width:100%; height:100%; object-fit:contain}
-      .topbar h1{
-        margin:0; font-size:20px; font-weight:900; letter-spacing:.3px;
-        text-shadow:0 0 10px rgba(96,165,250,.45), 0 0 20px rgba(37,99,235,.28);
-      }
-      .topbar .sub{color:var(--muted); font-size:13px}
-      .topbar .right{margin-left:auto; display:flex; gap:10px; align-items:center}
-      .chip{
-        padding:6px 10px; border-radius:999px; border:1px solid var(--border);
-        background:#0b1426; font-size:12px; color:#cbd5e1; white-space:nowrap;
-      }
-
-      /* === Konto-Dropdown === */
-      .menu{ position:relative; }
-      .menu .acct-btn{
-        padding:8px 12px; border-radius:12px; font-weight:700;
-      }
-      .menu-pop{
-        position:absolute; right:0; top:calc(100% + 10px);
-        background:#0b1426; border:1px solid var(--border); border-radius:12px;
-        min-width:210px; box-shadow:var(--shadow);
-        opacity:0; pointer-events:none; transform:translateY(-6px);
-        transition:opacity .15s ease, transform .15s ease;
-        z-index:60;
-      }
-      .menu:hover .menu-pop,
-      .menu:focus-within .menu-pop{ opacity:1; pointer-events:auto; transform:translateY(0); }
-      .menu-pop a{
-        display:flex; align-items:center; gap:8px;
-        padding:10px 12px; text-decoration:none; color:var(--text);
-      }
-      .menu-pop a:hover{ background:#0e1629; }
-      .menu-pop .sep{ height:1px; background:#1f2a44; margin:6px 0; }
-      
-      /* ===== Cards ===== */
-      .card{
-        width:100%; padding:28px 26px;
-        background:var(--card); border:1px solid var(--border);
-        border-radius:var(--radius); box-shadow:var(--shadow); backdrop-filter: blur(10px);
-        position:relative; overflow:visible;
-      }
-      .card::before{
-        content:""; position:absolute; inset:0; border-radius:inherit; padding:1px;
-        background:linear-gradient(135deg, rgba(96,165,250,.35), rgba(37,99,235,.15), rgba(16,185,129,.15));
-        -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-        -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none;
-      }
-      .card-title{font-size:18px; font-weight:800; margin:0 0 12px}
-
-      /* ===== Grid / Tiles ===== */
-      .grid{display:grid; gap:16px}
-      @media (min-width: 900px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} }
-      @media (min-width: 900px){ .grid.cols-2{grid-template-columns:repeat(2,1fr)} }
-      .tile{padding:22px; border:1px solid var(--border); border-radius:16px; background:#0d1528e6; box-shadow:0 8px 30px rgba(0,0,0,.35)}
-      .tile h3{margin:0 0 8px; font-size:18px}
-
-      /* ===== Buttons ===== */
-      .btn, button.btn{
-        display:inline-block; padding:10px 14px; border-radius:12px;
-        border:1px solid var(--border); background:#0b1426; color:#e6e9ef;
-        text-decoration:none; cursor:pointer; font-weight:600; line-height:1.1;
-        transition:filter .15s ease, transform .05s ease, box-shadow .15s ease;
-      }
-      .btn:hover, button.btn:hover{filter:saturate(1.05) brightness(1.03)}
-      .btn:active, button.btn:active{transform:translateY(1px)}
-      .btn:disabled, button.btn:disabled{opacity:.6; cursor:not-allowed}
-      .btn-primary{background:linear-gradient(135deg, var(--primary), var(--primary-2)); border-color:#2b3b58; color:#fff; font-weight:800; letter-spacing:.2px; box-shadow:0 12px 26px rgba(37,99,235,.35)}
-      .btn-ghost{background:#0b1426}
-      .btn-success{background:#09351a; border-color:#155e29}
-      .btn-danger{background:#3b0a0a; border-color:#7f1d1d}
-      .btn-warning{background:#3a2a02; border-color:#7c5c0a}
-
-      /* ===== Badges / Alerts ===== */
-      .badge{display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; border:1px solid var(--border); background:#0b1426}
-      .badge-green{border-color:#14532d; background:#052b1d8c; color:#d1fae5}
-      .badge-red{border-color:#7f1d1d; background:#3b0a0a66; color:#fee2e2}
-      .badge-amber{border-color:#7c5c0a; background:#3a2a0266; color:#fde68a}
-      .alert{padding:12px 14px; border-radius:12px}
-      .alert-err{border:1px solid #7f1d1d; background:#3b0a0a66; color:#fee2e2}
-      .alert-ok{border:1px solid #14532d; background:#052b1d8c; color:#d1fae5}
-      .alert-warn{border:1px solid #7c5c0a; background:#3a2a0266; color:#fde68a}
-
-      /* ===== FORMS ===== */
-      label{font-weight:600; font-size:14px; color:#cbd5e1}
-      .field{display:grid; gap:8px}
-
-      input:not([type]),
-      input[type="text"], input[type="email"], input[type="password"],
-      input[type="number"], input[type="search"], input[type="tel"],
-      input[type="url"], input[type="date"], input[type="time"],
-      input[type="datetime-local"], input[type="month"], input[type="week"],
-      select, textarea {
-        width:100%; padding:12px 14px;
-        border-radius:12px; border:1px solid var(--field-border);
-        background:var(--field); color:var(--text); font-size:15px; outline:none;
-        -webkit-appearance:none; -moz-appearance:none; appearance:none;
-        transition:border-color .15s ease, box-shadow .15s ease, background-color .2s ease;
-      }
-      ::placeholder{color:#93a3b8; opacity:.9}
-      input:focus, select:focus, textarea:focus{
-        border-color: var(--primary);
-        box-shadow: 0 0 0 5px rgba(37,99,235,.18), 0 0 0 1px var(--primary);
-      }
-      input[type="checkbox"], input[type="radio"]{ width:auto; padding:0; background:transparent; border:none; box-shadow:none }
-      input[type=number]::-webkit-outer-spin-button,
-      input[type=number]::-webkit-inner-spin-button{ -webkit-appearance: none; margin:0; }
-      input[type=number]{ -moz-appearance: textfield; }
-      select{
-        padding-right:38px;
-        background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%239fb2c8' d='M1.41 0L6 4.59 10.59 0 12 1.41 6 7.41 0 1.41z'/%3E%3C/svg%3E");
-        background-repeat:no-repeat; background-position:right 12px center; background-size:12px 8px;
-      }
-      select::-ms-expand{display:none}
-      textarea{ min-height:150px; line-height:1.45; resize:vertical; padding-top:14px; padding-bottom:14px; }
-
-      .form-row{display:grid; gap:14px}
-      @media (min-width: 900px){ .form-row.cols-2{grid-template-columns:1fr 1fr} }
-
-      /* ===== Tabellen ===== */
-      .table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:14px; border:1px solid var(--border)}
-      .table th,.table td{padding:12px 14px; text-align:left}
-      .table thead th{background:#0b1426; color:#cbd5e1; border-bottom:1px solid var(--border); font-weight:700}
-      .table tbody tr{background:#0e1629}
-      .table tbody tr+tr td{border-top:1px solid #1a2742}
-    </style>
-  </head>
-  <body>
-      <div class="topbar">
-      <div class="inner">
-        <div class="logo"><img src="/assets/ncpd.png" alt=""></div>
-        <div>
-          <h1>Narco City Police Department</h1>
-          <div class="sub">Academy Portal · Übersicht</div>
-        </div>
-        <div class="right">
-                      <span class="chip">Senior Ausbilder</span>
-
-            <!-- Konto-Dropdown -->
-            <div class="menu">
-              <button class="btn acct-btn" type="button" aria-haspopup="menu" aria-expanded="false">Konto ▾</button>
-              <div class="menu-pop" role="menu" aria-label="Konto-Menü">
-                <a role="menuitem" href="/dashboard.php">Dashboard</a>
-                <a role="menuitem" href="/account.php">Mein Konto</a>
-                <div class="sep" aria-hidden="true"></div>
-                <a role="menuitem" href="/logout.php">Abmelden</a>
-              </div>
-            </div>
-          
-                  </div>
-      </div>
-    </div>
-    <div class="container">
-    <style>
-  .section{margin-bottom:22px}
-  .section h2{margin:0 0 10px;font-size:22px;letter-spacing:.2px}
-  .section .card{padding:18px}
-
-  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-  .tile{grid-column:span 4}
-  @media (max-width:1100px){.tile{grid-column:span 6}}
-  @media (max-width:680px){.tile{grid-column:span 12}}
-</style>
-
-<!-- Anwärter-Bereich (alle sehen "Meine Prüfungen") -->
-<div class="section">
-  <div class="card">
-    <h2>Anwärter-Bereich</h2>
-    <div class="grid">
-      <div class="card tile">
-        <h3 class="tile-title">Meine Prüfungen</h3>
-        <p class="tile-desc">Meine zugewiesenen Prüfungen ansehen und starten.</p>
-        <div class="tile-actions">
-          <a class="btn btn-primary btn-lg" href="/my_exams.php">Öffnen</a>
-        </div>
-      </div>
-    </div>
+  <!-- Tabs -->
+  <div class="flex space-x-4 mb-6 border-b border-gray-700">
+    <button id="strafakte-tab" class="px-4 py-2 border-b-2 border-blue-500 text-blue-500" onclick="switchTab('strafakte')">Strafakte</button>
+    <button id="schnellakte-tab" class="px-4 py-2" onclick="switchTab('schnellakte')">Schnellakte</button>
+    <button id="kollektivakte-tab" class="px-4 py-2" onclick="switchTab('kollektivakte')">Kollektivakte</button>
+    <button id="dokumente-tab" class="px-4 py-2" onclick="switchTab('dokumente')">Dokumente</button>
+    <button id="weisungen-tab" class="px-4 py-2" onclick="switchTab('weisungen')">Weisungen</button>
   </div>
+
+  <!-- Strafakte -->
+  <div id="strafakte" class="tab-content grid grid-cols-2 gap-4">
+    <label>Officer:</label>
+    <input type="text" id="st_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
+    
+    <label>Tatort und Tatzeit:</label>
+    <input type="text" id="st_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
+    
+    <label>Beschuldigte Personen:</label>
+    <input type="text" id="st_beschuldigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
+    
+    <label>Geschädigte Personen:</label>
+    <input type="text" id="st_geschaedigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
+    
+    <label>Sachverhalt aus Sicht des NCPDs:</label>
+    <textarea id="st_sachverhalt" class="bg-gray-800 p-2 rounded"></textarea>
+    
+    <label>Identitätsfeststellung:</label>
+    <select id="st_identitaet" class="bg-gray-800 p-2 rounded">
+      <option value="Personalausweis">Personalausweis</option>
+      <option value="Waffenschein">Waffenschein</option>
+      <option value="Führerschein">Führerschein</option>
+      <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
+    </select>
+    
+    <label>Weitere beteiligte Einheiten/Zeugen:</label>
+    <input type="text" id="st_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
+
+    <label>Abgenommene Gegenstände:</label>
+    <textarea id="st_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
+    
+    <label>Abgenommen von:</label>
+    <input type="text" id="st_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
+
+    <label>Verlesen:</label>
+    <input type="text" id="st_verlesen" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
+    
+    <label>Beisein:</label>
+    <input type="text" id="st_beisein" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
+
+    <label>Rechtsbeistand:</label>
+    <select id="st_rechtsbeistand" class="bg-gray-800 p-2 rounded">
+      <option value="bestand">bestand</option>
+      <option value="verzichtete">verzichtete</option>
+    </select>
+
+    <label>Medizinische Versorgung:</label>
+    <select id="st_medizin" class="bg-gray-800 p-2 rounded">
+      <option value="bestand">bestand</option>
+      <option value="verzichtete">verzichtete</option>
+    </select>
+
+    <label>Eilverfahren abgelehnt durch:</label>
+    <input type="text" id="st_eilverfahren" placeholder="DOJ-XX , ..." class="bg-gray-800 p-2 rounded">
+
+    <label>Bußgelddatum:</label>
+    <input type="date" id="st_bussgeld" class="bg-gray-800 p-2 rounded">
+
+    <label>Gezeichnet von:</label>
+    <input type="text" id="st_gezeichnetVon" placeholder="Vorname Nachname | PD-XX | Dienstrang" class="bg-gray-800 p-2 rounded">
+
+    <button onclick="generateStrafakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Strafakte generieren</button>
+  </div>
+
+  <!-- Schnellakte -->
+  <div id="schnellakte" class="tab-content grid grid-cols-2 gap-4 hidden">
+    <label>Officer:</label>
+    <input type="text" id="sn_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
+    
+    <label>Tatort und Tatzeit:</label>
+    <input type="text" id="sn_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
+    
+    <label>Beschuldigte Personen:</label>
+    <input type="text" id="sn_beschuldigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
+    
+    <label>Geschädigte Personen:</label>
+    <input type="text" id="sn_geschaedigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
+    
+    <label>Identitätsfeststellung:</label>
+    <select id="sn_identitaet" class="bg-gray-800 p-2 rounded">
+      <option value="Personalausweis">Personalausweis</option>
+      <option value="Waffenschein">Waffenschein</option>
+      <option value="Führerschein">Führerschein</option>
+      <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
+    </select>
+    
+    <label>Weitere beteiligte Einheiten/Zeugen:</label>
+    <input type="text" id="sn_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
+
+    <label>Abgenommene Gegenstände:</label>
+    <textarea id="sn_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
+    
+    <label>Abgenommen von:</label>
+    <input type="text" id="sn_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
+
+    <label>Verlesen:</label>
+    <input type="text" id="sn_verlesen" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
+    
+    <label>Beisein:</label>
+    <input type="text" id="sn_beisein" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
+
+    <label>Rechtsbeistand:</label>
+    <select id="sn_rechtsbeistand" class="bg-gray-800 p-2 rounded">
+      <option value="bestand">bestand</option>
+      <option value="verzichtete">verzichtete</option>
+    </select>
+
+    <label>Medizinische Versorgung:</label>
+    <select id="sn_medizin" class="bg-gray-800 p-2 rounded">
+      <option value="bestand">bestand</option>
+      <option value="verzichtete">verzichtete</option>
+    </select>
+
+    <label>Bußgelddatum:</label>
+    <input type="date" id="sn_bussgeld" class="bg-gray-800 p-2 rounded">
+
+    <label>Gezeichnet von:</label>
+    <input type="text" id="sn_gezeichnetVon" placeholder="Vorname Nachname | PD-XX | Dienstrang" class="bg-gray-800 p-2 rounded">
+
+    <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Schnellakte generieren</button>
+  </div>
+
+  <!-- Kollektivakte -->
+  <div id="kollektivakte" class="tab-content grid grid-cols-2 gap-4 hidden">
+    <label>Officer:</label>
+    <input type="text" id="k_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
+    
+    <label>Tatort und Tatzeit:</label>
+    <input type="text" id="k_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
+    
+    <label>Beschuldigte Personen:</label>
+    <input type="text" id="k_beschuldigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
+    
+    <label>Geschädigte Personen:</label>
+    <input type="text" id="k_geschaedigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
+
+    <label>Sachverhalt aus Sicht des NCPDs:</label>
+    <textarea id="k_sachverhalt" class="bg-gray-800 p-2 rounded"></textarea>
+    
+    <label>Identitätsfeststellung:</label>
+    <select id="k_identitaet" class="bg-gray-800 p-2 rounded">
+      <option value="Personalausweis">Personalausweis</option>
+      <option value="Waffenschein">Waffenschein</option>
+      <option value="Führerschein">Führerschein</option>
+      <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
+    </select>
+    
+    <label>Weitere beteiligte Einheiten/Zeugen:</label>
+    <input type="text" id="k_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
+
+    <label>Abgenommene Gegenstände:</label>
+    <textarea id="k_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
+    
+    <label>Abgenommen von:</label>
+    <input type="text" id="k_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
+
+    <label>Verlesen:</label>
+    <input type="text" id="k_verlesen" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
+    
+    <label>Beisein:</label>
+    <input type="text" id="k_beisein" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
+
+    <label>Rechtsbeistand:</label>
+    <select id="k_rechtsbeistand" class="bg-gray-800 p-2 rounded">
+      <option value="bestand">bestand</option>
+      <option value="verzichtete">verzichtete</option>
+    </select>
+
+    <label>Medizinische Versorgung:</label>
+    <select id="k_medizin" class="bg-gray-800 p-2 rounded">
+      <option value="bestand">bestand</option>
+      <option value="verzichtete">verzichtete</option>
+    </select>
+
+    <label>Bußgelddatum:</label>
+    <input type="date" id="k_bussgeld" class="bg-gray-800 p-2 rounded">
+
+    <label>Bestätigt von:</label>
+    <input type="text" id="k_bestaetigtVon" placeholder="DOJ-XX" class="bg-gray-800 p-2 rounded">
+    
+    <label>Bestätigt um (Uhrzeit):</label>
+    <input type="text" id="k_bestaetigtUm" placeholder="XX:XX" class="bg-gray-800 p-2 rounded">
+
+    <label>Gezeichnet von:</label>
+    <input type="text" id="k_gezeichnetVon" placeholder="Vorname Nachname | PD-XX | Dienstrang" class="bg-gray-800 p-2 rounded">
+
+    <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Kollektivakte generieren</button>
+  </div>
+
+  <!-- Dokumente -->
+<div id="dokumente" class="tab-content hidden">
+    <h2 class="text-2xl font-bold mb-4">NCPD II Dokumente</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a href="https://docs.google.com/document/d/1lQISCXCAb0KjN-iY7fU-Gz9NsuihudX3Fnzvsbs9MYk/edit?tab=t.0#heading=h.8ssgxlajnn63" target="_blank"
+           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+            Dienstausrüstung
+        </a>
+        <a href="https://docs.google.com/document/d/1hwddQcllXnyUpsZg3XmQYGqcVxGCq3E_-OeXET_-RbA/edit?tab=t.0#heading=h.vc75pryyd0ly" target="_blank"
+           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+            Dienstfahrzeuge
+        </a>
+        <a href="https://docs.google.com/document/d/1AXf7xH64ijBl2MgRcN1QOyx_k8fTyBbvNN_cYI4RLZM/edit?tab=t.0#heading=h.vc75pryyd0ly" target="_blank"
+           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+            Dienstvorschriften
+        </a>
+        <a href="https://docs.google.com/spreadsheets/d/1UJjPAVCRKlEjqK1u6p8W8spethUIHyc--jcyEcZpZpI/edit?gid=0#gid=0" target="_blank"
+           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+            Kleiderordnung
+        </a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeNwzx3HYJisbxc_GFY6t91iN2XcvNPfsre_dC-nO1o9DSssQ/viewform" target="_blank"
+           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+            Regeldienstbericht
+        </a>
+        <a href="https://docs.google.com/spreadsheets/d/1rqx0MtqJ5cMGC2VMgnCk5I1PUq8pSGJy3pgRAwwD_i4/edit?gid=42130360#gid=42130360" target="_blank"
+           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+            Sanktionskatalog
+        </a>
+        <a href="https://docs.google.com/document/d/1-S3DSnpdklAyFqD-NuKAfRxbld7teqkpm99b1QQSuuc/edit?tab=t.0#heading=h.8ssgxlajnn63" target="_blank"
+           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+            Waffenordnung
+        </a>
+        </a>
+    </div>
 </div>
 
 
-  <!-- Ausbilder-Bereich (Ausbilder + Admin) -->
-  <div class="section">
-    <div class="card">
-      <h2>Ausbilder-Bereich</h2>
-      <div class="grid">
-        <div class="card tile">
-          <h3 class="tile-title">Prüfungen bewerten</h3>
-          <p class="tile-desc">Eingereichte Prüfungen bewerten.</p>
-          <div class="tile-actions">
-            <a class="btn btn-primary btn-lg" href="/trainer/inbox.php">Öffnen</a>
-          </div>
-        </div>
-
-        <div class="card tile">
-          <h3 class="tile-title">Prüfung zuweisen</h3>
-          <p class="tile-desc">Rekruten eine Prüfung zuweisen.</p>
-          <div class="tile-actions">
-            <a class="btn btn-primary btn-lg" href="/trainer/assign.php">Öffnen</a>
-          </div>
-        </div>
-      </div>
+  <!-- Weisungen -->
+<div id="weisungen" class="tab-content hidden">
+    <h2 class="text-2xl font-bold mb-4">NCPD II Weisungen</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a href="https://docs.google.com/document/d/1yot_fl3_uGbIKlej1cVrcK0cmE4J3ffF6bgLpd9Bg4U/edit?usp=sharing" target="_blank"
+           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+            Parkordnung
+        </a>
+        <a href="https://docs.google.com/document/d/1t2fcQ32IjxQXJAoj1nV8mkVjrjE4hEwmgewb_N4SUIY/edit?usp=sharing" target="_blank"
+           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+            Meldekette
+        </a>
     </div>
+</div>
+
+<!-- Modal -->
+<div id="akteModal" class="fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50">
+  <div class="bg-gray-900 text-white rounded-2xl shadow-lg max-w-3xl w-full p-6 relative">
+    <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-400 hover:text-white text-2xl">&times;</button>
+    <h2 class="text-2xl font-bold mb-4">Generierte Akte</h2>
+    <pre id="akteContent" class="bg-gray-800 p-4 rounded text-sm whitespace-pre-wrap"></pre>
   </div>
+</div>
 
-
-
-</div></body></html>
+</body>
+</html>
