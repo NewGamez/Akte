@@ -106,3 +106,66 @@
         <div class="form-row"><label>Abgenommene Gegenstände</label><textarea id="sn_gegenstaende"></textarea></div>
         <div class="form-row"><label>Abgenommen von</label><input id="sn_abgenommenVon"></div>
         <div class="form-row"><label>Identität festgestellt durch</label><input id="sn_identitaet"></div>
+        <div class="form-row"><label>Weitere Einheiten/Zeugen</label><input id="sn_weitereEinheiten"></div>
+        <div class="form-row"><label>Bußgeld (Datum)</label><input type="date" id="sn_bussgeld"></div>
+        <div class="form-row"><label>Rechte verlesen durch</label><input id="sn_verlesen"></div>
+        <div class="form-row"><label>Im Beisein von</label><input id="sn_beisein"></div>
+        <div class="form-row"><label>Rechtsbeistand</label>
+          <select id="sn_rechtsbeistand"><option>verzichtet</option><option>besteht</option></select>
+        </div>
+        <div class="form-row"><label>Medizinische Versorgung</label>
+          <select id="sn_medizin"><option>verzichtet</option><option>besteht</option></select>
+        </div>
+        <div class="form-row"><label>Gezeichnet von</label><input id="sn_gezeichnetVon"></div>
+        <button class="btn btn-primary" onclick="generateSchnellakte()">Schnellakte generieren</button>
+      </div>
+    </div>
+
+    <!-- Kollektivakte -->
+    <div id="kollektivakte" class="hidden">
+      <div class="card">
+        <h2>Kollektivakte</h2>
+        <div class="form-row"><label>Name/Dienstnummer</label><input id="k_nameDienst"></div>
+        <div class="form-row"><label>Tatort & Tatzeit</label><input id="k_tatortTatzeit"></div>
+        <div class="form-row"><label>Beschuldigte</label><input id="k_beschuldigte"></div>
+        <div class="form-row"><label>Geschädigte</label><input id="k_geschaedigte"></div>
+        <div class="form-row"><label>Sachverhalt</label><textarea id="k_sachverhalt"></textarea></div>
+        <div class="form-row"><label>Abgenommene Gegenstände</label><textarea id="k_gegenstaende"></textarea></div>
+        <div class="form-row"><label>Abgenommen von</label><input id="k_abgenommenVon"></div>
+        <div class="form-row"><label>Identität festgestellt durch</label><input id="k_identitaet"></div>
+        <div class="form-row"><label>Weitere Einheiten/Zeugen</label><input id="k_weitereEinheiten"></div>
+        <div class="form-row"><label>Bestätigt von</label><input id="k_bestaetigtVon"></div>
+        <div class="form-row"><label>Bestätigt um</label><input type="time" id="k_bestaetigtUm"></div>
+        <div class="form-row"><label>Bußgeld (Datum)</label><input type="date" id="k_bussgeld"></div>
+        <div class="form-row"><label>Rechte verlesen durch</label><input id="k_verlesen"></div>
+        <div class="form-row"><label>Im Beisein von</label><input id="k_beisein"></div>
+        <div class="form-row"><label>Rechtsbeistand</label>
+          <select id="k_rechtsbeistand"><option>verzichtet</option><option>besteht</option></select>
+        </div>
+        <div class="form-row"><label>Medizinische Versorgung</label>
+          <select id="k_medizin"><option>verzichtet</option><option>besteht</option></select>
+        </div>
+        <div class="form-row"><label>Gezeichnet von</label><input id="k_gezeichnetVon"></div>
+        <button class="btn btn-primary" onclick="generateKollektivakte()">Kollektivakte generieren</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="akteModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">✖</span>
+      <pre id="akteContent"></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    function openSection(id) {
+      document.querySelectorAll('#strafakte, #schnellakte, #kollektivakte').forEach(div => div.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+  </script>
+</body>
+</html>
