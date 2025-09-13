@@ -1,281 +1,147 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NC Akten Generator</title>
-<script src="script.js" defer></script>
-<script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NCPD · Portal</title>
+  <style>
+    :root{
+      --bg:#050814; --bg2:#0b1220;
+      --card:#0f172aee; --border:#1f2a44;
+      --text:#e6e9ef; --muted:#9fb2c8;
+      --primary:#2563eb; --primary-2:#60a5fa;
+      --radius:20px; --shadow:0 16px 50px rgba(0,0,0,.55);
+      --field:#0b1426; --field-border:#2b3b58;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 70% -10%, #1b2a55 0%, transparent 60%),
+        radial-gradient(900px 700px at -10% 110%, #122238 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      min-height:100dvh;
+    }
+    .container{max-width:1200px; margin:0 auto; padding:24px;}
+    /* Topbar */
+    .topbar{background:rgba(12,19,35,.75); border-bottom:1px solid var(--border);
+      backdrop-filter: blur(10px); position:sticky; top:0; z-index:50;}
+    .topbar .inner{max-width:1200px; margin:0 auto; padding:12px 24px;
+      display:flex; align-items:center; gap:16px;}
+    .topbar .logo{width:48px; height:48px; border-radius:12px; overflow:hidden}
+    .topbar h1{margin:0; font-size:20px; font-weight:900; letter-spacing:.3px;}
+    .topbar .sub{color:var(--muted); font-size:13px}
+    .topbar .right{margin-left:auto; display:flex; gap:10px; align-items:center}
+    .chip{padding:6px 10px; border-radius:999px; border:1px solid var(--border);
+      background:#0b1426; font-size:12px;}
+    /* Cards */
+    .card{padding:28px 26px; background:var(--card); border:1px solid var(--border);
+      border-radius:var(--radius); box-shadow:var(--shadow);}
+    .card-title{font-size:18px; font-weight:800; margin:0 0 12px}
+    /* Grid / Tiles */
+    .grid{display:grid; gap:16px}
+    @media (min-width: 900px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} }
+    .tile{padding:22px; border:1px solid var(--border); border-radius:16px;
+      background:#0d1528e6; box-shadow:0 8px 30px rgba(0,0,0,.35)}
+    .tile h3{margin:0 0 8px; font-size:18px}
+    /* Buttons */
+    .btn{padding:10px 14px; border-radius:12px; border:1px solid var(--border);
+      background:#0b1426; color:#e6e9ef; cursor:pointer; font-weight:600;}
+    .btn-primary{background:linear-gradient(135deg, var(--primary), var(--primary-2));
+      border-color:#2b3b58; color:#fff; font-weight:800;}
+    .btn-ghost{background:#0b1426}
+    /* Forms */
+    label{font-weight:600; font-size:14px; color:#cbd5e1}
+    .field{display:grid; gap:8px}
+    input, textarea{width:100%; padding:12px 14px; border-radius:12px;
+      border:1px solid var(--field-border); background:var(--field);
+      color:var(--text); font-size:15px;}
+    textarea{min-height:150px; resize:vertical}
+    .form-row{display:grid; gap:14px}
+    @media (min-width: 900px){ .form-row.cols-2{grid-template-columns:1fr 1fr} }
+  </style>
 </head>
-<body class="bg-gray-900 text-white p-4">
-
-<div class="flex justify-end mb-4">
-  <img src="bild.png" alt="Logo" class="h-20 w-auto rounded">
-</div>
-
-<div class="flex justify-between items-baseline mb-4">
-  <h1 class="text-3xl font-bold">NCPD II Übersicht</h1>
-  <span class="text-sm text-gray-400 ml-6">Letztes Update: 07.09.2025 / 11:17</span>
-</div>
-
-  <!-- Tabs -->
-  <div class="flex space-x-4 mb-6 border-b border-gray-700">
-    <button id="strafakte-tab" class="px-4 py-2 border-b-2 border-blue-500 text-blue-500" onclick="switchTab('strafakte')">Strafakte</button>
-    <button id="schnellakte-tab" class="px-4 py-2" onclick="switchTab('schnellakte')">Schnellakte</button>
-    <button id="kollektivakte-tab" class="px-4 py-2" onclick="switchTab('kollektivakte')">Kollektivakte</button>
-    <button id="dokumente-tab" class="px-4 py-2" onclick="switchTab('dokumente')">Dokumente</button>
-    <button id="weisungen-tab" class="px-4 py-2" onclick="switchTab('weisungen')">Weisungen</button>
-  </div>
-
-  <!-- Strafakte -->
-  <div id="strafakte" class="tab-content grid grid-cols-2 gap-4">
-    <label>Officer:</label>
-    <input type="text" id="st_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
-    
-    <label>Tatort und Tatzeit:</label>
-    <input type="text" id="st_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
-    
-    <label>Beschuldigte Personen:</label>
-    <input type="text" id="st_beschuldigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
-    
-    <label>Geschädigte Personen:</label>
-    <input type="text" id="st_geschaedigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
-    
-    <label>Sachverhalt aus Sicht des NCPDs:</label>
-    <textarea id="st_sachverhalt" placeholder="Ein Gummibärchen attakierte mich" class="bg-gray-800 p-2 rounded"></textarea>
-    
-    <label>Identitätsfeststellung:</label>
-    <select id="st_identitaet" class="bg-gray-800 p-2 rounded">
-      <option value="Personalausweis">Personalausweis</option>
-      <option value="Waffenschein">Waffenschein</option>
-      <option value="Führerschein">Führerschein</option>
-      <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
-    </select>
-    
-    <label>Weitere beteiligte Einheiten/Zeugen:</label>
-    <input type="text" id="st_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
-
-    <label>Abgenommene Gegenstände:</label>
-    <textarea id="st_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
-    
-    <label>Abgenommen von:</label>
-    <input type="text" id="st_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Verlesen:</label>
-    <input type="text" id="st_verlesen" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-    
-    <label>Beisein:</label>
-    <input type="text" id="st_beisein" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Rechtsbeistand:</label>
-    <select id="st_rechtsbeistand" class="bg-gray-800 p-2 rounded">
-      <option value="bestand">bestand</option>
-      <option value="verzichtete">verzichtete</option>
-    </select>
-
-    <label>Medizinische Versorgung:</label>
-    <select id="st_medizin" class="bg-gray-800 p-2 rounded">
-      <option value="bestand">bestand</option>
-      <option value="verzichtete">verzichtete</option>
-    </select>
-
-    <label>Eilverfahren abgelehnt durch:</label>
-    <input type="text" id="st_eilverfahren" placeholder="DOJ-XX , ..." class="bg-gray-800 p-2 rounded">
-
-    <label>Bußgelddatum:</label>
-    <input type="date" id="st_bussgeld" class="bg-gray-800 p-2 rounded">
-
-    <label>Gezeichnet von:</label>
-    <input type="text" id="st_gezeichnetVon" placeholder="Vorname Nachname | PD-XX | Dienstrang" class="bg-gray-800 p-2 rounded">
-
-    <button onclick="generateStrafakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Strafakte generieren</button>
-  </div>
-
-  <!-- Schnellakte -->
-  <div id="schnellakte" class="tab-content grid grid-cols-2 gap-4 hidden">
-    <label>Officer:</label>
-    <input type="text" id="sn_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
-    
-    <label>Tatort und Tatzeit:</label>
-    <input type="text" id="sn_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
-    
-    <label>Beschuldigte Personen:</label>
-    <input type="text" id="sn_beschuldigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
-    
-    <label>Geschädigte Personen:</label>
-    <input type="text" id="sn_geschaedigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
-    
-    <label>Identitätsfeststellung:</label>
-    <select id="sn_identitaet" class="bg-gray-800 p-2 rounded">
-      <option value="Personalausweis">Personalausweis</option>
-      <option value="Waffenschein">Waffenschein</option>
-      <option value="Führerschein">Führerschein</option>
-      <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
-    </select>
-    
-    <label>Weitere beteiligte Einheiten/Zeugen:</label>
-    <input type="text" id="sn_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
-
-    <label>Abgenommene Gegenstände:</label>
-    <textarea id="sn_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
-    
-    <label>Abgenommen von:</label>
-    <input type="text" id="sn_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Verlesen:</label>
-    <input type="text" id="sn_verlesen" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-    
-    <label>Beisein:</label>
-    <input type="text" id="sn_beisein" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Rechtsbeistand:</label>
-    <select id="sn_rechtsbeistand" class="bg-gray-800 p-2 rounded">
-      <option value="bestand">bestand</option>
-      <option value="verzichtete">verzichtete</option>
-    </select>
-
-    <label>Medizinische Versorgung:</label>
-    <select id="sn_medizin" class="bg-gray-800 p-2 rounded">
-      <option value="bestand">bestand</option>
-      <option value="verzichtete">verzichtete</option>
-    </select>
-
-    <label>Bußgelddatum:</label>
-    <input type="date" id="sn_bussgeld" class="bg-gray-800 p-2 rounded">
-
-    <label>Gezeichnet von:</label>
-    <input type="text" id="sn_gezeichnetVon" placeholder="Vorname Nachname | PD-XX | Dienstrang" class="bg-gray-800 p-2 rounded">
-
-    <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Schnellakte generieren</button>
-  </div>
-
-  <!-- Kollektivakte -->
-  <div id="kollektivakte" class="tab-content grid grid-cols-2 gap-4 hidden">
-    <label>Officer:</label>
-    <input type="text" id="k_nameDienst" placeholder="Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-2 rounded">
-    
-    <label>Tatort und Tatzeit:</label>
-    <input type="text" id="k_tatortTatzeit" placeholder="Human Labs, bei PLZ XXXX Am DD.MM.YYYY von XX:XX Uhr bis XX:XX Uhr" class="bg-gray-800 p-2 rounded">
-    
-    <label>Beschuldigte Personen:</label>
-    <input type="text" id="k_beschuldigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
-    
-    <label>Geschädigte Personen:</label>
-    <input type="text" id="k_geschaedigte" placeholder="Vorname Nachname, Geb. DD.MM.YYYY" class="bg-gray-800 p-2 rounded">
-
-    <label>Sachverhalt aus Sicht des NCPDs:</label>
-    <textarea id="k_sachverhalt" placeholder="Ein Lebkuchenmann schoss mich mit Schokolade ab" class="bg-gray-800 p-2 rounded"></textarea>
-    
-    <label>Identitätsfeststellung:</label>
-    <select id="k_identitaet" class="bg-gray-800 p-2 rounded">
-      <option value="Personalausweis">Personalausweis</option>
-      <option value="Waffenschein">Waffenschein</option>
-      <option value="Führerschein">Führerschein</option>
-      <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
-    </select>
-    
-    <label>Weitere beteiligte Einheiten/Zeugen:</label>
-    <input type="text" id="k_weitereEinheiten" placeholder="PD-XX, FIB-XX , ..." class="bg-gray-800 p-2 rounded">
-
-    <label>Abgenommene Gegenstände:</label>
-    <textarea id="k_gegenstaende" placeholder="1x Handy&#10;1x Pistole" class="bg-gray-800 p-2 rounded"></textarea>
-    
-    <label>Abgenommen von:</label>
-    <input type="text" id="k_abgenommenVon" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Verlesen:</label>
-    <input type="text" id="k_verlesen" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-    
-    <label>Beisein:</label>
-    <input type="text" id="k_beisein" placeholder="PD-XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Rechtsbeistand:</label>
-    <select id="k_rechtsbeistand" class="bg-gray-800 p-2 rounded">
-      <option value="bestand">bestand</option>
-      <option value="verzichtete">verzichtete</option>
-    </select>
-
-    <label>Medizinische Versorgung:</label>
-    <select id="k_medizin" class="bg-gray-800 p-2 rounded">
-      <option value="bestand">bestand</option>
-      <option value="verzichtete">verzichtete</option>
-    </select>
-
-    <label>Bußgelddatum:</label>
-    <input type="date" id="k_bussgeld" class="bg-gray-800 p-2 rounded">
-
-    <label>Bestätigt von:</label>
-    <input type="text" id="k_bestaetigtVon" placeholder="DOJ-XX" class="bg-gray-800 p-2 rounded">
-    
-    <label>Bestätigt um (Uhrzeit):</label>
-    <input type="text" id="k_bestaetigtUm" placeholder="XX:XX" class="bg-gray-800 p-2 rounded">
-
-    <label>Gezeichnet von:</label>
-    <input type="text" id="k_gezeichnetVon" placeholder="Vorname Nachname | PD-XX | Dienstrang" class="bg-gray-800 p-2 rounded">
-
-    <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded col-span-2">Kollektivakte generieren</button>
-  </div>
-
-  <!-- Dokumente -->
-<div id="dokumente" class="tab-content hidden">
-    <h2 class="text-2xl font-bold mb-4">NCPD II Dokumente</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <a href="https://docs.google.com/document/d/1lQISCXCAb0KjN-iY7fU-Gz9NsuihudX3Fnzvsbs9MYk/edit?tab=t.0#heading=h.8ssgxlajnn63" target="_blank"
-           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-            Dienstausrüstung
-        </a>
-        <a href="https://docs.google.com/document/d/1hwddQcllXnyUpsZg3XmQYGqcVxGCq3E_-OeXET_-RbA/edit?tab=t.0#heading=h.vc75pryyd0ly" target="_blank"
-           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-            Dienstfahrzeuge
-        </a>
-        <a href="https://docs.google.com/document/d/1AXf7xH64ijBl2MgRcN1QOyx_k8fTyBbvNN_cYI4RLZM/edit?tab=t.0#heading=h.vc75pryyd0ly" target="_blank"
-           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-            Dienstvorschriften
-        </a>
-        <a href="https://docs.google.com/spreadsheets/d/1UJjPAVCRKlEjqK1u6p8W8spethUIHyc--jcyEcZpZpI/edit?gid=0#gid=0" target="_blank"
-           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-            Kleiderordnung
-        </a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeNwzx3HYJisbxc_GFY6t91iN2XcvNPfsre_dC-nO1o9DSssQ/viewform" target="_blank"
-           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-            Regeldienstbericht
-        </a>
-        <a href="https://docs.google.com/spreadsheets/d/1rqx0MtqJ5cMGC2VMgnCk5I1PUq8pSGJy3pgRAwwD_i4/edit?gid=42130360#gid=42130360" target="_blank"
-           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-            Sanktionskatalog
-        </a>
-        <a href="https://docs.google.com/document/d/1-S3DSnpdklAyFqD-NuKAfRxbld7teqkpm99b1QQSuuc/edit?tab=t.0#heading=h.8ssgxlajnn63" target="_blank"
-           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-            Waffenordnung
-        </a>
-        </a>
+<body>
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="inner">
+      <div class="logo"><img src="/assets/ncpd.png" alt=""></div>
+      <div>
+        <h1>Narco City Police Department</h1>
+        <div class="sub">Dienststellen-Portal</div>
+      </div>
+      <div class="right">
+        <span class="chip">Beamter</span>
+      </div>
     </div>
-</div>
-
-
-  <!-- Weisungen -->
-<div id="weisungen" class="tab-content hidden">
-    <h2 class="text-2xl font-bold mb-4">NCPD II Weisungen</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <a href="https://docs.google.com/document/d/1yot_fl3_uGbIKlej1cVrcK0cmE4J3ffF6bgLpd9Bg4U/edit?usp=sharing" target="_blank"
-           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-            Parkordnung
-        </a>
-        <a href="https://docs.google.com/document/d/1t2fcQ32IjxQXJAoj1nV8mkVjrjE4hEwmgewb_N4SUIY/edit?usp=sharing" target="_blank"
-           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-            Meldekette
-        </a>
-    </div>
-</div>
-
-<!-- Modal -->
-<div id="akteModal" class="fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50">
-  <div class="bg-gray-900 text-white rounded-2xl shadow-lg max-w-3xl w-full p-6 relative">
-    <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-400 hover:text-white text-2xl">&times;</button>
-    <h2 class="text-2xl font-bold mb-4">Generierte Akte</h2>
-    <pre id="akteContent" class="bg-gray-800 p-4 rounded text-sm whitespace-pre-wrap"></pre>
   </div>
-</div>
 
+  <!-- Container -->
+  <div class="container">
+    <!-- Hauptbereich -->
+    <div class="section">
+      <div class="card">
+        <h2>Bereiche</h2>
+        <div class="grid cols-3">
+          <!-- Akten -->
+          <div class="card tile">
+            <h3>Akten</h3>
+            <p>Strafakten, Schnellakten und Kollektivakten erstellen.</p>
+            <div class="tile-actions">
+              <button class="btn btn-primary" onclick="openAkte('aktenwahl')">Öffnen</button>
+            </div>
+          </div>
+          <!-- Weisungen -->
+          <div class="card tile">
+            <h3>Weisungen</h3>
+            <p>Interne Weisungen verfassen und verwalten.</p>
+            <div class="tile-actions">
+              <button class="btn btn-primary" onclick="openAkte('weisungen')">Öffnen</button>
+            </div>
+          </div>
+          <!-- Dokumente -->
+          <div class="card tile">
+            <h3>Dokumente</h3>
+            <p>Allgemeine Dokumente hochladen oder erstellen.</p>
+            <div class="tile-actions">
+              <button class="btn btn-primary" onclick="openAkte('dokumente')">Öffnen</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formular-Bereich -->
+    <div id="aktenFormular" class="section" style="display:none;">
+      <div class="card">
+        <h2 id="aktenTitel">Formular</h2>
+        <form id="akteForm">
+          <div class="form-row cols-2">
+            <div class="field">
+              <label for="akteName">Titel / Name</label>
+              <input type="text" id="akteName" placeholder="Titel oder Name">
+            </div>
+            <div class="field">
+              <label for="akteDatum">Datum</label>
+              <input type="date" id="akteDatum">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="akteInhalt">Inhalt</label>
+              <textarea id="akteInhalt" placeholder="Details eintragen..."></textarea>
+            </div>
+          </div>
+          <div class="form-row cols-2">
+            <button type="button" class="btn btn-primary" onclick="saveAkte()">Speichern</button>
+            <button type="button" class="btn btn-ghost" onclick="closeAkte()">Abbrechen</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
