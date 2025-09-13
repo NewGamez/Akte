@@ -133,4 +133,31 @@
         <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Dienstvorschriften</a>
         <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Kleiderordnung</a>
         <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Regeldienstbericht</a>
-        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Sanktionskatalog</a>
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Waffenordnung</a>
+      </div>
+    </div>
+
+    <!-- Weisungen -->
+    <div id="weisungen" class="hidden">
+      <h2 class="text-2xl font-bold mb-4 text-blue-400">NCPD II Weisungen</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Parkordnung</a>
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Meldekette</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="akteModal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center z-50">
+  <div class="bg-gray-800 text-white rounded-3xl shadow-xl max-w-3xl w-full p-6 relative">
+    <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-400 hover:text-white text-3xl">&times;</button>
+    <h2 class="text-2xl font-bold mb-4 text-blue-400">Generierte Akte</h2>
+    <pre id="akteContent" class="bg-gray-900 p-4 rounded-lg text-sm whitespace-pre-wrap"></pre>
+  </div>
+</div>
+
+</body>
+</html>
