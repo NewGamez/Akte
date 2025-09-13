@@ -19,11 +19,11 @@
 
   <!-- Tabs -->
   <div class="flex flex-wrap justify-center mb-8 border-b border-gray-700">
-    <button id="strafakte-tab" class="tab-btn px-5 py-2 text-lg font-semibold text-blue-400 border-b-2 border-blue-400" onclick="switchTab('strafakte')">Strafakte</button>
-    <button id="schnellakte-tab" class="tab-btn px-5 py-2 text-lg font-semibold text-gray-300 hover:text-blue-400" onclick="switchTab('schnellakte')">Schnellakte</button>
-    <button id="kollektivakte-tab" class="tab-btn px-5 py-2 text-lg font-semibold text-gray-300 hover:text-blue-400" onclick="switchTab('kollektivakte')">Kollektivakte</button>
-    <button id="dokumente-tab" class="tab-btn px-5 py-2 text-lg font-semibold text-gray-300 hover:text-blue-400" onclick="switchTab('dokumente')">Dokumente</button>
-    <button id="weisungen-tab" class="tab-btn px-5 py-2 text-lg font-semibold text-gray-300 hover:text-blue-400" onclick="switchTab('weisungen')">Weisungen</button>
+    <button id="strafakte-tab" class="px-5 py-2 text-lg font-semibold text-blue-400 border-b-2 border-blue-400" onclick="switchTab('strafakte')">Strafakte</button>
+    <button id="schnellakte-tab" class="px-5 py-2 text-lg font-semibold text-gray-300 hover:text-blue-400" onclick="switchTab('schnellakte')">Schnellakte</button>
+    <button id="kollektivakte-tab" class="px-5 py-2 text-lg font-semibold text-gray-300 hover:text-blue-400" onclick="switchTab('kollektivakte')">Kollektivakte</button>
+    <button id="dokumente-tab" class="px-5 py-2 text-lg font-semibold text-gray-300 hover:text-blue-400" onclick="switchTab('dokumente')">Dokumente</button>
+    <button id="weisungen-tab" class="px-5 py-2 text-lg font-semibold text-gray-300 hover:text-blue-400" onclick="switchTab('weisungen')">Weisungen</button>
   </div>
 
   <!-- Tabs Content -->
@@ -31,154 +31,106 @@
 
     <!-- Strafakte -->
     <div id="strafakte" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <input type="text" id="st_nameDienst" placeholder="Officer: Vorname Nachname | PD-XX | Dienstgrad" class="input-field">
-      <input type="text" id="st_tatortTatzeit" placeholder="Tatort & Zeit" class="input-field">
-      <input type="text" id="st_beschuldigte" placeholder="Beschuldigte Personen" class="input-field">
-      <input type="text" id="st_geschaedigte" placeholder="Geschädigte Personen" class="input-field">
-      <textarea id="st_sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs" class="textarea-field md:col-span-2"></textarea>
-      <select id="st_identitaet" class="select-field">
+      <input type="text" id="st_nameDienst" placeholder="Officer: Vorname Nachname | PD-XX | Dienstgrad" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="st_tatortTatzeit" placeholder="Tatort & Zeit" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="st_beschuldigte" placeholder="Beschuldigte Personen" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="st_geschaedigte" placeholder="Geschädigte Personen" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <textarea id="st_sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white h-32 resize-none md:col-span-2"></textarea>
+      <select id="st_identitaet" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
         <option value="Personalausweis">Personalausweis</option>
         <option value="Waffenschein">Waffenschein</option>
         <option value="Führerschein">Führerschein</option>
         <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
       </select>
-      <input type="text" id="st_weitereEinheiten" placeholder="Weitere beteiligte Einheiten/Zeugen" class="input-field">
-      <textarea id="st_gegenstaende" placeholder="Abgenommene Gegenstände" class="textarea-field md:col-span-2"></textarea>
-      <input type="text" id="st_abgenommenVon" placeholder="Abgenommen von" class="input-field">
-      <input type="text" id="st_verlesen" placeholder="Verlesen" class="input-field">
-      <input type="text" id="st_beisein" placeholder="Beisein" class="input-field">
-      <select id="st_rechtsbeistand" class="select-field">
+      <input type="text" id="st_weitereEinheiten" placeholder="Weitere beteiligte Einheiten/Zeugen" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <textarea id="st_gegenstaende" placeholder="Abgenommene Gegenstände" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white h-32 resize-none md:col-span-2"></textarea>
+      <input type="text" id="st_abgenommenVon" placeholder="Abgenommen von" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="st_verlesen" placeholder="Verlesen" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="st_beisein" placeholder="Beisein" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <select id="st_rechtsbeistand" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
         <option value="bestand">bestand</option>
         <option value="verzichtete">verzichtete</option>
       </select>
-      <select id="st_medizin" class="select-field">
+      <select id="st_medizin" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
         <option value="bestand">bestand</option>
         <option value="verzichtete">verzichtete</option>
       </select>
-      <input type="text" id="st_eilverfahren" placeholder="Eilverfahren abgelehnt durch" class="input-field">
-      <input type="date" id="st_bussgeld" class="input-field">
-      <input type="text" id="st_gezeichnetVon" placeholder="Gezeichnet von" class="input-field md:col-span-2">
-      <button onclick="generateStrafakte()" class="btn md:col-span-2">Strafakte generieren</button>
+      <input type="text" id="st_eilverfahren" placeholder="Eilverfahren abgelehnt durch" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="date" id="st_bussgeld" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="st_gezeichnetVon" placeholder="Gezeichnet von" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white md:col-span-2">
+      <button onclick="generateStrafakte()" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-semibold transition-transform transform hover:scale-105 md:col-span-2">Strafakte generieren</button>
     </div>
 
     <!-- Schnellakte -->
     <div id="schnellakte" class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
-      <input type="text" id="sn_nameDienst" placeholder="Officer" class="input-field">
-      <input type="text" id="sn_tatortTatzeit" placeholder="Tatort & Zeit" class="input-field">
-      <input type="text" id="sn_beschuldigte" placeholder="Beschuldigte Personen" class="input-field">
-      <input type="text" id="sn_geschaedigte" placeholder="Geschädigte Personen" class="input-field">
-      <select id="sn_identitaet" class="select-field">
+      <input type="text" id="sn_nameDienst" placeholder="Officer" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="sn_tatortTatzeit" placeholder="Tatort & Zeit" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="sn_beschuldigte" placeholder="Beschuldigte Personen" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="sn_geschaedigte" placeholder="Geschädigte Personen" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <select id="sn_identitaet" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
         <option value="Personalausweis">Personalausweis</option>
         <option value="Waffenschein">Waffenschein</option>
         <option value="Führerschein">Führerschein</option>
         <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
       </select>
-      <input type="text" id="sn_weitereEinheiten" placeholder="Weitere beteiligte Einheiten/Zeugen" class="input-field">
-      <textarea id="sn_gegenstaende" placeholder="Abgenommene Gegenstände" class="textarea-field md:col-span-2"></textarea>
-      <input type="text" id="sn_abgenommenVon" placeholder="Abgenommen von" class="input-field">
-      <input type="text" id="sn_verlesen" placeholder="Verlesen" class="input-field">
-      <input type="text" id="sn_beisein" placeholder="Beisein" class="input-field">
-      <select id="sn_rechtsbeistand" class="select-field">
+      <input type="text" id="sn_weitereEinheiten" placeholder="Weitere beteiligte Einheiten/Zeugen" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <textarea id="sn_gegenstaende" placeholder="Abgenommene Gegenstände" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white h-32 resize-none md:col-span-2"></textarea>
+      <input type="text" id="sn_abgenommenVon" placeholder="Abgenommen von" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="sn_verlesen" placeholder="Verlesen" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="sn_beisein" placeholder="Beisein" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <select id="sn_rechtsbeistand" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
         <option value="bestand">bestand</option>
         <option value="verzichtete">verzichtete</option>
       </select>
-      <select id="sn_medizin" class="select-field">
+      <select id="sn_medizin" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
         <option value="bestand">bestand</option>
         <option value="verzichtete">verzichtete</option>
       </select>
-      <input type="date" id="sn_bussgeld" class="input-field">
-      <input type="text" id="sn_gezeichnetVon" placeholder="Gezeichnet von" class="input-field md:col-span-2">
-      <button onclick="generateSchnellakte()" class="btn md:col-span-2">Schnellakte generieren</button>
+      <input type="date" id="sn_bussgeld" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="sn_gezeichnetVon" placeholder="Gezeichnet von" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white md:col-span-2">
+      <button onclick="generateSchnellakte()" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-semibold transition-transform transform hover:scale-105 md:col-span-2">Schnellakte generieren</button>
     </div>
 
     <!-- Kollektivakte -->
     <div id="kollektivakte" class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
-      <input type="text" id="k_nameDienst" placeholder="Officer" class="input-field">
-      <input type="text" id="k_tatortTatzeit" placeholder="Tatort & Zeit" class="input-field">
-      <input type="text" id="k_beschuldigte" placeholder="Beschuldigte Personen" class="input-field">
-      <input type="text" id="k_geschaedigte" placeholder="Geschädigte Personen" class="input-field">
-      <textarea id="k_sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs" class="textarea-field md:col-span-2"></textarea>
-      <select id="k_identitaet" class="select-field">
+      <input type="text" id="k_nameDienst" placeholder="Officer" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="k_tatortTatzeit" placeholder="Tatort & Zeit" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="k_beschuldigte" placeholder="Beschuldigte Personen" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="k_geschaedigte" placeholder="Geschädigte Personen" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <textarea id="k_sachverhalt" placeholder="Sachverhalt aus Sicht des NCPDs" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white h-32 resize-none md:col-span-2"></textarea>
+      <select id="k_identitaet" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
         <option value="Personalausweis">Personalausweis</option>
         <option value="Waffenschein">Waffenschein</option>
         <option value="Führerschein">Führerschein</option>
         <option value="Fingerabdruckscanners">Fingerabdruckscanners</option>
       </select>
-      <input type="text" id="k_weitereEinheiten" placeholder="Weitere beteiligte Einheiten/Zeugen" class="input-field">
-      <textarea id="k_gegenstaende" placeholder="Abgenommene Gegenstände" class="textarea-field md:col-span-2"></textarea>
-      <input type="text" id="k_abgenommenVon" placeholder="Abgenommen von" class="input-field">
-      <input type="text" id="k_verlesen" placeholder="Verlesen" class="input-field">
-      <input type="text" id="k_beisein" placeholder="Beisein" class="input-field">
-      <select id="k_rechtsbeistand" class="select-field">
+      <input type="text" id="k_weitereEinheiten" placeholder="Weitere beteiligte Einheiten/Zeugen" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <textarea id="k_gegenstaende" placeholder="Abgenommene Gegenstände" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white h-32 resize-none md:col-span-2"></textarea>
+      <input type="text" id="k_abgenommenVon" placeholder="Abgenommen von" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="k_verlesen" placeholder="Verlesen" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="k_beisein" placeholder="Beisein" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <select id="k_rechtsbeistand" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
         <option value="bestand">bestand</option>
         <option value="verzichtete">verzichtete</option>
       </select>
-      <select id="k_medizin" class="select-field">
+      <select id="k_medizin" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
         <option value="bestand">bestand</option>
         <option value="verzichtete">verzichtete</option>
       </select>
-      <input type="date" id="k_bussgeld" class="input-field">
-      <input type="text" id="k_bestaetigtVon" placeholder="Bestätigt von" class="input-field">
-      <input type="text" id="k_bestaetigtUm" placeholder="Bestätigt um (Uhrzeit)" class="input-field">
-      <input type="text" id="k_gezeichnetVon" placeholder="Gezeichnet von" class="input-field md:col-span-2">
-      <button onclick="generateKollektivakte()" class="btn md:col-span-2">Kollektivakte generieren</button>
+      <input type="date" id="k_bussgeld" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="k_bestaetigtVon" placeholder="Bestätigt von" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="k_bestaetigtUm" placeholder="Bestätigt um (Uhrzeit)" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+      <input type="text" id="k_gezeichnetVon" placeholder="Gezeichnet von" class="bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white md:col-span-2">
+      <button onclick="generateKollektivakte()" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-semibold transition-transform transform hover:scale-105 md:col-span-2">Kollektivakte generieren</button>
     </div>
 
     <!-- Dokumente -->
     <div id="dokumente" class="hidden">
       <h2 class="text-2xl font-bold mb-4 text-blue-400">NCPD II Dokumente</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <a href="#" class="doc-btn">Dienstausrüstung</a>
-        <a href="#" class="doc-btn">Dienstfahrzeuge</a>
-        <a href="#" class="doc-btn">Dienstvorschriften</a>
-        <a href="#" class="doc-btn">Kleiderordnung</a>
-        <a href="#" class="doc-btn">Regeldienstbericht</a>
-        <a href="#" class="doc-btn">Sanktionskatalog</a>
-        <a href="#" class="doc-btn">Waffenordnung</a>
-      </div>
-    </div>
-
-    <!-- Weisungen -->
-    <div id="weisungen" class="hidden">
-      <h2 class="text-2xl font-bold mb-4 text-blue-400">NCPD II Weisungen</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <a href="#" class="doc-btn">Parkordnung</a>
-        <a href="#" class="doc-btn">Meldekette</a>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- Modal -->
-<div id="akteModal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center z-50">
-  <div class="bg-gray-800 text-white rounded-3xl shadow-xl max-w-3xl w-full p-6 relative">
-    <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-400 hover:text-white text-3xl">&times;</button>
-    <h2 class="text-2xl font-bold mb-4 text-blue-400">Generierte Akte</h2>
-    <pre id="akteContent" class="bg-gray-900 p-4 rounded-lg text-sm whitespace-pre-wrap"></pre>
-  </div>
-</div>
-
-<style>
-.input-field {
-  @apply bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white;
-}
-.textarea-field {
-  @apply bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white h-32 resize-none;
-}
-.select-field {
-  @apply bg-gray-800 p-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white;
-}
-.btn {
-  @apply bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-semibold transition-transform transform hover:scale-105;
-}
-.tab-btn {
-  @apply transition-colors duration-300;
-}
-.doc-btn {
-  @apply bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105;
-}
-</style>
-
-</body>
-</html>
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Dienstausrüstung</a>
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Dienstfahrzeuge</a>
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Dienstvorschriften</a>
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Kleiderordnung</a>
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Regeldienstbericht</a>
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-center block text-white shadow-lg transition duration-300 ease-in-out
